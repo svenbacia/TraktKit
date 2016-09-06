@@ -44,17 +44,17 @@ public struct Extended: OptionSet, CustomStringConvertible {
   // MARK: - Options
   
   /// Default Returns enough info to match locally.
-  public static let Min      = Extended(.min)
+  public static let min = Extended(.min)
   
   /// Minimal info and all images.
-  public static let Images   = Extended(.images)
+  public static let images = Extended(.images)
   
   /// Complete info for an item.
-  public static let Full     = Extended(.full)
+  public static let full = Extended(.full)
   
   /// **Season Summary Only**: Returns all episodes for all seasons.
   /// **Note**: This returns a lot of data, so please only use this method if you need it all!
-  public static let Episodes = Extended(.episodes)
+  public static let episodes = Extended(.episodes)
   
   // MARK: - Properties
   
