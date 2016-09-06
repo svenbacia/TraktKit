@@ -17,6 +17,7 @@ struct Token {
   var isExpired: Bool {
     return expiry.timeIntervalSinceNow < 0
   }
+  
   var isValid: Bool {
     return !accessToken.isEmpty && !isExpired
   }

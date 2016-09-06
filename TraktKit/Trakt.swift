@@ -121,7 +121,6 @@ public final class Trakt {
 func buildError(with code: StatusCode, reason: String? = nil, userInfo: [String: Any]? = nil) -> Error {
   var dict = userInfo
   dict?[NSLocalizedDescriptionKey] = reason ?? code.description
-  
   let error = NSError(domain: TraktErrorDomain, code: code.rawValue, userInfo: dict)
   return error
 }
