@@ -8,13 +8,20 @@
 
 import Foundation
 
-final class ISO8601DateFormatter {
+final class DateFormatters {
   
-  static let `default` = formatter()
+  static let ios8601 = iso8601Formatter()
+  static let person = personFormatter()
   
-  private static func formatter() -> DateFormatter {
+  private static func iso8601Formatter() -> DateFormatter {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    return formatter
+  }
+  
+  private static func personFormatter() -> DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
     return formatter
   }
   

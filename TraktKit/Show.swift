@@ -84,8 +84,8 @@ extension Show: Unboxable {
     year  = unboxer.unbox(key: "year")
     overview = unboxer.unbox(key: "overview")
     
-    firstAired = unboxer.unbox(key: "first_aired", formatter: ISO8601DateFormatter.default)
-    updatedAt = unboxer.unbox(key: "updated_at", formatter: ISO8601DateFormatter.default)
+    firstAired = unboxer.unbox(key: "first_aired", formatter: DateFormatters.ios8601)
+    updatedAt = unboxer.unbox(key: "updated_at", formatter: DateFormatters.ios8601)
     
     runtime = unboxer.unbox(key: "runtime")
     certification = unboxer.unbox(key: "certification")
