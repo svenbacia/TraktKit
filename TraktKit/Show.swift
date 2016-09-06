@@ -28,8 +28,8 @@ public struct Show {
     public let timezone: String?
     
     public init(unboxer: Unboxer) {
-      day      = unboxer.unbox(key: "day")
-      time     = unboxer.unbox(key: "time")
+      day = unboxer.unbox(key: "day")
+      time = unboxer.unbox(key: "time")
       timezone = unboxer.unbox(key: "timezone")
     }
   }
@@ -67,7 +67,12 @@ public struct Show {
   public let airs: Airs?
   public let fanart: Image?
   public let poster: Image?
-  
+}
+
+extension Show: KeyType {
+  public static var key: String {
+    return "show"
+  }
 }
 
 extension Show: Unboxable {

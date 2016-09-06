@@ -32,6 +32,8 @@
 		262B37911D7F421900CFEDF9 /* ListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37901D7F421900CFEDF9 /* ListRequest.swift */; };
 		262B37931D7F432A00CFEDF9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37921D7F432A00CFEDF9 /* ListItem.swift */; };
 		262B37951D7F444200CFEDF9 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37941D7F444200CFEDF9 /* ContentType.swift */; };
+		262B37971D7F4A9100CFEDF9 /* PeopleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */; };
+		262B37991D7F4AB600CFEDF9 /* PersonRelated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37981D7F4AB600CFEDF9 /* PersonRelated.swift */; };
 		2655F25E1D7F1EB7002043BB /* TraktKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26152ADF1D7AFDAD00E40150 /* TraktKit.framework */; };
 		2655F2651D7F1EEE002043BB /* CredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655F2641D7F1EEE002043BB /* CredentialsTests.swift */; };
 		2655F2671D7F1F6E002043BB /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655F2661D7F1F6E002043BB /* TokenTests.swift */; };
@@ -96,6 +98,8 @@
 		262B37901D7F421900CFEDF9 /* ListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRequest.swift; sourceTree = "<group>"; };
 		262B37921D7F432A00CFEDF9 /* ListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		262B37941D7F444200CFEDF9 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleRequest.swift; sourceTree = "<group>"; };
+		262B37981D7F4AB600CFEDF9 /* PersonRelated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonRelated.swift; sourceTree = "<group>"; };
 		2655F2591D7F1EB7002043BB /* TraktKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraktKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2655F25D1D7F1EB7002043BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2655F2641D7F1EEE002043BB /* CredentialsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsTests.swift; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				262B37701D7F2EA100CFEDF9 /* Person.swift */,
 				262B376B1D7F2E2B00CFEDF9 /* Cast.swift */,
 				262B37731D7F2F3E00CFEDF9 /* Crew.swift */,
+				262B37981D7F4AB600CFEDF9 /* PersonRelated.swift */,
 			);
 			name = People;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				262B37861D7F3F3500CFEDF9 /* EpisodeRequest.swift */,
 				262B37881D7F408500CFEDF9 /* UserRequest.swift */,
 				262B37901D7F421900CFEDF9 /* ListRequest.swift */,
+				262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -443,6 +449,7 @@
 				262B37711D7F2EA100CFEDF9 /* Person.swift in Sources */,
 				265823E31D7C7CD70018F641 /* Keychain.swift in Sources */,
 				262B37871D7F3F3500CFEDF9 /* EpisodeRequest.swift in Sources */,
+				262B37991D7F4AB600CFEDF9 /* PersonRelated.swift in Sources */,
 				265823F61D7CA43F0018F641 /* TrendingShow.swift in Sources */,
 				262B377A1D7F303800CFEDF9 /* Progress.swift in Sources */,
 				262B37681D7F2D9A00CFEDF9 /* User.swift in Sources */,
@@ -458,6 +465,7 @@
 				265823E91D7C8AEB0018F641 /* StatusCode.swift in Sources */,
 				262B37831D7F3A2100CFEDF9 /* Episode.swift in Sources */,
 				265823FD1D7CA5730018F641 /* Image.swift in Sources */,
+				262B37971D7F4A9100CFEDF9 /* PeopleRequest.swift in Sources */,
 				262B37951D7F444200CFEDF9 /* ContentType.swift in Sources */,
 				265823F31D7CA3F30018F641 /* Unbox.swift in Sources */,
 				262B376A1D7F2DDA00CFEDF9 /* People.swift in Sources */,
