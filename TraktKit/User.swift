@@ -29,7 +29,7 @@ extension User: Unboxable {
     name      = unboxer.unbox(key: "name")
     vip       = unboxer.unbox(key: "vip")
     vipEp     = unboxer.unbox(key: "vip_ep")
-    joinedAt  = unboxer.unbox(key: "joined_at", formatter: DateFormatters.ios8601)
+    joinedAt  = unboxer.unbox(key: "joined_at", formatter: DateFormatters.iso8601)
     location  = unboxer.unbox(key: "location")
     about     = unboxer.unbox(key: "about")
     gender    = unboxer.unbox(key: "gender")

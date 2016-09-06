@@ -10,7 +10,7 @@ import Foundation
 
 final class DateFormatters {
   
-  static let ios8601 = iso8601Formatter()
+  static let iso8601 = iso8601Formatter()
   static let person = personFormatter()
   
   private static func iso8601Formatter() -> DateFormatter {

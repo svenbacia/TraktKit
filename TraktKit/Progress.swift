@@ -33,7 +33,7 @@ extension WatchedProgress: Unboxable {
   public init(unboxer: Unboxer) {
     aired       = unboxer.unbox(key: "aired")
     completed   = unboxer.unbox(key: "completed")
-    date        = unboxer.unbox(key: "last_watched_at", formatter: DateFormatters.ios8601)
+    date        = unboxer.unbox(key: "last_watched_at", formatter: DateFormatters.iso8601)
     seasons     = unboxer.unbox(key: "seasons")
     nextEpisode = unboxer.unbox(key: "next_episode")
   }
@@ -53,7 +53,7 @@ extension CollectionProgress: Unboxable {
   public init(unboxer: Unboxer) {
     aired       = unboxer.unbox(key: "aired")
     completed   = unboxer.unbox(key: "completed")
-    date        = unboxer.unbox(key: "last_collected_at", formatter: DateFormatters.ios8601)
+    date        = unboxer.unbox(key: "last_collected_at", formatter: DateFormatters.iso8601)
     seasons     = unboxer.unbox(key: "seasons")
     nextEpisode = unboxer.unbox(key: "next_episode")
   }

@@ -65,6 +65,10 @@ func resource<T: Unboxable>(for path: String, params: [String : Any]? = nil, met
   return resource(for: path, params: params, method: method, parse: parseWithUnbox)
 }
 
+func resource(for path: String, params: [String : Any]? = nil, method: Method = .get) -> Resource<Any> {
+  return resource(for: path, params: params, method: method, parse: parseJSON)
+}
+
 // MARK: - Parse
 
 func parseEmpty(_ data: Data) throws -> Void {

@@ -39,8 +39,8 @@ extension Episode: Unboxable {
     overview   = unboxer.unbox(key: "overview")
     rating     = unboxer.unbox(key: "rating")
     votes      = unboxer.unbox(key: "votes")
-    firstAired = unboxer.unbox(key: "first_aired", formatter: DateFormatters.ios8601)
-    updateAt   = unboxer.unbox(key: "updated_at", formatter: DateFormatters.ios8601)
+    firstAired = unboxer.unbox(key: "first_aired", formatter: DateFormatters.iso8601)
+    updateAt   = unboxer.unbox(key: "updated_at", formatter: DateFormatters.iso8601)
     availableTranslations = unboxer.unbox(key: "available_translations")
     screenshot = unboxer.unbox(key: "images.screenshot")
   }

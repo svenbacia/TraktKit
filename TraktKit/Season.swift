@@ -37,7 +37,7 @@ extension Season: Unboxable {
     episodeCount  = unboxer.unbox(key: "episode_count")
     airedEpisodes = unboxer.unbox(key: "aired_episodes")
     overview      = unboxer.unbox(key: "overview")
-    firstAired    = unboxer.unbox(key: "first_aired", formatter: DateFormatters.ios8601)
+    firstAired    = unboxer.unbox(key: "first_aired", formatter: DateFormatters.iso8601)
     poster        = unboxer.unbox(key: "images.poster", isKeyPath: true)
     thumb         = unboxer.unbox(key: "images.thumb", isKeyPath: true)
     episodes      = unboxer.unbox(key: "episodes")

@@ -26,7 +26,7 @@ extension EpisodeCollectionProgress: Unboxable {
   public init(unboxer: Unboxer) {
     number    = unboxer.unbox(key: "number")
     completed = unboxer.unbox(key: "completed")
-    date      = unboxer.unbox(key: "collected_at", formatter: DateFormatters.ios8601)
+    date      = unboxer.unbox(key: "collected_at", formatter: DateFormatters.iso8601)
   }
 }
 
@@ -42,6 +42,6 @@ extension EpisodeWatchedProgress: Unboxable {
   public init(unboxer: Unboxer) {
     number    = unboxer.unbox(key: "number")
     completed = unboxer.unbox(key: "completed")
-    date      = unboxer.unbox(key: "last_watched_at", formatter: DateFormatters.ios8601)
+    date      = unboxer.unbox(key: "last_watched_at", formatter: DateFormatters.iso8601)
   }
 }
