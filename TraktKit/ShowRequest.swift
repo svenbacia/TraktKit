@@ -64,4 +64,8 @@ public struct ShowRequest {
     return resource(for: "/shows/\(id)/seasons", params: parameters(extended: extended))
   }
   
+  public func season(_ number: Int) -> SeasonRequest {
+    return SeasonRequest(id: id, number: number)
+  }
+  
 }
