@@ -7,9 +7,43 @@ TraktKit is a wrapper for the [trakt.tv](https://trakt.tv) API written in Swift.
 
 ### Initialization
 
+```Swift
+// Get your credentials at https://trakt.tv/oauth/applications
+let credentials = Credentials(
+  clientID: "clientID",
+  clientSecret: "clientSecret",
+  redirectURI: "redirect://uri"
+)
+
+let trakt = Trakt(credentials: credentials)
+```
+
 ### Authorization
+```Swift
+// use the trakt.authorizationURL to login a new user
+let safariViewController = SFSafariViewController(URL: trakt.authorizationURL)
+presentViewController(safariViewController, animated: true, completion: nil)
+```
+
+Once the user completes the login, the response will be redirected back to the application. Call `trakt.open(url:completion)` which will exchange to code for an accessToken.
+
+```Swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+  trakt.open(url: url) { result in 
+    switch result {
+    case .Success:
+      // successfully received an accessToken
+    case .Failure(let error):
+      // could not get an accessToken. Check the `error` for more information.
+    }  
+  }
+}
+```
 
 ### Requests
+
+
+
 
 ## License
 
