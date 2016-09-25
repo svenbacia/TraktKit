@@ -22,7 +22,7 @@ public struct ShowRequest {
     self.trakt = trakt
   }
   
-  // MARK: -
+  // MARK: - Endpoints
   
   public func summary(_ extended: Extended? = nil, completion: @escaping (Result<Show, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: "/shows/\(id)", params: parameters(extended: extended)),
