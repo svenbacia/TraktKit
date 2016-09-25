@@ -68,9 +68,37 @@ extension Trakt {
   
 }
 
+// MARK: - Token
+
+extension Trakt {
+  
+  func loadToken() {
+    let defaults = UserDefaults.standard
+    
+    guard let accessToken = keychain.string(for: Key.accessToken) else { return }
+    guard let refreshToken = keychain.string(for: Key.refreshToken) else { return }
+    guard let expiry = defaults.object(forKey: Key.expiry) as? Date else { return }
+    
+    token = Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
+  }
+  
+}
+
 // MARK: - Private Functions
 
 fileprivate extension Trakt {
+  
+  struct Key {
+    static let accessToken = "trakt.accessToken"
+    static let refreshToken = "trakt.refreshToken"
+    static let expiry = "trakt.expiry"
+  }
+  
+  func persist(token: Token) {
+    keychain.set(string: token.accessToken, forKey: Key.accessToken)
+    keychain.set(string: token.refreshToken, forKey: Key.refreshToken)
+    UserDefaults.standard.set(token.expiry, forKey: Key.expiry)
+  }
   
   func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     let res = resource(for: "/oauth/token", params: params, method: .post, parse: parseToken)
@@ -83,34 +111,6 @@ fileprivate extension Trakt {
         completion(.failure(error))
       }
     }
-  }
-  
-}
-
-// MARK: - Token
-
-extension Trakt {
-  
-  private struct Key {
-    static let accessToken = "trakt.accessToken"
-    static let refreshToken = "trakt.refreshToken"
-    static let expiry = "trakt.expiry"
-  }
-  
-  func loadToken() {
-    let defaults = UserDefaults.standard
-    
-    guard let accessToken = keychain.string(for: Key.accessToken) else { return }
-    guard let refreshToken = keychain.string(for: Key.refreshToken) else { return }
-    guard let expiry = defaults.object(forKey: Key.expiry) as? Date else { return }
-    
-    token = Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
-  }
-  
-  fileprivate func persist(token: Token) {
-    keychain.set(string: token.accessToken, forKey: Key.accessToken)
-    keychain.set(string: token.refreshToken, forKey: Key.refreshToken)
-    UserDefaults.standard.set(token.expiry, forKey: Key.expiry)
   }
   
 }
