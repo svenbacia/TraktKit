@@ -87,7 +87,7 @@ public struct ShowRequest {
   }
   
   public func season(_ number: Int) -> SeasonRequest {
-    return SeasonRequest(id: id, number: number)
+    return SeasonRequest(id: id, number: number, trakt: trakt)
   }
   
 }
