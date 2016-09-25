@@ -5,7 +5,7 @@ before_install:
   - gem install xcpretty
 
 script:
-  - xcodebuild test -project "TraktKit.xcodeproj" -scheme "TraktKit" -sdk "iphonesimulator10.0" -destination "OS=10.0,name=iPhone 7" | xcpretty
+  - xcodebuild test -project "TraktKit.xcodeproj" -scheme "TraktKit" -sdk "iphonesimulator10.0" -destination "OS=10.0,name=iPhone 7" | xcpretty -c
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
