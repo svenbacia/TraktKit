@@ -13,7 +13,7 @@ import XCTest
 class ISO8601DateFormatterTests: XCTestCase {
   
   func testDateFormat() {
-    let dateFormatter = TraktKit.ISO8601DateFormatter.default
+    let dateFormatter = DateFormatters.iso8601
     XCTAssertEqual(dateFormatter.dateFormat, "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
   }
   
