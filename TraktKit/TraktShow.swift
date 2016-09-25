@@ -10,7 +10,7 @@ import Foundation
 
 extension Trakt {
   
-  public func getShow(with id: String) -> ShowRequest {
+  public func getShow(_ id: String) -> ShowRequest {
     return ShowRequest(id: id, trakt: self)
   }
   

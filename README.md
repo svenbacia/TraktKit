@@ -46,7 +46,41 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpe
 
 ### Requests
 
+#### Explore Endpoint
+```Swift
+trakt.trendingShows([.full, .images], page: 0, limit: 20) { result in 
+  switch result {
+  case .success(let shows):
+  	// do something with the shows
+  case .failure(let error):
+  	// oh no, something happend... see `error`
+  }
+}
+```
 
+#### Show Endpoint
+```Swift
+trakt.getShow("Suits").summary([.full, .images]) { result in 
+  switch result {
+  case .success(let show):
+  	// do something with the show information
+  case .failure(let error):
+  	// oh no, something happend... see `error`
+  }
+}
+```
+
+#### Season Endpoint
+```Swift
+trakt.getShow("Suits").season(1).summary([.full, .images]) { result in 
+  switch result {
+  case .success(let episodes):
+  	// do something with the episodes
+  case .failure(let error):
+  	// oh no, something happend... see `error`
+  }
+}
+```
 
 
 ## License
