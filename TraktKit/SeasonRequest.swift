@@ -62,7 +62,7 @@ public struct SeasonRequest {
   // MARK: - Episode Request
   
   public func episode(_ number: Int) -> EpisodeRequest {
-    return EpisodeRequest(show: show, season: season, number: number)
+    return EpisodeRequest(show: show, season: season, number: number, trakt: trakt)
   }
   
 }
