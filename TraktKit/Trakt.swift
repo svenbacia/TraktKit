@@ -44,7 +44,7 @@ public final class Trakt {
   
   // MARK: - Load
   
-  func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, Error>) -> Void) -> URLSessionTask? {
+  internal func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, Error>) -> Void) -> URLSessionTask? {
     
     var request = resource.request
     
@@ -114,17 +114,4 @@ public final class Trakt {
     return task
   }
   
-}
-
-// MARK: - Helper
-
-func buildError(with code: StatusCode, reason: String? = nil, userInfo: [String: Any]? = nil) -> Error {
-  var dict = userInfo
-  dict?[NSLocalizedDescriptionKey] = reason ?? code.description
-  let error = NSError(domain: TraktErrorDomain, code: code.rawValue, userInfo: dict)
-  return error
-}
-
-func toQueryItem(key: String, value: String) -> URLQueryItem {
-  return URLQueryItem(name: key, value: value)
 }

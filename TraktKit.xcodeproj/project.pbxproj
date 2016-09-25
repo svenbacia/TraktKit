@@ -60,6 +60,7 @@
 		265E9E4B1D7B00D500B51D5D /* Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4A1D7B00D500B51D5D /* Trakt.swift */; };
 		265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4C1D7B016300B51D5D /* Credentials.swift */; };
 		265E9E4F1D7B019E00B51D5D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4E1D7B019E00B51D5D /* Token.swift */; };
+		26F90FB21D9844CC0087A733 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90FB11D9844CC0087A733 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		265E9E4A1D7B00D500B51D5D /* Trakt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trakt.swift; sourceTree = "<group>"; };
 		265E9E4C1D7B016300B51D5D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		265E9E4E1D7B019E00B51D5D /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		26F90FB11D9844CC0087A733 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 				265823E61D7C85900018F641 /* Resource.swift */,
 				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
 				265823EF1D7CA16C0018F641 /* Extended.swift */,
+				26F90FB11D9844CC0087A733 /* Helper.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				265823F31D7CA3F30018F641 /* Unbox.swift in Sources */,
 				262B376A1D7F2DDA00CFEDF9 /* People.swift in Sources */,
 				262B377E1D7F310D00CFEDF9 /* EpisodeProgress.swift in Sources */,
+				26F90FB21D9844CC0087A733 /* Helper.swift in Sources */,
 				262B37781D7F2FEC00CFEDF9 /* Stats.swift in Sources */,
 				265823E71D7C85900018F641 /* Resource.swift in Sources */,
 				265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */,
