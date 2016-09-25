@@ -10,6 +10,8 @@ import Foundation
 
 extension Trakt {
   
+  // MARK: Properties
+  
   public var authorized: Bool {
     guard let token = token?.accessToken else { return false }
     return !token.isEmpty
@@ -32,17 +34,10 @@ extension Trakt {
     return components.url
   }
   
-  public func open(url: URL, completion: @escaping (Result<Bool, Error>) -> Void) -> Bool {
-    
-    guard let query = url.query else { return false }
-    guard let code = query.components(separatedBy: "=").last else { return false }
-    
-    exchangeToken(with: code, completion: completion)
-    
-    return true
-  }
+  // MARK: - Access Token Endpoints
   
-  @discardableResult private func exchangeToken(with code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
+  @discardableResult
+  public func exchangeAccessToken(with code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     let params = [
       "client_id": credentials.clientID,
       "client_secret": credentials.clientSecret,
@@ -53,7 +48,8 @@ extension Trakt {
     return exchangeToken(with: params, completion: completion)
   }
   
-  @discardableResult private func exchangeRefreshToken(_ completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
+  @discardableResult
+  public func exchangeRefreshToken(_ completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     
     guard let token = token else {
       completion(.failure(buildError(with: .unauthorized)))
@@ -70,7 +66,13 @@ extension Trakt {
     return exchangeToken(with: params, completion: completion)
   }
   
-  private func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
+}
+
+// MARK: - Private Functions
+
+fileprivate extension Trakt {
+  
+  func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     let res = resource(for: "/oauth/token", params: params, method: .post, parse: parseToken)
     return load(resource: res, authenticated: true) { [weak self] result in
       switch result {
