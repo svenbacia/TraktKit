@@ -29,7 +29,11 @@ Once the user completes the login, the response will be redirected back to the a
 
 ```Swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-  trakt.open(url: url) { result in 
+
+  guard let query = url.query else { return false }
+  guard let code = query.components(separatedBy: "=").last else { return false }
+
+  trakt.exchangeAccessToken(with: code) { result in 
     switch result {
     case .Success:
       // successfully received an accessToken
