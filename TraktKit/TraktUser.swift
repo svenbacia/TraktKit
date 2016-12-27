@@ -10,7 +10,7 @@ import Foundation
 
 extension Trakt {
   
-  public func getUser(with id: String) -> UserRequest {
+  public func user(with id: String) -> UserRequest {
     return UserRequest(id: id)
   }
   
