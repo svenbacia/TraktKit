@@ -30,7 +30,7 @@ public final class Trakt {
   
   public init(credentials: Credentials) {
     self.credentials = credentials
-    self.keychain = Keychain(service: "com.traktkit")
+    self.keychain = Keychain(service: "com.svenbacia.traktkit")
     
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = [

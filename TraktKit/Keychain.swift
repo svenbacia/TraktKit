@@ -27,7 +27,8 @@ public struct Keychain {
   
   // MARK: - Set Data
   
-  @discardableResult public func set(string: String?, forKey key: String) -> Bool {
+  @discardableResult
+  public func set(string: String?, forKey key: String) -> Bool {
     
     // when string is nil, delete item
     guard let string = string else { return deleteItem(for: key) }
@@ -38,7 +39,8 @@ public struct Keychain {
     return set(data: data, forKey: key)
   }
   
-  @discardableResult public func set(data: Data?, forKey key: String) -> Bool {
+  @discardableResult
+  public func set(data: Data?, forKey key: String) -> Bool {
     
     // when data is nil, remove the item from the keychain
     guard let data = data else { return deleteItem(for: key) }
