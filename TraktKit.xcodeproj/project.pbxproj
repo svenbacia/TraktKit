@@ -61,6 +61,8 @@
 		265E9E4B1D7B00D500B51D5D /* Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4A1D7B00D500B51D5D /* Trakt.swift */; };
 		265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4C1D7B016300B51D5D /* Credentials.swift */; };
 		265E9E4F1D7B019E00B51D5D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4E1D7B019E00B51D5D /* Token.swift */; };
+		26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFEC211E12A7EA0055416D /* TraktSync.swift */; };
+		26EFEC241E12A8440055416D /* LastActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFEC231E12A8440055416D /* LastActivities.swift */; };
 		26F90FB21D9844CC0087A733 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90FB11D9844CC0087A733 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +134,8 @@
 		265E9E4A1D7B00D500B51D5D /* Trakt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trakt.swift; sourceTree = "<group>"; };
 		265E9E4C1D7B016300B51D5D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		265E9E4E1D7B019E00B51D5D /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		26EFEC211E12A7EA0055416D /* TraktSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktSync.swift; sourceTree = "<group>"; };
+		26EFEC231E12A8440055416D /* LastActivities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastActivities.swift; sourceTree = "<group>"; };
 		26F90FB11D9844CC0087A733 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +185,7 @@
 				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
 				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
 				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
+				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
 				265823EA1D7C9E8D0018F641 /* Request */,
 				265823F41D7CA4370018F641 /* Model */,
 				265E9E501D7B01F900B51D5D /* Auth */,
@@ -305,6 +310,7 @@
 				262B37921D7F432A00CFEDF9 /* ListItem.swift */,
 				262B37941D7F444200CFEDF9 /* ContentType.swift */,
 				262B379C1D7F4F9400CFEDF9 /* SearchResult.swift */,
+				26EFEC231E12A8440055416D /* LastActivities.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				262B37911D7F421900CFEDF9 /* ListRequest.swift in Sources */,
 				262B378F1D7F417F00CFEDF9 /* TraktUser.swift in Sources */,
 				262B376C1D7F2E2B00CFEDF9 /* Cast.swift in Sources */,
+				26EFEC241E12A8440055416D /* LastActivities.swift in Sources */,
 				262B37761D7F2FD300CFEDF9 /* Rating.swift in Sources */,
 				262B378B1D7F40C900CFEDF9 /* List.swift in Sources */,
 				265824011D7CA86B0018F641 /* AnticipatedShow.swift in Sources */,
@@ -494,6 +501,7 @@
 				265823EE1D7CA0960018F641 /* TraktExplore.swift in Sources */,
 				262B37931D7F432A00CFEDF9 /* ListItem.swift in Sources */,
 				262B377C1D7F30DA00CFEDF9 /* SeasonProgress.swift in Sources */,
+				26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */,
 				262B379B1D7F4F7300CFEDF9 /* TraktSearch.swift in Sources */,
 				262B37621D7F2C4C00CFEDF9 /* ShowRequest.swift in Sources */,
 			);
