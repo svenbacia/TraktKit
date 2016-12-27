@@ -1,4 +1,5 @@
 # TraktKit
+[![Build Status](https://travis-ci.org/svenbacia/TraktKit.svg?branch=master)](https://travis-ci.org/svenbacia/TraktKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 TraktKit is a wrapper for the [trakt.tv](https://trakt.tv) API written in Swift.
