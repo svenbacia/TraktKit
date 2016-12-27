@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		26152AE41D7AFDAD00E40150 /* TraktKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 26152AE21D7AFDAD00E40150 /* TraktKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		261A57161E12865100D53957 /* TraktAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261A57151E12865100D53957 /* TraktAuthTests.swift */; };
 		262B37621D7F2C4C00CFEDF9 /* ShowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */; };
 		262B37641D7F2D1B00CFEDF9 /* TraktShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */; };
 		262B37661D7F2D6500CFEDF9 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37651D7F2D6500CFEDF9 /* Comment.swift */; };
@@ -77,6 +78,7 @@
 		26152ADF1D7AFDAD00E40150 /* TraktKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TraktKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26152AE21D7AFDAD00E40150 /* TraktKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TraktKit.h; sourceTree = "<group>"; };
 		26152AE31D7AFDAD00E40150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		261A57151E12865100D53957 /* TraktAuthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktAuthTests.swift; sourceTree = "<group>"; };
 		262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowRequest.swift; sourceTree = "<group>"; };
 		262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktShow.swift; sourceTree = "<group>"; };
 		262B37651D7F2D6500CFEDF9 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Comment.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -235,6 +237,7 @@
 				2655F2641D7F1EEE002043BB /* CredentialsTests.swift */,
 				2655F2661D7F1F6E002043BB /* TokenTests.swift */,
 				2655F2681D7F20D2002043BB /* KeychainTests.swift */,
+				261A57151E12865100D53957 /* TraktAuthTests.swift */,
 			);
 			name = Auth;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			files = (
 				2655F2721D7F25CD002043BB /* ResultTests.swift in Sources */,
 				2655F2701D7F258B002043BB /* StatusCodeTests.swift in Sources */,
+				261A57161E12865100D53957 /* TraktAuthTests.swift in Sources */,
 				2655F2741D7F2602002043BB /* ISO8601DateFormatterTests.swift in Sources */,
 				2655F2651D7F1EEE002043BB /* CredentialsTests.swift in Sources */,
 				2655F26E1D7F2460002043BB /* ExtendedTests.swift in Sources */,

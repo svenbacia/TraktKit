@@ -18,7 +18,7 @@ extension Trakt {
   }
   
   public var expired: Bool {
-    return token?.isExpired ?? false
+    return token?.isExpired ?? true
   }
   
   public var authorizationURL: URL? {
@@ -34,7 +34,7 @@ extension Trakt {
     return components.url
   }
   
-  // MARK: - Access Token Endpoints
+  // MARK: - Endpoints
   
   @discardableResult
   public func exchangeAccessToken(with code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
@@ -66,11 +66,13 @@ extension Trakt {
     return exchangeToken(with: params, completion: completion)
   }
   
-}
-
-// MARK: - Token
-
-extension Trakt {
+  // MAKR: - Token
+  
+  public func update(accessToken: String, refreshToken: String, expiry: Date) {
+    let token = Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
+    persist(token: token)
+    self.token = token
+  }
   
   func loadToken() {
     let defaults = UserDefaults.standard
@@ -80,6 +82,11 @@ extension Trakt {
     guard let expiry = defaults.object(forKey: Key.expiry) as? Date else { return }
     
     token = Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
+  }
+  
+  public func invalidateToken() {
+    token = nil
+    persist(token: nil)
   }
   
 }
@@ -94,10 +101,10 @@ fileprivate extension Trakt {
     static let expiry = "trakt.expiry"
   }
   
-  func persist(token: Token) {
-    keychain.set(string: token.accessToken, forKey: Key.accessToken)
-    keychain.set(string: token.refreshToken, forKey: Key.refreshToken)
-    UserDefaults.standard.set(token.expiry, forKey: Key.expiry)
+  func persist(token: Token?) {
+    keychain.set(string: token?.accessToken, forKey: Key.accessToken)
+    keychain.set(string: token?.refreshToken, forKey: Key.refreshToken)
+    UserDefaults.standard.set(token?.expiry, forKey: Key.expiry)
   }
   
   func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
