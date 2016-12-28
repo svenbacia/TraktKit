@@ -11,7 +11,7 @@ import Foundation
 extension Trakt {
   
   public func search(for search: String, ofType type: SearchType, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/search/\(type.rawValue)", params: parameters(with: ["query" : search], page: page, limit: limit, extended: extended)),
+    return load(resource: Search.for(search, ofType: type, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
