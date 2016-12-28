@@ -38,4 +38,20 @@ class KeychainTests: XCTestCase {
     }
   }
   
+  func testStringSubscript() {
+    XCTAssertNil(keychain[key])
+    keychain[key] = "Hallo"
+    XCTAssertEqual(keychain[key], "Hallo")
+    keychain[key] = nil
+    XCTAssertNil(keychain[key])
+  }
+  
+  func testDataSubscript() {
+    let data = Data(count: 64)
+    keychain[data: key] = data
+    XCTAssertEqual(data, keychain[data: key])
+    keychain[key] = nil
+    XCTAssertNil(keychain[key])
+  }
+  
 }
