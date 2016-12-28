@@ -11,7 +11,7 @@ import Foundation
 extension Trakt {
   
   public func show(with id: Int) -> ShowRequest {
-    return ShowRequest(id: id, trakt: self)
+    return ShowRequest(id: id)
   }
   
 }

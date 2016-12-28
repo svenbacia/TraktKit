@@ -13,81 +13,59 @@ public struct ShowRequest {
   // MARK: - Properties
   
   private let id: Int
-  private let trakt: Trakt
   
   // MARK: - Init
   
-  init(id: Int, trakt: Trakt) {
+  init(id: Int) {
     self.id = id
-    self.trakt = trakt
   }
   
   // MARK: - Endpoints
   
-  public func summary(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)", params: parameters(extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func summary(_ extended: Extended? = nil) -> Resource<Any> {
+    return resource(for: "/shows/\(id)", params: parameters(extended: extended))
   }
   
-  public func comments(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/comments", params: parameters(page: page, limit: limit, extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func comments(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+    return resource(for: "/shows/\(id)/comments", params: parameters(page: page, limit: limit, extended: extended))
   }
   
-  public func people(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/people", params: parameters(extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func people(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> Resource<Any> {
+    return resource(for: "/shows/\(id)/people", params: parameters(extended: extended))
   }
   
-  public func ratings(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/rating"),
-                      authenticated: false,
-                      completion: completion)
+  public func ratings() -> Resource<Any> {
+    return resource(for: "/shows/\(id)/rating")
   }
   
-  public func related(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/related", params: parameters(page: page, limit: limit, extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func related(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+    return resource(for: "/shows/\(id)/related", params: parameters(page: page, limit: limit, extended: extended))
   }
   
-  public func stats(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/stats"),
-                      authenticated: false,
-                      completion: completion)
+  public func stats() -> Resource<Any> {
+    return resource(for: "/shows/\(id)/stats")
   }
   
-  public func watching(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/watching", params: parameters(extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func watching(_ extended: Extended? = nil) -> Resource<Any> {
+    return resource(for: "/shows/\(id)/watching", params: parameters(extended: extended))
   }
   
-  public func collectionProgress(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/progress/collection"),
-                      authenticated: true,
-                      completion: completion)
+  public func collectionProgress() -> Resource<Any> {
+    return resource(for: "/shows/\(id)/progress/collection")
   }
   
-  public func watchedProgress(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/progress/watched"),
-                      authenticated: true,
-                      completion: completion)
+  public func watchedProgress() -> Resource<Any> {
+    return resource(for: "/shows/\(id)/progress/watched")
   }
   
   // MARK: - Seasons
   
-  public func seasons(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return trakt.load(resource: resource(for: "/shows/\(id)/seasons", params: parameters(extended: extended)),
-                      authenticated: false,
-                      completion: completion)
+  public func seasons(_ extended: Extended? = nil) -> Resource<Any> {
+    return resource(for: "/shows/\(id)/seasons", params: parameters(extended: extended))
   }
   
   public func season(_ number: Int) -> SeasonRequest {
-    return SeasonRequest(id: id, number: number, trakt: trakt)
+    return SeasonRequest(id: id, number: number)
   }
   
 }
