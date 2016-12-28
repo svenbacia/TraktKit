@@ -109,7 +109,7 @@ fileprivate extension Trakt {
   
   func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     let res = resource(for: "/oauth/token", params: params, method: .post, parse: parseToken)
-    return load(resource: res, authenticated: true) { [weak self] result in
+    return load(resource: res, authenticated: false) { [weak self] result in
       switch result {
       case .success(let token):
         self?.persist(token: token)
