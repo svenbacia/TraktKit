@@ -51,15 +51,12 @@ public final class Trakt {
     
     if let token = token, authenticated, token.isValid {
       request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
-    } else {
-      completion(.failure(buildError(with: .unauthorized)))
-      return nil
     }
     
     if debug {
       print("Load \(request.url!)")
     }
-    
+        
     let task = session.dataTask(with: request) { data, response, error in
       
       guard let response = response as? HTTPURLResponse else {
