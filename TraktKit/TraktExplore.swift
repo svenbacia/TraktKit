@@ -8,26 +8,6 @@
 
 import Foundation
 
-public enum Period: String {
-  case weekly
-  case monthly
-  case yearly
-  case all
-  
-  static var defaultPeriod: Period {
-    return .weekly
-  }
-}
-
-public enum ExploreType {
-  case trending
-  case popular
-  case played(Period)
-  case watched(Period)
-  case collected(Period)
-  case anticipated
-}
-
 extension Trakt {
   
   public func trendingShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {

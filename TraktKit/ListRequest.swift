@@ -8,13 +8,6 @@
 
 import Foundation
 
-public enum ListItemType: String {
-  case show
-  case season
-  case episode
-  case people
-}
-
 public struct ListRequest {
   
   private let user: String

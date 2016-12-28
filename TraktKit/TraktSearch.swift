@@ -8,14 +8,6 @@
 
 import Foundation
 
-public enum SearchType: String {
-  case movie
-  case show
-  case episode
-  case person
-  case list
-}
-
 extension Trakt {
   
   public func search(for search: String, ofType type: SearchType, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {

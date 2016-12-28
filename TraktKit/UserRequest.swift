@@ -14,16 +14,14 @@ public struct UserRequest {
   
   private let id: String
   private let trakt: Trakt
-  
-  private var basePath: String {
-    return "/users/\(id)"
-  }
+  private let basePath: String
   
   // MARK: - Init
   
   init(id: String, trakt: Trakt) {
     self.id = id
     self.trakt = trakt
+    self.basePath = "/users/\(id)"
   }
   
   // MARK: - Endpoints
