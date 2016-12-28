@@ -14,13 +14,13 @@ public struct SeasonRequest {
   
   private let trakt: Trakt
   
-  private let show: String
+  private let show: Int
   private let season: Int
   private let basePath: String
   
   // MARK: - Init
   
-  init(id: String, number: Int, trakt: Trakt) {
+  init(id: Int, number: Int, trakt: Trakt) {
     self.show = id
     self.season = number
     self.basePath = "/shows/\(id)/seasons/\(number)"

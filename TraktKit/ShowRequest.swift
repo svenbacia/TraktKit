@@ -12,12 +12,12 @@ public struct ShowRequest {
   
   // MARK: - Properties
   
-  private let id: String
+  private let id: Int
   private let trakt: Trakt
   
   // MARK: - Init
   
-  init(id: String, trakt: Trakt) {
+  init(id: Int, trakt: Trakt) {
     self.id = id
     self.trakt = trakt
   }

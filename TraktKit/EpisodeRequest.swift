@@ -17,7 +17,7 @@ public struct EpisodeRequest {
   
   // MARK: - Init
   
-  init(show: String, season: Int, number: Int, trakt: Trakt) {
+  init(show: Int, season: Int, number: Int, trakt: Trakt) {
     self.trakt = trakt
     self.basePath = "/shows/\(show)/seasons/\(season)/episodes/\(number)"
   }
