@@ -10,10 +10,10 @@ import Foundation
 
 public enum ContentType: CustomStringConvertible {
   
-  case show(id: String, title: String)
-  case season(String)
-  case episode(String)
-  case movie(id: String, title: String, year: String)
+  case show(id: Int, title: String)
+  case season(Int)
+  case episode(id: Int, date: String?)
+  case movie(id: Int, title: String, year: String)
   
   public var description: String {
     switch self {
