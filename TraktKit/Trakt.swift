@@ -16,6 +16,7 @@ public final class Trakt {
   // MARK: Public Properties
   
   public let credentials: Credentials
+  public internal(set) var token: Token?
   
   public var debug: Bool = false
   
@@ -23,8 +24,6 @@ public final class Trakt {
   
   let keychain: Keychain
   let session: URLSession
-  
-  var token: Token?
   
   // MARK: - Initializer
   
