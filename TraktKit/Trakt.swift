@@ -45,7 +45,7 @@ public final class Trakt {
   
   // MARK: - Load
   
-  internal func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, Error>) -> Void) -> URLSessionTask? {
+  public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, Error>) -> Void) -> URLSessionTask? {
     
     var request = resource.request
     
@@ -56,7 +56,7 @@ public final class Trakt {
     if debug {
       print("Load \(request.url!)")
     }
-        
+    
     let task = session.dataTask(with: request) { data, response, error in
       
       guard let response = response as? HTTPURLResponse else {

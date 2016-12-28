@@ -37,33 +37,21 @@ extension Trakt {
   // MARK: - Endpoints
   
   @discardableResult
-  public func exchangeAccessToken(for code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
-    let params = [
-      "code": code,
-      "client_id": credentials.clientID,
-      "client_secret": credentials.clientSecret,
-      "redirect_uri": credentials.redirectURI,
-      "grant_type": "authorization_code"
-    ]
-    return exchangeToken(with: params, completion: completion)
+  public func exchangeAccessToken(for code: String, completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Auth.exchangeAccessToken(for: code, credentials: credentials),
+                authenticated: false,
+                completion: completion)
   }
   
   @discardableResult
-  public func exchangeRefreshToken(_ completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
-    
+  public func exchangeRefreshToken(_ completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
     guard let token = token else {
       completion(.failure(buildError(with: .unauthorized)))
       return nil
     }
-    
-    let params = [
-      "client_id"     : credentials.clientID,
-      "client_secret" : credentials.clientSecret,
-      "redirect_uri"  : credentials.redirectURI,
-      "refresh_token" : token.refreshToken,
-      "grant_type"    : "refresh_token"
-    ]
-    return exchangeToken(with: params, completion: completion)
+    return load(resource: Auth.refreshAccessToken(with: token.refreshToken, credentials: credentials),
+                authenticated: false,
+                completion: completion)
   }
   
   // MAKR: - Token
@@ -105,19 +93,6 @@ fileprivate extension Trakt {
     keychain.set(string: token?.accessToken, forKey: Key.accessToken)
     keychain.set(string: token?.refreshToken, forKey: Key.refreshToken)
     UserDefaults.standard.set(token?.expiry, forKey: Key.expiry)
-  }
-  
-  func exchangeToken(with params: [String : Any], completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
-    let res = resource(for: "/oauth/token", params: params, method: .post, parse: parseToken)
-    return load(resource: res, authenticated: false) { [weak self] result in
-      switch result {
-      case .success(let token):
-        self?.persist(token: token)
-        completion(.success(true))
-      case .failure(let error):
-        completion(.failure(error))
-      }
-    }
   }
   
 }
