@@ -30,7 +30,7 @@ public struct ShowRequest {
     return resource(for: "/shows/\(id)/comments", params: parameters(page: page, limit: limit, extended: extended))
   }
   
-  public func people(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> Resource<Any> {
+  public func people(_ extended: Extended? = nil) -> Resource<Any> {
     return resource(for: "/shows/\(id)/people", params: parameters(extended: extended))
   }
   
