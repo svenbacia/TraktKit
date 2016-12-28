@@ -37,12 +37,12 @@ extension Trakt {
   // MARK: - Endpoints
   
   @discardableResult
-  public func exchangeAccessToken(with code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
+  public func exchangeAccessToken(for code: String, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
     let params = [
+      "code": code,
       "client_id": credentials.clientID,
       "client_secret": credentials.clientSecret,
       "redirect_uri": credentials.redirectURI,
-      "code": code,
       "grant_type": "authorization_code"
     ]
     return exchangeToken(with: params, completion: completion)

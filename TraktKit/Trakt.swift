@@ -34,8 +34,9 @@ public final class Trakt {
     
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = [
-      "trakt-api-key" : credentials.clientID,
-      "trakt-api-version" : TraktAPIVersion
+      "trakt-api-key": credentials.clientID,
+      "trakt-api-version": TraktAPIVersion,
+      "Content-Type": "application/json"
     ]
     self.session = URLSession(configuration: configuration)
     
@@ -49,7 +50,6 @@ public final class Trakt {
     var request = resource.request
     
     if let token = token, authenticated, token.isValid {
-      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
       request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
     } else {
       completion(.failure(buildError(with: .unauthorized)))
@@ -57,7 +57,7 @@ public final class Trakt {
     }
     
     if debug {
-      print("Load \(request.url)")
+      print("Load \(request.url!)")
     }
     
     let task = session.dataTask(with: request) { data, response, error in

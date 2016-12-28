@@ -43,7 +43,7 @@ func resource<T>(for path: String, params: [String : Any]? = nil, method: Method
   components.host = "api.trakt.tv"
   components.path = path
   
-  if let params = params as? [String : String], method == .get {
+  if let params = params as? [String: String], method == .get {
     components.queryItems = params.map(toQueryItem)
   }
   
