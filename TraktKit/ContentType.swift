@@ -30,15 +30,19 @@ public enum ContentType: CustomStringConvertible {
 }
 
 func parameters(with contentTypes: [ContentType]) -> [String : Any] {
-  var shows    = [[String : Any]]()
+  var shows = [[String : Any]]()
   var episodes = [[String : Any]]()
   
   for case .show(let id, _) in contentTypes {
     shows.append([ "ids" : [ "trakt" : id ] ])
   }
   
-  for case .episode(let id) in contentTypes {
-    episodes.append([ "ids" : [ "trakt" : id ] ])
+  for case .episode(let id, let date) in contentTypes {
+    var episode: [String: Any] = [ "ids" : [ "trakt" : id ] ]
+    if let date = date {
+      episode["watched_at"] = date
+    }
+    episodes.append(episode)
   }
   
   return [
