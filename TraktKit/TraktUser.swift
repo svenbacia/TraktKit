@@ -11,7 +11,7 @@ import Foundation
 extension Trakt {
   
   public func user(with id: String) -> UserRequest {
-    return UserRequest(id: id)
+    return UserRequest(id: id, trakt: self)
   }
   
 }

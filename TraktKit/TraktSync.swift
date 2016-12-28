@@ -10,7 +10,7 @@ import Foundation
 
 extension Trakt {
   
-  public func lastActivities(_ completion: @escaping (Result<LastActivities, Error>) -> Void) -> URLSessionTask? {
+  public func lastActivities(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return load(resource: resource(for: "/sync/lastActivities"), authenticated: true, completion: completion)
   }
   

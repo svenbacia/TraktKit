@@ -8,46 +8,47 @@
 
 import Foundation
 
-public struct ListRequest {
-  
-  fileprivate let user: String
-  fileprivate let list: String
-  
-  init(user: String, id: String) {
-    self.user = user
-    self.list = id
-  }
-  
-  public func summary() -> Resource<List> {
-    return resource(for: "/users/\(user)/lists/\(list)")
-  }
-  
-  public func showItems(_ extended: Extended? = nil) -> Resource<[ListItem<Show>]> {
-    return items(ofType: .show, extended: extended)
-  }
-  
-  public func seasonItems(_ extended: Extended? = nil) -> Resource<[ListItem<Season>]> {
-    return items(ofType: .season, extended: extended)
-  }
-  
-  public func episodeItems(_ extended: Extended? = nil) -> Resource<[ListItem<Episode>]> {
-    return items(ofType: .episode, extended: extended)
-  }
-  
-  public func add(items: [ContentType]) -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)/items", params: parameters(with: items), method: .post)
-  }
-  
-  public func remove(items: [ContentType]) -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)/items/remove", params: parameters(with: items), method: .post)
-  }
-  
+public enum ListItemType: String {
+  case show
+  case season
+  case episode
+  case people
 }
 
-fileprivate extension ListRequest {
+public struct ListRequest {
   
-  func items<T: Unboxable>(ofType type: ListItemType, extended: Extended? = nil) -> Resource<[ListItem<T>]> {
-    return resource(for: "/users/\(user)/lists/\(list)/items", params: parameters(extended: extended))
+  private let user: String
+  private let list: String
+  private let trakt: Trakt
+  
+  init(user: String, id: String, trakt: Trakt) {
+    self.user = user
+    self.list = id
+    self.trakt = trakt
+  }
+  
+  public func summary(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return trakt.load(resource: resource(for: "/users/\(user)/lists/\(list)"),
+                      authenticated: true,
+                      completion: completion)
+  }
+  
+  func items(ofType type: ListItemType, extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return trakt.load(resource: resource(for: "/users/\(user)/lists/\(list)/items/\(type)", params: parameters(extended: extended)),
+                      authenticated: true,
+                      completion: completion)
+  }
+  
+  public func add(items: [ContentType], completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return trakt.load(resource: resource(for: "/users/\(user)/lists/\(list)/items", params: parameters(with: items), method: .post),
+                      authenticated: true,
+                      completion: completion)
+  }
+  
+  public func remove(items: [ContentType], completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return trakt.load(resource: resource(for: "/users/\(user)/lists/\(list)/items/remove", params: parameters(with: items), method: .post),
+                      authenticated: true,
+                      completion: completion)
   }
   
 }

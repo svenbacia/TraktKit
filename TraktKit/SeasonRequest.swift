@@ -29,31 +29,31 @@ public struct SeasonRequest {
   
   // MARK: - Endpoints
   
-  public func summary(_ extended: Extended? = nil, completion: @escaping (Result<[Episode], Error>) -> Void) -> URLSessionTask? {
+  public func summary(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: basePath, params: parameters(extended: extended)),
                       authenticated: false,
                       completion: completion)
   }
   
-  public func comments(_ page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[Comment], Error>) -> Void) -> URLSessionTask? {
+  public func comments(_ page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: basePath + "/comments", params: parameters(page: page, limit: limit)),
                       authenticated: false,
                       completion: completion)
   }
   
-  public func ratings(_ completion: @escaping (Result<Rating, Error>) -> Void) -> URLSessionTask? {
+  public func ratings(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: basePath + "/ratings"),
                       authenticated: false,
                       completion: completion)
   }
   
-  public func stats(_ completion: @escaping (Result<Stats, Error>) -> Void) -> URLSessionTask? {
+  public func stats(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: basePath + "/stats"),
                       authenticated: false,
                       completion: completion)
   }
   
-  public func watching(_ extended: Extended? = nil, completion: @escaping (Result<[User], Error>) -> Void) -> URLSessionTask? {
+  public func watching(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     return trakt.load(resource: resource(for: basePath + "/watching", params: parameters(extended: extended)),
                       authenticated: false,
                       completion: completion)

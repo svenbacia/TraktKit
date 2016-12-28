@@ -13,6 +13,7 @@ public struct UserRequest {
   // MARK: - Properties
   
   private let id: String
+  private let trakt: Trakt
   
   private var basePath: String {
     return "/users/\(id)"
@@ -20,13 +21,14 @@ public struct UserRequest {
   
   // MARK: - Init
   
-  init(id: String) {
+  init(id: String, trakt: Trakt) {
     self.id = id
+    self.trakt = trakt
   }
   
   // MARK: - Endpoints
   
-  public func profile(_ extended: Extended? = nil) -> Resource<User> {
+  public func profile(_ extended: Extended? = nil) -> Resource<Any> {
     return resource(for: basePath, params: parameters(extended: extended))
   }
   
@@ -36,11 +38,11 @@ public struct UserRequest {
   
   // MARK: Lists
   
-  public func lists() -> Resource<[List]> {
+  public func lists() -> Resource<Any> {
     return resource(for: basePath + "/lists")
   }
   
-  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil) -> Resource<List> {
+  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
     
     var body: [String : Any] = [
       "name": name
@@ -62,11 +64,11 @@ public struct UserRequest {
       body["allow_comments"] = allowComments
     }
     
-    return resource(for: basePath + "/lists", params: body, method: .post)
+    return trakt.load(resource: resource(for: basePath + "/lists", params: body, method: .post), authenticated: true, completion: completion)
   }
   
   public func list(with name: String) -> ListRequest {
-    return ListRequest(user: id, id: name)
+    return ListRequest(user: id, id: name, trakt: trakt)
   }
   
 }

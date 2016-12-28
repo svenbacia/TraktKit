@@ -9,8 +9,6 @@
 import Foundation
 import Security
 
-private let isSimulator = TARGET_OS_SIMULATOR != 0
-
 public struct Keychain {
   
   // MARK: Properties
