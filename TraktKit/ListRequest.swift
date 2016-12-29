@@ -22,7 +22,7 @@ public struct ListRequest {
     return resource(for: "/users/\(user)/lists/\(list)")
   }
   
-  func items(ofType type: ListItemType, extended: Extended? = nil) -> Resource<Any> {
+  public func items(ofType type: ListItemType, extended: Extended? = nil) -> Resource<Any> {
     return resource(for: "/users/\(user)/lists/\(list)/items/\(type)", params: parameters(extended: extended))
   }
   
