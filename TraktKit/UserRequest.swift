@@ -40,7 +40,7 @@ public struct UserRequest {
     return resource(for: basePath + "/lists")
   }
   
-  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil) -> Resource<Any> {
     
     var body: [String : Any] = [
       "name": name
@@ -62,11 +62,11 @@ public struct UserRequest {
       body["allow_comments"] = allowComments
     }
     
-    return trakt.load(resource: resource(for: basePath + "/lists", params: body, method: .post), authenticated: true, completion: completion)
+    return resource(for: basePath + "/lists", params: body, method: .post)
   }
   
   public func list(with name: String) -> ListRequest {
-    return ListRequest(user: id, id: name, trakt: trakt)
+    return ListRequest(user: id, id: name)
   }
   
 }
