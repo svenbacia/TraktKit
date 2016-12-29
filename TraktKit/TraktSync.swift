@@ -11,23 +11,23 @@ import Foundation
 extension Trakt {
   
   public func lastActivities(_ completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/lastActivities"), authenticated: true, completion: completion)
+    return load(resource: Sync.lastActivities(), authenticated: true, completion: completion)
   }
     
   public func collection(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/collection/shows", params: parameters(extended: extended)),
+    return load(resource: Sync.collection(extended),
                 authenticated: true,
                 completion: completion)
   }
   
   public func watched(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/watched/shows", params: parameters(extended: extended)),
+    return load(resource: Sync.watched(extended),
                 authenticated: true,
                 completion: completion)
   }
   
   public func watchlist(_ extended: Extended? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/watchlist/shows", params: parameters(extended: extended)),
+    return load(resource: Sync.watchlist(extended),
                 authenticated: true,
                 completion: completion)
   }
@@ -35,13 +35,13 @@ extension Trakt {
   // MARK: History
   
   public func addToHistory(items: [ContentType], completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/history", params: parameters(with: items), method: .post),
+    return load(resource: Sync.addToHistory(items),
                 authenticated: true,
                 completion: completion)
   }
   
   public func removeFromHistory(items: [ContentType], completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/sync/history/remove", params: parameters(with: items), method: .post),
+    return load(resource: Sync.removeFromHistory(items),
                 authenticated: true,
                 completion: completion)
   }
