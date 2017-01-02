@@ -39,8 +39,15 @@ extension Trakt {
   @discardableResult
   public func exchangeAccessToken(for code: String, completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
     return load(resource: Auth.exchangeAccessToken(for: code, credentials: credentials),
-                authenticated: false,
-                completion: completion)
+                authenticated: false) { [weak self] result in
+                  switch result {
+                  case .success(let token):
+                    self?.token = token
+                    self?.persist(token: token)
+                  default: break
+                  }
+                  completion(result)
+    }
   }
   
   @discardableResult
@@ -50,8 +57,15 @@ extension Trakt {
       return nil
     }
     return load(resource: Auth.refreshAccessToken(with: token.refreshToken, credentials: credentials),
-                authenticated: false,
-                completion: completion)
+                authenticated: false) { [weak self] result in
+                  switch result {
+                  case .success(let token):
+                    self?.token = token
+                    self?.persist(token: token)
+                  default: break
+                  }
+                  completion(result)
+    }
   }
   
   // MAKR: - Token
