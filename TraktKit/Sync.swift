@@ -10,7 +10,7 @@ import Foundation
 
 public struct Sync {
   public static func lastActivities() -> Resource<Any> {
-    return resource(for: "/sync/lastActivities")
+    return resource(for: "/sync/last_activities")
   }
   
   public static func collection(_ extended: Extended? = nil) -> Resource<Any> {
