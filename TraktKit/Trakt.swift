@@ -31,14 +31,7 @@ public final class Trakt {
         self.credentials = credentials
         self.keychain = Keychain(service: "com.svenbacia.traktkit")
         self.isDebug = isDebug
-        
-        let configuration = session.configuration
-        var httpHeaders = configuration.httpAdditionalHeaders ?? [:]
-        httpHeaders["trakt-api-key"] = credentials.clientID
-        httpHeaders["trakt-api-version"] = TraktAPIVersion
-        httpHeaders["Content-Type"] = "application/json"
-        self.session = URLSession(configuration: configuration)
-        
+        self.session = session
         self.loadToken()
     }
     
@@ -47,6 +40,8 @@ public final class Trakt {
     public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, TraktError>) -> Void) -> URLSessionTask? {
         
         var request = resource.request
+        
+        addTraktHeader(to: &request)
         
         if let token = token, authenticated {
             if token.isValid {
@@ -106,5 +101,11 @@ public final class Trakt {
         task.resume()
         
         return task
+    }
+    
+    private func addTraktHeader(to request: inout URLRequest) {
+        request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")
+        request.addValue(TraktAPIVersion, forHTTPHeaderField: "trakt-api-version")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     }
 }
