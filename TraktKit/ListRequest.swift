@@ -10,28 +10,20 @@ import Foundation
 
 public struct ListRequest {
   
-  fileprivate let user: String
-  fileprivate let list: String
+  private let user: String
+  private let list: String
   
   init(user: String, id: String) {
     self.user = user
     self.list = id
   }
   
-  public func summary() -> Resource<List> {
+  public func summary() -> Resource<Any> {
     return resource(for: "/users/\(user)/lists/\(list)")
   }
   
-  public func showItems(_ extended: Extended? = nil) -> Resource<[ListItem<Show>]> {
-    return items(ofType: .show, extended: extended)
-  }
-  
-  public func seasonItems(_ extended: Extended? = nil) -> Resource<[ListItem<Season>]> {
-    return items(ofType: .season, extended: extended)
-  }
-  
-  public func episodeItems(_ extended: Extended? = nil) -> Resource<[ListItem<Episode>]> {
-    return items(ofType: .episode, extended: extended)
+  public func items(ofType type: ListItemType, extended: Extended? = nil) -> Resource<Any> {
+    return resource(for: "/users/\(user)/lists/\(list)/items/\(type)", params: parameters(extended: extended))
   }
   
   public func add(items: [ContentType]) -> Resource<Any> {
@@ -40,14 +32,6 @@ public struct ListRequest {
   
   public func remove(items: [ContentType]) -> Resource<Any> {
     return resource(for: "/users/\(user)/lists/\(list)/items/remove", params: parameters(with: items), method: .post)
-  }
-  
-}
-
-fileprivate extension ListRequest {
-  
-  func items<T: Unboxable>(ofType type: ListItemType, extended: Extended? = nil) -> Resource<[ListItem<T>]> {
-    return resource(for: "/users/\(user)/lists/\(list)/items", params: parameters(extended: extended))
   }
   
 }

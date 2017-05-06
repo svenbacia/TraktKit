@@ -8,60 +8,40 @@
 
 import Foundation
 
-public enum Period: String {
-  case weekly
-  case monthly
-  case yearly
-  case all
-  
-  static var defaultPeriod: Period {
-    return .weekly
-  }
-}
-
-public enum ExploreType {
-  case trending
-  case popular
-  case played(Period)
-  case watched(Period)
-  case collected(Period)
-  case anticipated
-}
-
 extension Trakt {
   
-  public func trendingShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[TrendingShow], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/shows/trending", params: parameters(page: page, limit: limit, extended: extended)),
+  public func trendingShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.trendingShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func popularShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[Show], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/shows/popular", params: parameters(page: page, limit: limit, extended: extended)),
+  public func popularShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.popularShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func anticipatedShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[AnticipatedShow], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: "/shows/anticipated", params: parameters(page: page, limit: limit, extended: extended)),
+  public func anticipatedShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.anticipatedShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func playedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[Show], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: path("/shows/played", with: period), params: parameters(page: page, limit: limit, extended: extended)),
+  public func playedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.playedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func watchedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[Show], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: path("/shows/watched", with: period), params: parameters(page: page, limit: limit, extended: extended)),
+  public func watchedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.watchedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func collectedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<[Show], Error>) -> Void) -> URLSessionTask? {
-    return load(resource: resource(for: path("/shows/collected", with: period), params: parameters(page: page, limit: limit, extended: extended)),
+  public func collectedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, Error>) -> Void) -> URLSessionTask? {
+    return load(resource: Explore.collectedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }

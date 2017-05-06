@@ -43,7 +43,7 @@ func resource<T>(for path: String, params: [String : Any]? = nil, method: Method
   components.host = "api.trakt.tv"
   components.path = path
   
-  if let params = params as? [String : String], method == .get {
+  if let params = params as? [String: String], method == .get {
     components.queryItems = params.map(toQueryItem)
   }
   
@@ -57,34 +57,14 @@ func resource<T>(for path: String, params: [String : Any]? = nil, method: Method
   return Resource(request: request, parse: parse)
 }
 
-func resource<T: Unboxable>(for path: String, params: [String : Any]? = nil, method: Method = .get) -> Resource<T> {
-  return resource(for: path, params: params, method: method, parse: parseWithUnbox)
-}
-
-func resource<T: Unboxable>(for path: String, params: [String : Any]? = nil, method: Method = .get) -> Resource<[T]> {
-  return resource(for: path, params: params, method: method, parse: parseWithUnbox)
-}
-
 func resource(for path: String, params: [String : Any]? = nil, method: Method = .get) -> Resource<Any> {
   return resource(for: path, params: params, method: method, parse: parseJSON)
 }
 
 // MARK: - Parse
 
-func parseEmpty(_ data: Data) throws -> Void {
-  
-}
-
 func parseJSON(_ data: Data) throws -> Any {
   return try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-}
-
-func parseWithUnbox<T: Unboxable>(_ data: Data) throws -> T {
-  return try Unbox(data: data)
-}
-
-func parseWithUnbox<T: Unboxable>(_ data: Data) throws -> [T] {
-  return try Unbox(data: data)
 }
 
 func parseToken(_ data: Data) throws -> Token {

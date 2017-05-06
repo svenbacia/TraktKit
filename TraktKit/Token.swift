@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct Token {
+public struct Token {
   
-  let accessToken: String
-  let refreshToken: String
-  let expiry: Date
+  public let accessToken: String
+  public let refreshToken: String
+  public let expiry: Date
   
-  var isExpired: Bool {
+  public var isExpired: Bool {
     return expiry.timeIntervalSinceNow < 0
   }
   
-  var isValid: Bool {
+  public var isValid: Bool {
     return !accessToken.isEmpty && !isExpired
   }
   

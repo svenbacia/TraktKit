@@ -10,15 +10,15 @@ import Foundation
 
 public enum ContentType: CustomStringConvertible {
   
-  case show(id: String, title: String)
-  case season(String)
-  case episode(String)
-  case movie(id: String, title: String, year: String)
+  case show(id: Int, title: String)
+  case season(Int)
+  case episode(id: Int, date: String?)
+  case movie(id: Int, title: String, year: String)
   
   public var description: String {
     switch self {
     case .show:
-      return "TV Show"
+      return "Show"
     case .season:
       return "Season"
     case .episode:
@@ -29,20 +29,24 @@ public enum ContentType: CustomStringConvertible {
   }
 }
 
-func parameters(with contentTypes: [ContentType]) -> [String : Any] {
-  var shows    = [[String : Any]]()
-  var episodes = [[String : Any]]()
+func parameters(with contentTypes: [ContentType]) -> [String: Any] {
+  var shows = [[String: Any]]()
+  var episodes = [[String: Any]]()
   
   for case .show(let id, _) in contentTypes {
-    shows.append([ "ids" : [ "trakt" : id ] ])
+    shows.append([ "ids": [ "trakt": id ] ])
   }
   
-  for case .episode(let id) in contentTypes {
-    episodes.append([ "ids" : [ "trakt" : id ] ])
+  for case .episode(let id, let date) in contentTypes {
+    var episode: [String: Any] = [ "ids": [ "trakt" : id ] ]
+    if let date = date {
+      episode["watched_at"] = date
+    }
+    episodes.append(episode)
   }
   
   return [
-    "shows" : shows,
-    "episodes" : episodes
+    "shows": shows,
+    "episodes": episodes
   ]
 }

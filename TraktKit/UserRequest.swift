@@ -13,20 +13,20 @@ public struct UserRequest {
   // MARK: - Properties
   
   private let id: String
-  
-  private var basePath: String {
-    return "/users/\(id)"
-  }
+  private let trakt: Trakt
+  private let basePath: String
   
   // MARK: - Init
   
-  init(id: String) {
+  init(id: String, trakt: Trakt) {
     self.id = id
+    self.trakt = trakt
+    self.basePath = "/users/\(id)"
   }
   
   // MARK: - Endpoints
   
-  public func profile(_ extended: Extended? = nil) -> Resource<User> {
+  public func profile(_ extended: Extended? = nil) -> Resource<Any> {
     return resource(for: basePath, params: parameters(extended: extended))
   }
   
@@ -36,11 +36,11 @@ public struct UserRequest {
   
   // MARK: Lists
   
-  public func lists() -> Resource<[List]> {
+  public func lists() -> Resource<Any> {
     return resource(for: basePath + "/lists")
   }
   
-  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil) -> Resource<List> {
+  public func createList(with name: String, description: String? = nil, privacy: Privacy? = nil, displayNumbers: Bool? = nil, allowComments: Bool? = nil) -> Resource<Any> {
     
     var body: [String : Any] = [
       "name": name
