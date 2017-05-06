@@ -50,8 +50,15 @@ final class FakeURLSession: URLSession {
             completionHandler(result.0, result.1, result.2)
         }
     }
+    
+    // MARK: - Reset 
+    
+    func reset() {
+        requests.removeAll()
+        completedRequests.removeAll()
+    }
 }
 
-func buildData(with json: [String: Any]) -> Data {
+func buildData(with json: Any) -> Data {
     return try! JSONSerialization.data(withJSONObject: json, options: [])
 }
