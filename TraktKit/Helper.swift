@@ -8,13 +8,13 @@
 
 import Foundation
 
-func buildError(with code: StatusCode, reason: String? = nil, userInfo: [String: Any] = [:]) -> Error {
-  var dict = userInfo
-  dict[NSLocalizedDescriptionKey] = reason ?? code.description
-  let error = NSError(domain: TraktErrorDomain, code: code.rawValue, userInfo: dict)
-  return error
+func buildError(reason: String) -> Error {
+    let dict = [
+        NSLocalizedDescriptionKey: reason
+    ]
+    return NSError(domain: TraktErrorDomain, code: 599, userInfo: dict)
 }
 
 func toQueryItem(key: String, value: String) -> URLQueryItem {
-  return URLQueryItem(name: key, value: value)
+    return URLQueryItem(name: key, value: value)
 }

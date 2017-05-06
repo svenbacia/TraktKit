@@ -49,6 +49,10 @@
 		26BE8CBC1E140282002EA673 /* Explore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BE8CBB1E140282002EA673 /* Explore.swift */; };
 		26BE8CBE1E140484002EA673 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BE8CBD1E140484002EA673 /* Auth.swift */; };
 		26BE8CC01E1407DD002EA673 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BE8CBF1E1407DD002EA673 /* Search.swift */; };
+		26DEFDE71EBE01A500E83397 /* TraktError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDE61EBE01A500E83397 /* TraktError.swift */; };
+		26DEFDE91EBE08F000E83397 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDE81EBE08F000E83397 /* Method.swift */; };
+		26DEFDEB1EBE0C0800E83397 /* PeriodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDEA1EBE0C0800E83397 /* PeriodTests.swift */; };
+		26DEFDED1EBE0E0400E83397 /* TraktErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDEC1EBE0E0400E83397 /* TraktErrorTests.swift */; };
 		26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFEC211E12A7EA0055416D /* TraktSync.swift */; };
 		26F90FB21D9844CC0087A733 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90FB11D9844CC0087A733 /* Helper.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +113,10 @@
 		26BE8CBB1E140282002EA673 /* Explore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Explore.swift; sourceTree = "<group>"; };
 		26BE8CBD1E140484002EA673 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		26BE8CBF1E1407DD002EA673 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		26DEFDE61EBE01A500E83397 /* TraktError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktError.swift; sourceTree = "<group>"; };
+		26DEFDE81EBE08F000E83397 /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		26DEFDEA1EBE0C0800E83397 /* PeriodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTests.swift; sourceTree = "<group>"; };
+		26DEFDEC1EBE0E0400E83397 /* TraktErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktErrorTests.swift; sourceTree = "<group>"; };
 		26EFEC211E12A7EA0055416D /* TraktSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktSync.swift; sourceTree = "<group>"; };
 		26F90FB11D9844CC0087A733 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,11 +164,11 @@
 				265E9E4A1D7B00D500B51D5D /* Trakt.swift */,
 				265823EB1D7C9F7C0018F641 /* TraktAuth.swift */,
 				265823ED1D7CA0960018F641 /* TraktExplore.swift */,
-				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
-				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
-				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
-				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
 				269C554E1E1543FF00B525C1 /* TraktPeople.swift */,
+				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
+				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
+				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
+				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
 				265823EA1D7C9E8D0018F641 /* Request */,
 				265823F41D7CA4370018F641 /* Model */,
 				265E9E501D7B01F900B51D5D /* Auth */,
@@ -208,6 +216,7 @@
 				2655F26F1D7F258B002043BB /* StatusCodeTests.swift */,
 				26B43ACF1E13CE8B00B8EB52 /* HelperTests.swift */,
 				26BE8C861E13F12B002EA673 /* ResourceTests.swift */,
+				26DEFDEC1EBE0E0400E83397 /* TraktErrorTests.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -215,16 +224,17 @@
 		265823EA1D7C9E8D0018F641 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */,
-				262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */,
+				26BE8CBD1E140484002EA673 /* Auth.swift */,
 				262B37861D7F3F3500CFEDF9 /* EpisodeRequest.swift */,
-				262B37881D7F408500CFEDF9 /* UserRequest.swift */,
+				26BE8CBB1E140282002EA673 /* Explore.swift */,
 				262B37901D7F421900CFEDF9 /* ListRequest.swift */,
 				262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */,
-				26BE8CBB1E140282002EA673 /* Explore.swift */,
-				26BE8CBD1E140484002EA673 /* Auth.swift */,
 				26BE8CBF1E1407DD002EA673 /* Search.swift */,
+				262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */,
+				262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */,
 				2698407C1E15276B00F0807F /* Sync.swift */,
+				262B37881D7F408500CFEDF9 /* UserRequest.swift */,
+				26DEFDE81EBE08F000E83397 /* Method.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -232,11 +242,12 @@
 		265823F11D7CA3E40018F641 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				265823E41D7C854F0018F641 /* Result.swift */,
-				265823E61D7C85900018F641 /* Resource.swift */,
-				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
 				265823EF1D7CA16C0018F641 /* Extended.swift */,
 				26F90FB11D9844CC0087A733 /* Helper.swift */,
+				265823E61D7C85900018F641 /* Resource.swift */,
+				265823E41D7C854F0018F641 /* Result.swift */,
+				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
+				26DEFDE61EBE01A500E83397 /* TraktError.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -245,11 +256,11 @@
 			isa = PBXGroup;
 			children = (
 				262B37941D7F444200CFEDF9 /* ContentType.swift */,
-				26B43AC21E13BF9E00B8EB52 /* Privacy.swift */,
-				26B43AC41E13CA2200B8EB52 /* Period.swift */,
 				26B43AC61E13CA3300B8EB52 /* ExploreType.swift */,
-				26B43AC81E13CA7900B8EB52 /* SearchType.swift */,
 				26B43ACA1E13CAD700B8EB52 /* ListItemType.swift */,
+				26B43AC41E13CA2200B8EB52 /* Period.swift */,
+				26B43AC21E13BF9E00B8EB52 /* Privacy.swift */,
+				26B43AC81E13CA7900B8EB52 /* SearchType.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -267,8 +278,8 @@
 			isa = PBXGroup;
 			children = (
 				265E9E4C1D7B016300B51D5D /* Credentials.swift */,
-				265E9E4E1D7B019E00B51D5D /* Token.swift */,
 				265823E21D7C7CD70018F641 /* Keychain.swift */,
+				265E9E4E1D7B019E00B51D5D /* Token.swift */,
 			);
 			name = Auth;
 			sourceTree = "<group>";
@@ -277,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				26B43ACD1E13CC0400B8EB52 /* ContentTypeTests.swift */,
+				26DEFDEA1EBE0C0800E83397 /* PeriodTests.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -408,11 +420,13 @@
 				262B37911D7F421900CFEDF9 /* ListRequest.swift in Sources */,
 				26BE8CBE1E140484002EA673 /* Auth.swift in Sources */,
 				26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */,
+				26DEFDE91EBE08F000E83397 /* Method.swift in Sources */,
 				262B378F1D7F417F00CFEDF9 /* TraktUser.swift in Sources */,
 				265823E91D7C8AEB0018F641 /* StatusCode.swift in Sources */,
 				262B37971D7F4A9100CFEDF9 /* PeopleRequest.swift in Sources */,
 				262B37951D7F444200CFEDF9 /* ContentType.swift in Sources */,
 				26F90FB21D9844CC0087A733 /* Helper.swift in Sources */,
+				26DEFDE71EBE01A500E83397 /* TraktError.swift in Sources */,
 				265823E71D7C85900018F641 /* Resource.swift in Sources */,
 				26BE8CBC1E140282002EA673 /* Explore.swift in Sources */,
 				265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */,
@@ -442,7 +456,9 @@
 				2655F2671D7F1F6E002043BB /* TokenTests.swift in Sources */,
 				26BE8C871E13F12B002EA673 /* ResourceTests.swift in Sources */,
 				26B43AD01E13CE8B00B8EB52 /* HelperTests.swift in Sources */,
+				26DEFDEB1EBE0C0800E83397 /* PeriodTests.swift in Sources */,
 				2655F2691D7F20D2002043BB /* KeychainTests.swift in Sources */,
+				26DEFDED1EBE0E0400E83397 /* TraktErrorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

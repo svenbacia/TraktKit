@@ -34,5 +34,29 @@ class StatusCodeTests: XCTestCase {
     XCTAssertEqual(StatusCode.cloudflareError2.rawValue, 521)
     XCTAssertEqual(StatusCode.cloudflareError3.rawValue, 522)
   }
+    
+    func testDescriptionAvailable() {
+        XCTAssertTrue(StatusCode.success.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.successNewResourceCreated.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.successNoContentToReturn.description.characters.count > 0)
+        
+        XCTAssertTrue(StatusCode.badRequest.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.unauthorized.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.forbidden.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.notFound.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.methodNotFound.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.conflict.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.preconditionFailed.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.unprocessableEntity.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.rateLimitExceeded.description.characters.count > 0)
+        
+        XCTAssertTrue(StatusCode.serverError.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.serverOverloaded.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.gatewayTimedOut.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError1.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError2.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError3.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError3.description.characters.count > 0)
+    }
   
 }

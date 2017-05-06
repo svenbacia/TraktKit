@@ -37,7 +37,7 @@ extension Trakt {
   // MARK: - Endpoints
   
   @discardableResult
-  public func exchangeAccessToken(for code: String, completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
+  public func exchangeAccessToken(for code: String, completion: @escaping (Result<Token, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Auth.exchangeAccessToken(for: code, credentials: credentials),
                 authenticated: false) { [weak self] result in
                   switch result {
@@ -51,9 +51,9 @@ extension Trakt {
   }
   
   @discardableResult
-  public func exchangeRefreshToken(_ completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
+  public func exchangeRefreshToken(_ completion: @escaping (Result<Token, TraktError>) -> Void) -> URLSessionTask? {
     guard let token = token else {
-      completion(.failure(buildError(with: .unauthorized)))
+      completion(.failure(.invalidAuthorization))
       return nil
     }
     return load(resource: Auth.refreshAccessToken(with: token.refreshToken, credentials: credentials),

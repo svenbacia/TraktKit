@@ -65,16 +65,6 @@ public enum StatusCode: Int, Error {
   
   /// Service Unavailable - Cloudflare error
   case cloudflareError3 = 522
-  
-  /// Invalid Response
-  case invalidResponse = 550
-  
-  /// Invalid Response JSON (for example missing key)
-  case invalidJSON = 551
-  
-  /// Unknown Error
-  case undefinedError = 599
-  
 }
 
 extension StatusCode: CustomStringConvertible {
@@ -118,12 +108,6 @@ extension StatusCode: CustomStringConvertible {
       return prefix + "Service Unavailable - Cloudflare error"
     case .gatewayTimedOut:
       return prefix + "The web server reported a gateway time-out error. Please try again in a few minutes."
-    case .invalidResponse:
-      return prefix + "Invalid server response."
-    case .invalidJSON:
-      return prefix + "Invalid JSON."
-    case .undefinedError:
-      return "Undefined error."
     }
   }
   

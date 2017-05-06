@@ -11,47 +11,47 @@ import XCTest
 @testable import TraktKit
 
 class KeychainTests: XCTestCase {
-  
-  var keychain: Keychain = Keychain(service: "com.keychain.test")
-  
-  private let key = "test"
-  
-  override func tearDown() {
-    super.tearDown()
     
-    keychain.deleteItem(for: key)
-  }
-  
-  func testSetString() {
-    let result = keychain.set(string: "Hallo", forKey: key)
-    XCTAssertTrue(result)
-  }
-  
-  func testGetString() {
-    let result = keychain.set(string: "Hallo", forKey: key)
-    XCTAssertTrue(result)
+    var keychain: Keychain = Keychain(service: "com.keychain.test")
     
-    if let string = keychain.string(for: key) {
-      XCTAssertEqual("Hallo", string)
-    } else {
-      XCTFail("Keychain.string(for:) should return a valid string.")
+    private let key = "test"
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        keychain.deleteItem(for: key)
     }
-  }
-  
-  func testStringSubscript() {
-    XCTAssertNil(keychain[key])
-    keychain[key] = "Hallo"
-    XCTAssertEqual(keychain[key], "Hallo")
-    keychain[key] = nil
-    XCTAssertNil(keychain[key])
-  }
-  
-  func testDataSubscript() {
-    let data = Data(count: 64)
-    keychain[data: key] = data
-    XCTAssertEqual(data, keychain[data: key])
-    keychain[key] = nil
-    XCTAssertNil(keychain[key])
-  }
-  
+    
+    func testSetString() {
+        let result = keychain.set(string: "Hallo", forKey: key)
+        XCTAssertTrue(result)
+    }
+    
+    func testGetString() {
+        let result = keychain.set(string: "Hallo", forKey: key)
+        XCTAssertTrue(result)
+        
+        if let string = keychain.string(for: key) {
+            XCTAssertEqual("Hallo", string)
+        } else {
+            XCTFail("Keychain.string(for:) should return a valid string.")
+        }
+    }
+    
+    func testStringSubscript() {
+        XCTAssertNil(keychain[key])
+        keychain[key] = "Hallo"
+        XCTAssertEqual(keychain[key], "Hallo")
+        keychain[key] = nil
+        XCTAssertNil(keychain[key])
+    }
+    
+    func testDataSubscript() {
+        let data = Data(count: 64)
+        keychain[data: key] = data
+        XCTAssertEqual(data, keychain[data: key])
+        keychain[key] = nil
+        XCTAssertNil(keychain[key])
+    }
+    
 }
