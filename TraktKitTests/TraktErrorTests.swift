@@ -18,7 +18,7 @@ class TraktErrorTests: XCTestCase {
         XCTAssertTrue(TraktError.invalidResponseData(nil).description.characters.count > 0)
         XCTAssertTrue(TraktError.invalidResponseJson(buildError(reason: "test")).description.characters.count > 0)
         XCTAssertTrue(TraktError.unknownServerResponse(nil).description.characters.count > 0)
-        XCTAssertTrue(TraktError.unknownStatusCode(123456789, nil).description.characters.count > 0)
+        XCTAssertTrue(TraktError.unknownStatusCode(123456789, buildError(reason: "test")).description.characters.count > 0)
     }
 }
 

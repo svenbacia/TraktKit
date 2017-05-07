@@ -43,8 +43,8 @@ public final class Trakt {
         
         addTraktHeader(to: &request)
         
-        if let token = token, authenticated {
-            if token.isValid {
+        if authenticated {
+            if let token = token, token.isValid {
                 request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
             } else {
                 completion(.failure(.invalidAuthorization))

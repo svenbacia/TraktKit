@@ -93,8 +93,12 @@ class TraktAuthTests: XCTestCase {
         XCTAssertTrue(trakt.expired)
         
         let task = trakt.exchangeRefreshToken { result in
-            if result.error != nil {
-                errorExpectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .invalidAuthorization:
+                    errorExpectation.fulfill()
+                default: break
+                }
             }
         }
         XCTAssertNil(task)
