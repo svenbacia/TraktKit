@@ -67,21 +67,21 @@ public final class Trakt {
             
             guard let statusCode = StatusCode(rawValue: response.statusCode) else {
                 DispatchQueue.main.async {
-                    completion(.failure(.unknownStatusCode(response.statusCode, response.url, error)))
+                    completion(.failure(.unknownStatusCode(response.statusCode, request, error)))
                 }
                 return
             }
             
             guard 200...299 ~= response.statusCode else {
                 DispatchQueue.main.async {
-                    completion(.failure(.badStatusCode(statusCode, response.url, error)))
+                    completion(.failure(.badStatusCode(statusCode, request, error)))
                 }
                 return
             }
             
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseData(response.url, error)))
+                    completion(.failure(.invalidResponseData(request, error)))
                 }
                 return
             }
@@ -93,7 +93,7 @@ public final class Trakt {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseJson(error, response.url)))
+                    completion(.failure(.invalidResponseJson(error, request)))
                 }
             }
         }

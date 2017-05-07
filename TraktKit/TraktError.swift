@@ -9,45 +9,51 @@
 import Foundation
 
 public enum TraktError: Error {
-    case badStatusCode(StatusCode, URL?, Error?)
+    case badStatusCode(StatusCode, URLRequest?, Error?)
     case invalidAuthorization
-    case invalidResponseData(URL?, Error?)
-    case invalidResponseJson(Error, URL?)
+    case invalidResponseData(URLRequest?, Error?)
+    case invalidResponseJson(Error, URLRequest?)
     case unknownServerResponse(Error?)
-    case unknownStatusCode(Int, URL?, Error?)
+    case unknownStatusCode(Int, URLRequest?, Error?)
 }
 
 extension TraktError: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .badStatusCode(let statusCode, let url, let error):
-            return buildDescription("Bad Status Code: \(statusCode.description)", url: url, with: error)
+        case .badStatusCode(let statusCode, let request, let error):
+            return buildDescription("Bad Status Code: \(statusCode.description)", request: request, with: error)
         case .invalidAuthorization:
             return "Authorization token is invalid or expired"
-        case .invalidResponseData(let url, let error):
-            return buildDescription("Invalid response data", url: url, with: error)
-        case .invalidResponseJson(let error, let url):
-            return buildDescription("Invalid response json. \(error.localizedDescription)", url: url)
+        case .invalidResponseData(let request, let error):
+            return buildDescription("Invalid response data", request: request, with: error)
+        case .invalidResponseJson(let error, let request):
+            return buildDescription("Invalid response json. \(error.localizedDescription)", request: request)
         case .unknownServerResponse(let error):
             return buildDescription("Unknown server response", with: error)
-        case .unknownStatusCode(let statusCode, let url, let error):
-            return buildDescription("Unknown status code \(statusCode)", url: url, with: error)
+        case .unknownStatusCode(let statusCode, let request, let error):
+            return buildDescription("Unknown status code \(statusCode)", request: request, with: error)
         }
     }
 }
 
-fileprivate func buildDescription(_ message: String, url: URL? = nil, with error: Error? = nil) -> String {
-    var description = ""
+fileprivate func buildDescription(_ message: String, request: URLRequest? = nil, with error: Error? = nil) -> String {
+    var description = "--------------------------------------\n"
     
-    if let path = url?.path {
-        description = "[\(path)] \(message)"
-    } else {
-        description = message
+    description.append("Info: \(message)\n")
+    
+    if let url = request?.url {
+        description.append("Request: \(url)\n")
+    }
+    
+    if let data = request?.httpBody, let payload = String(data: data, encoding: .utf8) {
+        description.append("Payload: \(payload)\n")
     }
     
     if let error = error {
-        description.append(". \(error.localizedDescription)")
+        description.append("Error: \(error.localizedDescription)\n")
     }
+    
+    description.append("--------------------------------------")
     
     return description
 }
