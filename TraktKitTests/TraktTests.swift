@@ -93,7 +93,7 @@ class TraktTests: XCTestCase {
         let task = trakt.trendingShows { (result) in
             if let error = result.error {
                 switch error {
-                case .unknownStatusCode(let statusCode, _):
+                case .unknownStatusCode(let statusCode, _, _):
                     if statusCode == 123456789 {
                         expectation.fulfill()
                     }
@@ -109,7 +109,7 @@ class TraktTests: XCTestCase {
     
     func testBadStatsCode() {
         let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)
+            let response = HTTPURLResponse(url: request.url!, statusCode: 404, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         }
         
@@ -121,7 +121,7 @@ class TraktTests: XCTestCase {
         let task = trakt.trendingShows { (result) in
             if let error = result.error {
                 switch error {
-                case .badStatusCode(let statusCode, _):
+                case .badStatusCode(let statusCode, _, _):
                     if statusCode.rawValue == 500 {
                         expectation.fulfill()
                     }
