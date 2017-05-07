@@ -37,14 +37,19 @@ class TraktAuthTests: XCTestCase {
         let tokenExpectation = expectation(description: "auth token expected")
         
         let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refresh", "expires_in": 3600, "access_token": "access" ])
+            let data = buildData(with: [ "refresh_token": "refreshNew", "expires_in": 3600, "access_token": "accessNew" ])
             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
             return (data, response, nil)
         }
+        
         let trakt = Trakt(credentials: credentials, session: session)
+        trakt.invalidateToken()
+        
         let task = trakt.exchangeAccessToken(for: "123") { result in
-            if result.value != nil {
-                tokenExpectation.fulfill()
+            if let token = result.value {
+                if token.accessToken == "accessNew" && token.refreshToken == "refreshNew" {
+                    tokenExpectation.fulfill()
+                }
             }
         }
         XCTAssertNotNil(task)
@@ -67,10 +72,18 @@ class TraktAuthTests: XCTestCase {
             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
             return (data, response, nil)
         }
+        
         let trakt = Trakt(credentials: credentials, session: session)
+        trakt.invalidateToken()
+        
         trakt.exchangeAccessToken(for: "123") { result in
-            if result.error != nil {
-                errorExpectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .invalidResponseJson:
+                    errorExpectation.fulfill()
+                default:
+                    break
+                }
             }
         }
         
@@ -101,6 +114,7 @@ class TraktAuthTests: XCTestCase {
                 }
             }
         }
+        
         XCTAssertNil(task)
         XCTAssertNil(session.completedRequests.first)
         XCTAssertNil(session.requests.first)
@@ -114,7 +128,7 @@ class TraktAuthTests: XCTestCase {
         let expectation = self.expectation(description: "expects refreshed access token")
         
         let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refresh", "expires_in": 3600, "access_token": "access" ])
+            let data = buildData(with: [ "refresh_token": "refreshExchanged", "expires_in": 3600, "access_token": "accessExchanged" ])
             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
             return (data, response, nil)
         }
@@ -125,7 +139,7 @@ class TraktAuthTests: XCTestCase {
         trakt.update(accessToken: "accessToken", refreshToken: "refreshToken", expiry: expiry)
         
         let task = trakt.exchangeRefreshToken { result in
-            if let token = result.value, token.accessToken == "access", token.refreshToken == "refresh" {
+            if let token = result.value, token.accessToken == "accessExchanged", token.refreshToken == "refreshExchanged" {
                 expectation.fulfill()
             }
         }

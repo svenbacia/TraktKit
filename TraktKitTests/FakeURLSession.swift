@@ -39,6 +39,12 @@ final class FakeURLSession: URLSession {
     init(handler: @escaping (URLRequest) -> (Data?, URLResponse?, Error?)) {
         self.handler = handler
     }
+    
+    convenience init(data: Data? = nil, response: URLResponse? = nil, error: Error? = nil) {
+        self.init { (_) -> (Data?, URLResponse?, Error?) in
+            return (data, response, error)
+        }
+    }
         
     // MARK: - Task
     

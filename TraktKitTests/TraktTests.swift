@@ -58,16 +58,22 @@ class TraktTests: XCTestCase {
         let session = FakeURLSession { _ in
             return (nil, nil, nil)
         }
+        
         let trakt = Trakt(credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), session: session, isDebug: true)
         
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects unkown server response")
         
         let task = trakt.trendingShows { (result) in
-            if result.error != nil {
-                expectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .unknownServerResponse:
+                    expectation.fulfill()
+                default: break
+                }
             }
         }
+        
         XCTAssertNotNil(task)
         
         waiter.wait(for: [expectation], timeout: 1)
@@ -78,16 +84,24 @@ class TraktTests: XCTestCase {
             let response = HTTPURLResponse(url: request.url!, statusCode: 123456789, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         }
+        
         let trakt = Trakt(credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), session: session, isDebug: true)
         
         let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects unkown server response")
+        let expectation = self.expectation(description: "expects unkown status code")
         
         let task = trakt.trendingShows { (result) in
-            if result.error != nil {
-                expectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .unknownStatusCode(let statusCode, _):
+                    if statusCode == 123456789 {
+                        expectation.fulfill()
+                    }
+                default: break
+                }
             }
         }
+        
         XCTAssertNotNil(task)
         
         waiter.wait(for: [expectation], timeout: 1)
@@ -98,16 +112,24 @@ class TraktTests: XCTestCase {
             let response = HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         }
+        
         let trakt = Trakt(credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), session: session, isDebug: true)
         
         let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects unkown server response")
+        let expectation = self.expectation(description: "expects bad status code")
         
         let task = trakt.trendingShows { (result) in
-            if result.error != nil {
-                expectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .badStatusCode(let statusCode, _):
+                    if statusCode.rawValue == 500 {
+                        expectation.fulfill()
+                    }
+                default: break
+                }
             }
         }
+        
         XCTAssertNotNil(task)
         
         waiter.wait(for: [expectation], timeout: 1)
@@ -118,16 +140,22 @@ class TraktTests: XCTestCase {
             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         }
+        
         let trakt = Trakt(credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), session: session, isDebug: true)
         
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects unkown server response")
         
         let task = trakt.trendingShows { (result) in
-            if result.error != nil {
-                expectation.fulfill()
+            if let error = result.error {
+                switch error {
+                case .invalidResponseData:
+                    expectation.fulfill()
+                default: break
+                }
             }
         }
+        
         XCTAssertNotNil(task)
         
         waiter.wait(for: [expectation], timeout: 1)
