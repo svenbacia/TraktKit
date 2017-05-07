@@ -10,37 +10,37 @@ import Foundation
 
 extension Trakt {
   
-  public func trendingShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func trendingShows(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.trendingShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func popularShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func popularShows(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.popularShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func anticipatedShows(extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func anticipatedShows(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.anticipatedShows(extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func playedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func playedShows(period: Period? = nil, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.playedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func watchedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func watchedShows(period: Period? = nil, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.watchedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)
   }
   
-  public func collectedShows(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
+  public func collectedShows(period: Period? = nil, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
     return load(resource: Explore.collectedShows(period: period, extended: extended, page: page, limit: limit),
                 authenticated: false,
                 completion: completion)

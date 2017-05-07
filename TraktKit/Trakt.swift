@@ -31,14 +31,7 @@ public final class Trakt {
         self.credentials = credentials
         self.keychain = Keychain(service: "com.svenbacia.traktkit")
         self.isDebug = isDebug
-        
-        let configuration = session.configuration
-        var httpHeaders = configuration.httpAdditionalHeaders ?? [:]
-        httpHeaders["trakt-api-key"] = credentials.clientID
-        httpHeaders["trakt-api-version"] = TraktAPIVersion
-        httpHeaders["Content-Type"] = "application/json"
-        self.session = URLSession(configuration: configuration)
-        
+        self.session = session
         self.loadToken()
     }
     
@@ -48,8 +41,10 @@ public final class Trakt {
         
         var request = resource.request
         
-        if let token = token, authenticated {
-            if token.isValid {
+        addTraktHeader(to: &request)
+        
+        if authenticated {
+            if let token = token, token.isValid {
                 request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
             } else {
                 completion(.failure(.invalidAuthorization))
@@ -72,21 +67,21 @@ public final class Trakt {
             
             guard let statusCode = StatusCode(rawValue: response.statusCode) else {
                 DispatchQueue.main.async {
-                    completion(.failure(.unknownStatusCode(response.statusCode, error)))
+                    completion(.failure(.unknownStatusCode(response.statusCode, response.url, error)))
                 }
                 return
             }
             
             guard 200...299 ~= response.statusCode else {
                 DispatchQueue.main.async {
-                    completion(.failure(.badStatusCode(statusCode, error)))
+                    completion(.failure(.badStatusCode(statusCode, response.url, error)))
                 }
                 return
             }
             
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseData(error)))
+                    completion(.failure(.invalidResponseData(response.url, error)))
                 }
                 return
             }
@@ -98,7 +93,7 @@ public final class Trakt {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseJson(error)))
+                    completion(.failure(.invalidResponseJson(error, response.url)))
                 }
             }
         }
@@ -106,5 +101,11 @@ public final class Trakt {
         task.resume()
         
         return task
+    }
+    
+    private func addTraktHeader(to request: inout URLRequest) {
+        request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")
+        request.addValue(TraktAPIVersion, forHTTPHeaderField: "trakt-api-version")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     }
 }

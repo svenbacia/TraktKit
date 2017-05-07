@@ -44,9 +44,10 @@ extension Trakt {
                   case .success(let token):
                     self?.token = token
                     self?.persist(token: token)
-                  default: break
+                    completion(result)
+                  case .failure:
+                    completion(result)
                   }
-                  completion(result)
     }
   }
   
