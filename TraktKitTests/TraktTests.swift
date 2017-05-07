@@ -76,12 +76,13 @@ class TraktTests: XCTestCase {
         
         XCTAssertNotNil(task)
         
-        waiter.wait(for: [expectation], timeout: 1)
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testUnknownStatsCode() {
         let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 123456789, httpVersion: nil, headerFields: nil)
+            let response = HTTPURLResponse(url: request.url!, statusCode: 987, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         }
         
@@ -94,7 +95,7 @@ class TraktTests: XCTestCase {
             if let error = result.error {
                 switch error {
                 case .unknownStatusCode(let statusCode, _, _):
-                    if statusCode == 123456789 {
+                    if statusCode == 987 {
                         expectation.fulfill()
                     }
                 default: break
@@ -104,7 +105,8 @@ class TraktTests: XCTestCase {
         
         XCTAssertNotNil(task)
         
-        waiter.wait(for: [expectation], timeout: 1)
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testBadStatsCode() {
@@ -114,15 +116,17 @@ class TraktTests: XCTestCase {
         }
         
         let trakt = Trakt(credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), session: session, isDebug: true)
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 60))
         
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects bad status code")
         
-        let task = trakt.trendingShows { (result) in
+        let items = [ContentType.episode(id: 123, date: nil)]
+        let task = trakt.addToHistory(items: items) { (result) in
             if let error = result.error {
                 switch error {
                 case .badStatusCode(let statusCode, _, _):
-                    if statusCode.rawValue == 500 {
+                    if statusCode.rawValue == 404 {
                         expectation.fulfill()
                     }
                 default: break
@@ -132,7 +136,8 @@ class TraktTests: XCTestCase {
         
         XCTAssertNotNil(task)
         
-        waiter.wait(for: [expectation], timeout: 1)
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testInvalidResponseData() {
@@ -158,6 +163,7 @@ class TraktTests: XCTestCase {
         
         XCTAssertNotNil(task)
         
-        waiter.wait(for: [expectation], timeout: 1)
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
 }
