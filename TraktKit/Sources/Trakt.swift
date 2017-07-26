@@ -37,6 +37,7 @@ public final class Trakt {
     
     // MARK: - Load
     
+    @discardableResult
     public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, TraktError>) -> Void) -> URLSessionTask? {
         
         var request = resource.request
