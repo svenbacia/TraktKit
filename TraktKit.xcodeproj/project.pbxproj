@@ -43,6 +43,7 @@
 		265E9E4F1D7B019E00B51D5D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4E1D7B019E00B51D5D /* Token.swift */; };
 		2698407D1E15276B00F0807F /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2698407C1E15276B00F0807F /* Sync.swift */; };
 		269C554F1E1543FF00B525C1 /* TraktPeople.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269C554E1E1543FF00B525C1 /* TraktPeople.swift */; };
+		26AE740C1F2865CC00DA45C3 /* MovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */; };
 		26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC21E13BF9E00B8EB52 /* Privacy.swift */; };
 		26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC41E13CA2200B8EB52 /* Period.swift */; };
 		26B43AC71E13CA3300B8EB52 /* ExploreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC61E13CA3300B8EB52 /* ExploreType.swift */; };
@@ -118,6 +119,7 @@
 		265E9E4E1D7B019E00B51D5D /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		2698407C1E15276B00F0807F /* Sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		269C554E1E1543FF00B525C1 /* TraktPeople.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktPeople.swift; sourceTree = "<group>"; };
+		26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRequest.swift; sourceTree = "<group>"; };
 		26B43AC21E13BF9E00B8EB52 /* Privacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		26B43AC41E13CA2200B8EB52 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		26B43AC61E13CA3300B8EB52 /* ExploreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreType.swift; sourceTree = "<group>"; };
@@ -183,19 +185,8 @@
 		26152AE11D7AFDAD00E40150 /* TraktKit */ = {
 			isa = PBXGroup;
 			children = (
-				265E9E4A1D7B00D500B51D5D /* Trakt.swift */,
-				265823EB1D7C9F7C0018F641 /* TraktAuth.swift */,
-				265823ED1D7CA0960018F641 /* TraktExplore.swift */,
-				269C554E1E1543FF00B525C1 /* TraktPeople.swift */,
-				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
-				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
-				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
-				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
-				265823EA1D7C9E8D0018F641 /* Request */,
-				265823F41D7CA4370018F641 /* Model */,
-				265E9E501D7B01F900B51D5D /* Auth */,
-				265823F11D7CA3E40018F641 /* Components */,
-				265E9E491D7AFECC00B51D5D /* Supporting Files */,
+				26AE740E1F2865E700DA45C3 /* Sources */,
+				26AE74131F28666400DA45C3 /* Support */,
 			);
 			path = TraktKit;
 			sourceTree = "<group>";
@@ -249,38 +240,45 @@
 			name = Components;
 			sourceTree = "<group>";
 		};
-		265823EA1D7C9E8D0018F641 /* Request */ = {
+		26AE740E1F2865E700DA45C3 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				26AE74111F28661B00DA45C3 /* Auth */,
+				26AE74121F28662800DA45C3 /* Components */,
+				26AE74101F28660800DA45C3 /* Model */,
+				26AE740F1F2865FA00DA45C3 /* Requests */,
+				265E9E4A1D7B00D500B51D5D /* Trakt.swift */,
+				265823EB1D7C9F7C0018F641 /* TraktAuth.swift */,
+				265823ED1D7CA0960018F641 /* TraktExplore.swift */,
+				269C554E1E1543FF00B525C1 /* TraktPeople.swift */,
+				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
+				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
+				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
+				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		26AE740F1F2865FA00DA45C3 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
 				26BE8CBD1E140484002EA673 /* Auth.swift */,
 				262B37861D7F3F3500CFEDF9 /* EpisodeRequest.swift */,
 				26BE8CBB1E140282002EA673 /* Explore.swift */,
 				262B37901D7F421900CFEDF9 /* ListRequest.swift */,
+				26DEFDE81EBE08F000E83397 /* Method.swift */,
 				262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */,
 				26BE8CBF1E1407DD002EA673 /* Search.swift */,
 				262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */,
 				262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */,
 				2698407C1E15276B00F0807F /* Sync.swift */,
 				262B37881D7F408500CFEDF9 /* UserRequest.swift */,
-				26DEFDE81EBE08F000E83397 /* Method.swift */,
+				26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */,
 			);
-			name = Request;
+			path = Requests;
 			sourceTree = "<group>";
 		};
-		265823F11D7CA3E40018F641 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				265823EF1D7CA16C0018F641 /* Extended.swift */,
-				26F90FB11D9844CC0087A733 /* Helper.swift */,
-				265823E61D7C85900018F641 /* Resource.swift */,
-				265823E41D7C854F0018F641 /* Result.swift */,
-				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
-				26DEFDE61EBE01A500E83397 /* TraktError.swift */,
-			);
-			name = Components;
-			sourceTree = "<group>";
-		};
-		265823F41D7CA4370018F641 /* Model */ = {
+		26AE74101F28660800DA45C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				262B37941D7F444200CFEDF9 /* ContentType.swift */,
@@ -290,26 +288,39 @@
 				26B43AC21E13BF9E00B8EB52 /* Privacy.swift */,
 				26B43AC81E13CA7900B8EB52 /* SearchType.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		265E9E491D7AFECC00B51D5D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				26152AE21D7AFDAD00E40150 /* TraktKit.h */,
-				26152AE31D7AFDAD00E40150 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		265E9E501D7B01F900B51D5D /* Auth */ = {
+		26AE74111F28661B00DA45C3 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				265E9E4C1D7B016300B51D5D /* Credentials.swift */,
 				265823E21D7C7CD70018F641 /* Keychain.swift */,
 				265E9E4E1D7B019E00B51D5D /* Token.swift */,
 			);
-			name = Auth;
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		26AE74121F28662800DA45C3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				265823EF1D7CA16C0018F641 /* Extended.swift */,
+				26F90FB11D9844CC0087A733 /* Helper.swift */,
+				265823E61D7C85900018F641 /* Resource.swift */,
+				265823E41D7C854F0018F641 /* Result.swift */,
+				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
+				26DEFDE61EBE01A500E83397 /* TraktError.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		26AE74131F28666400DA45C3 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				26152AE21D7AFDAD00E40150 /* TraktKit.h */,
+				26152AE31D7AFDAD00E40150 /* Info.plist */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		26B43ACC1E13CBF800B8EB52 /* Model */ = {
@@ -460,6 +471,7 @@
 				26B43ACB1E13CAD700B8EB52 /* ListItemType.swift in Sources */,
 				265823E51D7C854F0018F641 /* Result.swift in Sources */,
 				26B43AC71E13CA3300B8EB52 /* ExploreType.swift in Sources */,
+				26AE740C1F2865CC00DA45C3 /* MovieRequest.swift in Sources */,
 				265823F01D7CA16C0018F641 /* Extended.swift in Sources */,
 				265823EC1D7C9F7C0018F641 /* TraktAuth.swift in Sources */,
 				265823E31D7C7CD70018F641 /* Keychain.swift in Sources */,
@@ -657,7 +669,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = TraktKit/Info.plist;
+				INFOPLIST_FILE = TraktKit/Support/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -681,7 +693,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = TraktKit/Info.plist;
+				INFOPLIST_FILE = TraktKit/Support/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
