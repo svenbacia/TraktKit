@@ -48,6 +48,7 @@
 		26795DE61FD14B25007FBD43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26795DE41FD14B25007FBD43 /* LaunchScreen.storyboard */; };
 		2698407D1E15276B00F0807F /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2698407C1E15276B00F0807F /* Sync.swift */; };
 		269C554F1E1543FF00B525C1 /* TraktPeople.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269C554E1E1543FF00B525C1 /* TraktPeople.swift */; };
+		269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */; };
 		26AE740C1F2865CC00DA45C3 /* MovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */; };
 		26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC21E13BF9E00B8EB52 /* Privacy.swift */; };
 		26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC41E13CA2200B8EB52 /* Period.swift */; };
@@ -138,6 +139,7 @@
 		26795DE71FD14B25007FBD43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2698407C1E15276B00F0807F /* Sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		269C554E1E1543FF00B525C1 /* TraktPeople.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktPeople.swift; sourceTree = "<group>"; };
+		269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktDateFormatter.swift; sourceTree = "<group>"; };
 		26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRequest.swift; sourceTree = "<group>"; };
 		26B43AC21E13BF9E00B8EB52 /* Privacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		26B43AC41E13CA2200B8EB52 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
@@ -295,13 +297,13 @@
 				26BE8CBB1E140282002EA673 /* Explore.swift */,
 				262B37901D7F421900CFEDF9 /* ListRequest.swift */,
 				26DEFDE81EBE08F000E83397 /* Method.swift */,
+				26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */,
 				262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */,
 				26BE8CBF1E1407DD002EA673 /* Search.swift */,
 				262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */,
 				262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */,
 				2698407C1E15276B00F0807F /* Sync.swift */,
 				262B37881D7F408500CFEDF9 /* UserRequest.swift */,
-				26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -338,6 +340,7 @@
 				265823E41D7C854F0018F641 /* Result.swift */,
 				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
 				26DEFDE61EBE01A500E83397 /* TraktError.swift */,
+				269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */,
 				265E9E4B1D7B00D500B51D5D /* Trakt.swift in Sources */,
 				269C554F1E1543FF00B525C1 /* TraktPeople.swift in Sources */,
+				269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */,
 				265823EE1D7CA0960018F641 /* TraktExplore.swift in Sources */,
 				26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */,
 				26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */,
@@ -825,8 +829,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.svenbacia.TraktKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestsHost.app/TestsHost";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -840,7 +844,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.svenbacia.TraktKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestsHost.app/TestsHost";
 			};
