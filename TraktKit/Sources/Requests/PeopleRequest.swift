@@ -23,4 +23,8 @@ public struct PeopleRequest {
     public func shows(_ extended: Extended? = nil) -> Resource<Any> {
         return resource(for: basePath + "/shows", params: parameters(extended: extended))
     }
+    
+    public func movies(_ extended: Extended? = nil) -> Resource<Any> {
+        return resource(for: basePath + "/movies", params: parameters(extended: extended))
+    }
 }
