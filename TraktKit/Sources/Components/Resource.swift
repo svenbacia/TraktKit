@@ -50,6 +50,10 @@ func resource(for path: String, params: [String : Any]? = nil, method: Method = 
     return resource(for: path, params: params, method: method, parse: parseJSON)
 }
 
+func resource(for path: String, params: [String : Any]? = nil, method: Method = .get) -> Resource<Data> {
+    return resource(for: path, params: params, method: method, parse: { return $0 })
+}
+
 // MARK: - Parse
 
 func parseJSON(_ data: Data) throws -> Any {

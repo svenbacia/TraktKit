@@ -21,7 +21,7 @@ class ResourceTests: XCTestCase {
         let params = [
             "show": "12345"
         ]
-        let res = resource(for: "/show", params: params)
+        let res: Resource<Data> = resource(for: "/show", params: params)
         XCTAssertEqual(res.request.url?.absoluteString, "https://api.trakt.tv/show?show=12345")
         XCTAssertEqual(res.request.httpMethod, "GET")
         XCTAssertNil(res.request.httpBody)
