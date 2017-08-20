@@ -41,35 +41,35 @@ public struct Explore {
     // MARK: - Movies
    
     public struct Movie {
-        public static func trending(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func trending(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: "/movies/trending", params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func popular(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func popular(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: "/movies/popular", params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func played(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func played(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: path("/movies/played", with: period), params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func watched(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func watched(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: path("/movies/watched", with: period), params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func collected(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func collected(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: path("/movies/collected", with: period), params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func anticipated(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func anticipated(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: "/movies/anticipated", params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func boxoffice(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func boxoffice(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: "/movies/boxoffice", params: parameters(page: page, limit: limit, extended: extended))
         }
         
-        public static func updates(since date: Date, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+        public static func updates(since date: Date, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
             return resource(for: "/movies/updates/\(Trakt.DateFormatter.movieUpdateDateFormatter.string(from: date))", params: parameters(page: page, limit: limit, extended: extended))
         }
     }
