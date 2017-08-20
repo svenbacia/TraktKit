@@ -47,13 +47,4 @@ extension Trakt {
                     authenticated: false,
                     completion: completion)
     }
-    
-    // MARK: - Movies
-    
-    public func trendingMovie(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil, completion: @escaping (Result<Any, TraktError>) -> Void) -> URLSessionTask? {
-        return load(resource: Explore.Movie.trending(extended: extended, page: page, limit: limit),
-                    authenticated: false,
-                    completion: completion)
-    }
-    
 }
