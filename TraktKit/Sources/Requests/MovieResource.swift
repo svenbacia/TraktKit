@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MovieRequest {
+public struct MovieResource {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ public struct MovieRequest {
     
     // MARK: - Endpoints
     
-    public func summary(_ extended: Extended? = nil) -> Resource<Any> {
+    public func summary(_ extended: Extended? = nil) -> Resource<Data> {
         return resource(for: "/movies/\(id)", params: parameters(extended: extended))
     }
     
@@ -46,11 +46,11 @@ public struct MovieRequest {
         return resource(for: path)
     }
     
-    public func comments(page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-        return resource(for: "/movies/\(id)/comments", params: parameters(page: page, limit: limit))
+    public func comments(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
+        return resource(for: "/movies/\(id)/comments", params: parameters(page: page, limit: limit, extended: extended))
     }
     
-    public func people(_ extended: Extended? = nil) -> Resource<Any> {
+    public func people(_ extended: Extended? = nil) -> Resource<Data> {
         return resource(for: "/movies/\(id)/people", params: parameters(extended: extended))
     }
     
@@ -58,7 +58,7 @@ public struct MovieRequest {
         return resource(for: "/movies/\(id)/rating")
     }
     
-    public func related(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
+    public func related(_ extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<Data> {
         return resource(for: "/movies/\(id)/related", params: parameters(page: page, limit: limit, extended: extended))
     }
     
