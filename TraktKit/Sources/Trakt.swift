@@ -38,7 +38,7 @@ public final class Trakt {
     // MARK: - Load
     
     @discardableResult
-    public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<Item, TraktError>) -> Void) -> URLSessionTask? {
+    public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<(Item, Pagination?), TraktError>) -> Void) -> URLSessionTask? {
         
         var request = resource.request
         
@@ -87,10 +87,15 @@ public final class Trakt {
                 return
             }
             
+            let pagination: Pagination? = {
+                guard let headers = response.allHeaderFields as? [String: Any] else { return nil }
+                return Pagination(headers: headers)
+            }()
+            
             do {
                 let result = try resource.parse(data)
                 DispatchQueue.main.async {
-                    completion(.success(result))
+                    completion(.success((result, pagination)))
                 }
             } catch {
                 DispatchQueue.main.async {
