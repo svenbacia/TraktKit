@@ -10,15 +10,13 @@
 		26152AE41D7AFDAD00E40150 /* TraktKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 26152AE21D7AFDAD00E40150 /* TraktKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		261A57161E12865100D53957 /* TraktAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261A57151E12865100D53957 /* TraktAuthTests.swift */; };
 		262B37621D7F2C4C00CFEDF9 /* ShowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */; };
-		262B37641D7F2D1B00CFEDF9 /* TraktShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */; };
 		262B37851D7F3E5000CFEDF9 /* SeasonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */; };
 		262B37871D7F3F3500CFEDF9 /* EpisodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37861D7F3F3500CFEDF9 /* EpisodeRequest.swift */; };
 		262B37891D7F408500CFEDF9 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37881D7F408500CFEDF9 /* UserRequest.swift */; };
-		262B378F1D7F417F00CFEDF9 /* TraktUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B378E1D7F417F00CFEDF9 /* TraktUser.swift */; };
 		262B37911D7F421900CFEDF9 /* ListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37901D7F421900CFEDF9 /* ListRequest.swift */; };
 		262B37951D7F444200CFEDF9 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37941D7F444200CFEDF9 /* ContentType.swift */; };
 		262B37971D7F4A9100CFEDF9 /* PeopleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */; };
-		262B379B1D7F4F7300CFEDF9 /* TraktSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */; };
+		262F5FC51F61C3640083CC5B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262F5FC41F61C3640083CC5B /* Pagination.swift */; };
 		2655F25E1D7F1EB7002043BB /* TraktKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26152ADF1D7AFDAD00E40150 /* TraktKit.framework */; };
 		2655F2651D7F1EEE002043BB /* CredentialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655F2641D7F1EEE002043BB /* CredentialsTests.swift */; };
 		2655F2671D7F1F6E002043BB /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2655F2661D7F1F6E002043BB /* TokenTests.swift */; };
@@ -31,7 +29,6 @@
 		265823E71D7C85900018F641 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265823E61D7C85900018F641 /* Resource.swift */; };
 		265823E91D7C8AEB0018F641 /* StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265823E81D7C8AEB0018F641 /* StatusCode.swift */; };
 		265823EC1D7C9F7C0018F641 /* TraktAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265823EB1D7C9F7C0018F641 /* TraktAuth.swift */; };
-		265823EE1D7CA0960018F641 /* TraktExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265823ED1D7CA0960018F641 /* TraktExplore.swift */; };
 		265823F01D7CA16C0018F641 /* Extended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265823EF1D7CA16C0018F641 /* Extended.swift */; };
 		265C03771EBEF8200037E722 /* UserRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C03761EBEF8200037E722 /* UserRequestTests.swift */; };
 		265C03791EBEF9E30037E722 /* ListRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C03781EBEF9E30037E722 /* ListRequestTests.swift */; };
@@ -42,9 +39,8 @@
 		265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4C1D7B016300B51D5D /* Credentials.swift */; };
 		265E9E4F1D7B019E00B51D5D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E9E4E1D7B019E00B51D5D /* Token.swift */; };
 		2698407D1E15276B00F0807F /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2698407C1E15276B00F0807F /* Sync.swift */; };
-		269C554F1E1543FF00B525C1 /* TraktPeople.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269C554E1E1543FF00B525C1 /* TraktPeople.swift */; };
 		269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */; };
-		26AE740C1F2865CC00DA45C3 /* MovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */; };
+		26AE740C1F2865CC00DA45C3 /* MovieResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE740B1F2865CC00DA45C3 /* MovieResource.swift */; };
 		26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC21E13BF9E00B8EB52 /* Privacy.swift */; };
 		26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC41E13CA2200B8EB52 /* Period.swift */; };
 		26B43AC71E13CA3300B8EB52 /* ExploreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC61E13CA3300B8EB52 /* ExploreType.swift */; };
@@ -66,7 +62,6 @@
 		26DEFDF71EBE31C600E83397 /* TraktSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDF61EBE31C600E83397 /* TraktSearchTests.swift */; };
 		26DEFDF91EBE332E00E83397 /* SeasonRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDF81EBE332E00E83397 /* SeasonRequestTests.swift */; };
 		26DEFDFB1EBE343500E83397 /* EpisodeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DEFDFA1EBE343500E83397 /* EpisodeRequestTests.swift */; };
-		26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFEC211E12A7EA0055416D /* TraktSync.swift */; };
 		26F90FB21D9844CC0087A733 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90FB11D9844CC0087A733 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,15 +81,13 @@
 		26152AE31D7AFDAD00E40150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		261A57151E12865100D53957 /* TraktAuthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktAuthTests.swift; sourceTree = "<group>"; };
 		262B37611D7F2C4C00CFEDF9 /* ShowRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowRequest.swift; sourceTree = "<group>"; };
-		262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktShow.swift; sourceTree = "<group>"; };
 		262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonRequest.swift; sourceTree = "<group>"; };
 		262B37861D7F3F3500CFEDF9 /* EpisodeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeRequest.swift; sourceTree = "<group>"; };
 		262B37881D7F408500CFEDF9 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
-		262B378E1D7F417F00CFEDF9 /* TraktUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktUser.swift; sourceTree = "<group>"; };
 		262B37901D7F421900CFEDF9 /* ListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRequest.swift; sourceTree = "<group>"; };
 		262B37941D7F444200CFEDF9 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleRequest.swift; sourceTree = "<group>"; };
-		262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktSearch.swift; sourceTree = "<group>"; };
+		262F5FC41F61C3640083CC5B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		2655F2591D7F1EB7002043BB /* TraktKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraktKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2655F25D1D7F1EB7002043BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2655F2641D7F1EEE002043BB /* CredentialsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsTests.swift; sourceTree = "<group>"; };
@@ -108,7 +101,6 @@
 		265823E61D7C85900018F641 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		265823E81D7C8AEB0018F641 /* StatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusCode.swift; sourceTree = "<group>"; };
 		265823EB1D7C9F7C0018F641 /* TraktAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktAuth.swift; sourceTree = "<group>"; };
-		265823ED1D7CA0960018F641 /* TraktExplore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktExplore.swift; sourceTree = "<group>"; };
 		265823EF1D7CA16C0018F641 /* Extended.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extended.swift; sourceTree = "<group>"; };
 		265C03761EBEF8200037E722 /* UserRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequestTests.swift; sourceTree = "<group>"; };
 		265C03781EBEF9E30037E722 /* ListRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRequestTests.swift; sourceTree = "<group>"; };
@@ -119,9 +111,8 @@
 		265E9E4C1D7B016300B51D5D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		265E9E4E1D7B019E00B51D5D /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		2698407C1E15276B00F0807F /* Sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
-		269C554E1E1543FF00B525C1 /* TraktPeople.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktPeople.swift; sourceTree = "<group>"; };
 		269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktDateFormatter.swift; sourceTree = "<group>"; };
-		26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRequest.swift; sourceTree = "<group>"; };
+		26AE740B1F2865CC00DA45C3 /* MovieResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResource.swift; sourceTree = "<group>"; };
 		26B43AC21E13BF9E00B8EB52 /* Privacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		26B43AC41E13CA2200B8EB52 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		26B43AC61E13CA3300B8EB52 /* ExploreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreType.swift; sourceTree = "<group>"; };
@@ -143,7 +134,6 @@
 		26DEFDF61EBE31C600E83397 /* TraktSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktSearchTests.swift; sourceTree = "<group>"; };
 		26DEFDF81EBE332E00E83397 /* SeasonRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonRequestTests.swift; sourceTree = "<group>"; };
 		26DEFDFA1EBE343500E83397 /* EpisodeRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeRequestTests.swift; sourceTree = "<group>"; };
-		26EFEC211E12A7EA0055416D /* TraktSync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktSync.swift; sourceTree = "<group>"; };
 		26F90FB11D9844CC0087A733 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,12 +241,6 @@
 				26AE740F1F2865FA00DA45C3 /* Requests */,
 				265E9E4A1D7B00D500B51D5D /* Trakt.swift */,
 				265823EB1D7C9F7C0018F641 /* TraktAuth.swift */,
-				265823ED1D7CA0960018F641 /* TraktExplore.swift */,
-				269C554E1E1543FF00B525C1 /* TraktPeople.swift */,
-				262B379A1D7F4F7300CFEDF9 /* TraktSearch.swift */,
-				262B37631D7F2D1B00CFEDF9 /* TraktShow.swift */,
-				26EFEC211E12A7EA0055416D /* TraktSync.swift */,
-				262B378E1D7F417F00CFEDF9 /* TraktUser.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -269,7 +253,7 @@
 				26BE8CBB1E140282002EA673 /* Explore.swift */,
 				262B37901D7F421900CFEDF9 /* ListRequest.swift */,
 				26DEFDE81EBE08F000E83397 /* Method.swift */,
-				26AE740B1F2865CC00DA45C3 /* MovieRequest.swift */,
+				26AE740B1F2865CC00DA45C3 /* MovieResource.swift */,
 				262B37961D7F4A9100CFEDF9 /* PeopleRequest.swift */,
 				26BE8CBF1E1407DD002EA673 /* Search.swift */,
 				262B37841D7F3E5000CFEDF9 /* SeasonRequest.swift */,
@@ -289,6 +273,7 @@
 				26B43AC41E13CA2200B8EB52 /* Period.swift */,
 				26B43AC21E13BF9E00B8EB52 /* Privacy.swift */,
 				26B43AC81E13CA7900B8EB52 /* SearchType.swift */,
+				262F5FC41F61C3640083CC5B /* Pagination.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -470,11 +455,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				265E9E4F1D7B019E00B51D5D /* Token.swift in Sources */,
-				262B37641D7F2D1B00CFEDF9 /* TraktShow.swift in Sources */,
 				26B43ACB1E13CAD700B8EB52 /* ListItemType.swift in Sources */,
 				265823E51D7C854F0018F641 /* Result.swift in Sources */,
 				26B43AC71E13CA3300B8EB52 /* ExploreType.swift in Sources */,
-				26AE740C1F2865CC00DA45C3 /* MovieRequest.swift in Sources */,
+				26AE740C1F2865CC00DA45C3 /* MovieResource.swift in Sources */,
+				262F5FC51F61C3640083CC5B /* Pagination.swift in Sources */,
 				265823F01D7CA16C0018F641 /* Extended.swift in Sources */,
 				265823EC1D7C9F7C0018F641 /* TraktAuth.swift in Sources */,
 				265823E31D7C7CD70018F641 /* Keychain.swift in Sources */,
@@ -485,7 +470,6 @@
 				26BE8CBE1E140484002EA673 /* Auth.swift in Sources */,
 				26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */,
 				26DEFDE91EBE08F000E83397 /* Method.swift in Sources */,
-				262B378F1D7F417F00CFEDF9 /* TraktUser.swift in Sources */,
 				265823E91D7C8AEB0018F641 /* StatusCode.swift in Sources */,
 				262B37971D7F4A9100CFEDF9 /* PeopleRequest.swift in Sources */,
 				262B37951D7F444200CFEDF9 /* ContentType.swift in Sources */,
@@ -495,15 +479,11 @@
 				26BE8CBC1E140282002EA673 /* Explore.swift in Sources */,
 				265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */,
 				265E9E4B1D7B00D500B51D5D /* Trakt.swift in Sources */,
-				269C554F1E1543FF00B525C1 /* TraktPeople.swift in Sources */,
 				269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */,
-				265823EE1D7CA0960018F641 /* TraktExplore.swift in Sources */,
 				26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */,
-				26EFEC221E12A7EA0055416D /* TraktSync.swift in Sources */,
 				26B43AC91E13CA7900B8EB52 /* SearchType.swift in Sources */,
 				26BE8CC01E1407DD002EA673 /* Search.swift in Sources */,
 				2698407D1E15276B00F0807F /* Sync.swift in Sources */,
-				262B379B1D7F4F7300CFEDF9 /* TraktSearch.swift in Sources */,
 				262B37621D7F2C4C00CFEDF9 /* ShowRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
