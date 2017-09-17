@@ -12,7 +12,7 @@ public struct PeopleRequest {
     
     private let basePath: String
     
-    init(id: Int) {
+    public init(id: Int) {
         self.basePath = "/people/\(id)"
     }
     
@@ -24,7 +24,7 @@ public struct PeopleRequest {
         return resource(for: basePath + "/shows", params: parameters(extended: extended))
     }
     
-    public func movies(_ extended: Extended? = nil) -> Resource<Any> {
+    public func movies(_ extended: Extended? = nil) -> Resource<Data> {
         return resource(for: basePath + "/movies", params: parameters(extended: extended))
     }
 }
