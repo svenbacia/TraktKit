@@ -8,13 +8,6 @@
 
 import Foundation
 
-func buildError(reason: String) -> Error {
-    let dict = [
-        NSLocalizedDescriptionKey: reason
-    ]
-    return NSError(domain: TraktErrorDomain, code: 599, userInfo: dict)
-}
-
 func toQueryItem(key: String, value: String) -> URLQueryItem {
     return URLQueryItem(name: key, value: value)
 }

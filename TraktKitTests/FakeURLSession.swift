@@ -33,6 +33,23 @@ final class FakeURLSession: URLSession {
     
     var requests = [URLRequest]()
     var completedRequests = [URLRequest]()
+    
+    // MARK: - Static Helper
+    
+    static func success(statusCode: Int, json: String) -> FakeURLSession {
+        return FakeURLSession(handler: { (request) -> (Data?, URLResponse?, Error?) in
+            let data = buildJsonData(name: json)
+            let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+            return (data, response, nil)
+        })
+    }
+    
+    static func failure(statusCode: Int) -> FakeURLSession {
+        return FakeURLSession(handler: { (request) -> (Data?, URLResponse?, Error?) in
+            let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+            return (nil, response, nil)
+        })
+    }
         
     // MARK: - Init
     
@@ -45,7 +62,7 @@ final class FakeURLSession: URLSession {
             return (data, response, error)
         }
     }
-        
+    
     // MARK: - Task
     
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
@@ -67,4 +84,9 @@ final class FakeURLSession: URLSession {
 
 func buildData(with json: Any) -> Data {
     return try! JSONSerialization.data(withJSONObject: json, options: [])
+}
+
+func buildJsonData(name: String) -> Data? {
+    guard let url = Bundle(for: FakeURLSession.self).url(forResource: name, withExtension: "json") else { return nil }
+    return try? Data(contentsOf: url)
 }

@@ -16,9 +16,4 @@ class HelperTests: XCTestCase {
         let item = toQueryItem(key: "key", value: "value")
         XCTAssertEqual(item, URLQueryItem(name: "key", value: "value"))
     }
-    
-    func testBuildError_withReason() {
-        let error = buildError(reason: "Some reason")
-        XCTAssertEqual(error.localizedDescription, "Some reason")
-    }
 }

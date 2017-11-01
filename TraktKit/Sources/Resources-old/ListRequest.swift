@@ -18,20 +18,21 @@ public struct ListRequest {
     self.list = id
   }
   
+    /**
   public func summary() -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)")
+    return buildResource(path: "/users/\(user)/lists/\(list)")
   }
   
   public func items(ofType type: ListItemType, extended: Extended? = nil) -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)/items/\(type)", params: parameters(extended: extended))
+    return buildResource(path: "/users/\(user)/lists/\(list)/items/\(type)", params: parameters(extended: extended))
   }
   
   public func add(items: [ContentType]) -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)/items", params: parameters(with: items), method: .post)
+    return buildResource(path: "/users/\(user)/lists/\(list)/items", params: parameters(with: items), method: .post)
   }
   
   public func remove(items: [ContentType]) -> Resource<Any> {
-    return resource(for: "/users/\(user)/lists/\(list)/items/remove", params: parameters(with: items), method: .post)
+    return buildResource(path: "/users/\(user)/lists/\(list)/items/remove", params: parameters(with: items), method: .post)
   }
-  
+  */
 }

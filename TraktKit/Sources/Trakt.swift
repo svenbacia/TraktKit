@@ -8,17 +8,18 @@
 
 import Foundation
 
-let TraktErrorDomain = "TraktKit"
-let TraktAPIVersion = "2"
-
 public final class Trakt {
     
     // MARK: Public Properties
     
     public let credentials: Credentials
-    public internal(set) var token: Token?
+    public let configuration: Configuration
     
-    public var isDebug: Bool
+    public var token: Token? {
+        didSet {
+            persist(token)
+        }
+    }
     
     // MARK: - Internal Properties
     
@@ -27,12 +28,18 @@ public final class Trakt {
     
     // MARK: - Initializer
     
-    public init(credentials: Credentials, session: URLSession = URLSession.shared, isDebug: Bool = false) {
+    public init(configuration: Configuration = Configuration(), session: URLSession = URLSession.shared, credentials: Credentials, keychain: Keychain = .default) {
+        self.configuration = configuration
         self.credentials = credentials
-        self.keychain = Keychain(service: "com.svenbacia.traktkit")
-        self.isDebug = isDebug
+        self.keychain = keychain
         self.session = session
         self.loadToken()
+    }
+    
+    // MARK: - Explore
+    
+    public func explore() -> ExploreResource {
+        return ExploreResource()
     }
     
     // MARK: - Load
@@ -53,8 +60,8 @@ public final class Trakt {
             }
         }
         
-        if isDebug {
-            print("Load \(request.url!)")
+        if let url = request.url, configuration.isDebug {
+            print("Request: \(url)")
         }
         
         let task = session.dataTask(with: request) { data, response, error in
@@ -111,7 +118,14 @@ public final class Trakt {
     
     private func addTraktHeader(to request: inout URLRequest) {
         request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")
-        request.addValue(TraktAPIVersion, forHTTPHeaderField: "trakt-api-version")
+        request.addValue(configuration.apiVersion, forHTTPHeaderField: "trakt-api-version")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    }
+    
+    func buildError(reason: String) -> Error {
+        let dict = [
+            NSLocalizedDescriptionKey: reason
+        ]
+        return NSError(domain: configuration.errorDomain, code: 599, userInfo: dict)
     }
 }
