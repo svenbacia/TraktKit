@@ -12,46 +12,46 @@ import XCTest
 
 class KeychainTests: XCTestCase {
     
-    var keychain: Keychain = Keychain(service: "com.keychain.test")
-    
+    private var keychain: Keychain = Keychain.default
     private let key = "test"
     
     override func tearDown() {
         super.tearDown()
         
-        keychain.deleteItem(for: key)
+        if let accounts = try? keychain.accounts() {
+            accounts.forEach { try? keychain.removeObject(forKey: $0) }
+        }
     }
-    
-    func testSetString() {
-        let result = keychain.set(string: "Hallo", forKey: key)
-        XCTAssertTrue(result)
+        
+    func testPassword() {        
+        XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
+        
+        if let password = try? keychain.password() {
+            XCTAssertEqual("my-password-123", password)
+        } else {
+            XCTFail()
+        }
     }
     
     func testGetString() {
-        let result = keychain.set(string: "Hallo", forKey: key)
-        XCTAssertTrue(result)
+        try? keychain.removeObject(forKey: key)
         
-        if let string = keychain.string(for: key) {
-            XCTAssertEqual("Hallo", string)
+        XCTAssertNoThrow(try keychain.set("hello-123", forKey: key))
+ 
+        if let string = try? keychain.string(forKey: key) {
+            XCTAssertEqual("hello-123", string)
         } else {
             XCTFail("Keychain.string(for:) should return a valid string.")
         }
     }
     
-    func testStringSubscript() {
-        XCTAssertNil(keychain[key])
-        keychain[key] = "Hallo"
-        XCTAssertEqual(keychain[key], "Hallo")
-        keychain[key] = nil
-        XCTAssertNil(keychain[key])
+    func testRemoveAll() throws {
+        XCTAssertNoThrow(try keychain.set("hello-123", forKey: key))
+        XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
+        let accounts = try keychain.accounts()
+        XCTAssertEqual(accounts.count, 2)
+        accounts.forEach { try? keychain.removeObject(forKey: $0) }
+        let emptyAccounts = try keychain.accounts()
+        XCTAssertTrue(emptyAccounts.isEmpty)
     }
-    
-    func testDataSubscript() {
-        let data = Data(count: 64)
-        keychain[data: key] = data
-        XCTAssertEqual(data, keychain[data: key])
-        keychain[key] = nil
-        XCTAssertNil(keychain[key])
-    }
-    
 }

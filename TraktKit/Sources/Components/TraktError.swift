@@ -9,6 +9,7 @@
 import Foundation
 
 public enum TraktError: Error {
+    case missingRefreshToken
     case badStatusCode(StatusCode, URLRequest?, Error?)
     case invalidAuthorization
     case invalidResponseData(URLRequest?, Error?)
@@ -32,6 +33,8 @@ extension TraktError: CustomStringConvertible {
             return buildDescription("Unknown server response", with: error)
         case .unknownStatusCode(let statusCode, let request, let error):
             return buildDescription("Unknown status code \(statusCode)", request: request, with: error)
+        case .missingRefreshToken:
+            return buildDescription("Refresh token is missing.")
         }
     }
 }

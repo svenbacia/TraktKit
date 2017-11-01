@@ -7,55 +7,109 @@
 //
 
 import XCTest
-
 @testable import TraktKit
 
 class TraktAuthTests: XCTestCase {
     
-    let credentials = Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI")
+    // MARK: -
+    
+    func testTokenIsAuthorized_true() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        trakt.token = Token(accessToken: "123", refreshToken: "123", expiry: .distantFuture)
+        XCTAssertTrue(trakt.isAuthorized)
+    }
+    
+    func testTokenIsAuthorized_missingToken() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        trakt.token = nil
+        XCTAssertFalse(trakt.isAuthorized)
+    }
+    
+    func testTokenIsExpired() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        trakt.token = Token(accessToken: "123", refreshToken: "123", expiry: .distantPast)
+        XCTAssertTrue(trakt.isExpired)
+    }
+    
+    func testTokenIsExpired_missingToken() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        trakt.token = nil
+        XCTAssertTrue(trakt.isExpired)
+    }
+    
+    func testAuthorizationUrl() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let credentials = Credentials(clientID: "id", clientSecret: "secret", redirectURI: "uri")
+        let trakt = Trakt(session: session, credentials: credentials)
+        let url = URL(string: "https://www.trakt.tv/oauth/authorize?redirect_uri=uri&response_type=code&client_id=id")!
+        XCTAssertEqual(trakt.authorizationURL, url)
+    }
+
+    func testLoadToken() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let token = Token(accessToken: "access", refreshToken: "refresh", expiry: .distantFuture)
+        trakt.token = token
         
-    func testManualTokenUpdate() {
-        let trakt = Trakt(credentials: credentials)
-        let expiry = Date().addingTimeInterval(3600)
-        trakt.update(accessToken: "accessToken", refreshToken: "refreshToken", expiry: expiry)
-        XCTAssertTrue(trakt.authorized)
-        XCTAssertFalse(trakt.expired)
-        XCTAssertEqual(trakt.token!.accessToken, "accessToken")
-        XCTAssertEqual(trakt.token!.refreshToken, "refreshToken")
-        XCTAssertEqual(trakt.token!.expiry, expiry)
+        let anotherTrakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        XCTAssertEqual(anotherTrakt.token, token)
     }
     
-    func testAuthorizationURL() {
-        let url = URL(string: "https://www.trakt.tv/oauth/authorize?redirect_uri=redirectURI&response_type=code&client_id=clientID")!
-        XCTAssertEqual(Trakt(credentials: credentials).authorizationURL!, url)
-    }
+    // MARK: Access Token
     
-    // MARK: - Access Token
-    
-    func testExchangeAccessToken_success() {
+    func testExchangeAccessTokenForCode_success() {
+        let session = FakeURLSession.success(statusCode: 200, json: "get-token")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        // invalidate previous token
+        trakt.token = nil
+        
         let waiter = XCTWaiter()
         let tokenExpectation = expectation(description: "expects auth token")
         
-        let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refreshNew", "expires_in": 3600, "access_token": "accessNew" ])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        let task = trakt.exchangeAccessToken(for: "123") { result in
-            if let token = result.value {
-                if token.accessToken == "accessNew" && token.refreshToken == "refreshNew" {
-                    tokenExpectation.fulfill()
-                }
+        // exchange code for token
+        let task = trakt.auth.exchangeAccessToken(for: "some-oauth-code") { (result) in
+            if let token = result.value,
+                token.accessToken == "dbaf9757982a9e738f05d249b7b5b4a266b3a139049317c4909f2f263572c781",
+                token.refreshToken == "76ba4c5c75c96f6087f58a4de10be6c00b29ea1ddc3b2022ee2016d1363e3a7c",
+                token.expiry > Date() {
+                tokenExpectation.fulfill()
             }
         }
         XCTAssertNotNil(task)
         
         let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
+        XCTAssertEqual(request.httpMethod, "POST")
+
+        let result = waiter.wait(for: [tokenExpectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
+    }
+    
+    func testExchangeAccessTokenForCode_failure() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
         
+        // invalidate previous token
+        trakt.token = nil
+        
+        let waiter = XCTWaiter()
+        let tokenExpectation = expectation(description: "expects server error")
+        
+        // exchange code for token
+        let task = trakt.auth.exchangeAccessToken(for: "some-oauth-code") { (result) in
+            if let error = result.error {
+                tokenExpectation.fulfill()
+            }
+        }
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
         XCTAssertEqual(request.httpMethod, "POST")
         
@@ -63,167 +117,23 @@ class TraktAuthTests: XCTestCase {
         XCTAssertEqual(result, .completed)
     }
     
-    func testExchangeAccessToken_failureEmptyJSON() {
-        let waiter = XCTWaiter()
-        let errorExpectation = expectation(description: "expects invalid json response")
-        
-        let session = FakeURLSession { request in
-            let data = buildData(with: [:])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        trakt.exchangeAccessToken(for: "123") { result in
-            if let error = result.error {
-                switch error {
-                case .invalidResponseJson:
-                    errorExpectation.fulfill()
-                default:
-                    break
-                }
-            }
-        }
-        
-        let result = waiter.wait(for: [errorExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
+    // MARK: Refresh Token
     
-    func testExchangeAccessToken_failureMissingExpiry() {
+    func testExchangeRefreshForAccessToken_success() {
+        let session = FakeURLSession.success(statusCode: 200, json: "exchange-refresh-for-access-token")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        // invalidate previous token
+        trakt.token = Token(accessToken: "access-token", refreshToken: "refresh-token", expiry: .distantFuture)
+        
         let waiter = XCTWaiter()
-        let errorExpectation = expectation(description: "expects invalid json response due to missing expiry")
+        let expectation = self.expectation(description: "expects refresh token")
         
-        let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refreshNew", "access_token": "accessNew" ])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        trakt.exchangeAccessToken(for: "123") { result in
-            if let error = result.error {
-                switch error {
-                case .invalidResponseJson:
-                    errorExpectation.fulfill()
-                default:
-                    break
-                }
-            }
-        }
-        
-        let result = waiter.wait(for: [errorExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-    
-    func testExchangeAccessToken_failureMissingAccessToken() {
-        let waiter = XCTWaiter()
-        let errorExpectation = expectation(description: "expects invalid json response due to missing access token")
-        
-        let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refreshNew", "expires_in": 3600 ])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        trakt.exchangeAccessToken(for: "123") { result in
-            if let error = result.error {
-                switch error {
-                case .invalidResponseJson:
-                    errorExpectation.fulfill()
-                default:
-                    break
-                }
-            }
-        }
-        
-        let result = waiter.wait(for: [errorExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-    
-    func testExchangeAccessToken_failureInvalidFormat() {
-        let waiter = XCTWaiter()
-        let errorExpectation = expectation(description: "expects invalid response format")
-        
-        let session = FakeURLSession { request in
-            let data = buildData(with: [ "test", "test", "test" ])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        trakt.exchangeAccessToken(for: "123") { result in
-            if let error = result.error {
-                switch error {
-                case .invalidResponseJson:
-                    errorExpectation.fulfill()
-                default:
-                    break
-                }
-            }
-        }
-        
-        let result = waiter.wait(for: [errorExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-    
-    // MARK: - Refresh Token
-    
-    func testExchangeRefreshToken_missingAccessToken() {
-        let waiter = XCTWaiter()
-        let errorExpectation = expectation(description: "invalid authorization error expected")
-        
-        let session = FakeURLSession { _ in return (nil, nil, nil) }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        trakt.invalidateToken()
-        
-        XCTAssertFalse(trakt.authorized)
-        XCTAssertTrue(trakt.expired)
-        
-        let task = trakt.exchangeRefreshToken { result in
-            if let error = result.error {
-                switch error {
-                case .invalidAuthorization:
-                    errorExpectation.fulfill()
-                default: break
-                }
-            }
-        }
-        
-        XCTAssertNil(task)
-        XCTAssertNil(session.completedRequests.first)
-        XCTAssertNil(session.requests.first)
-        
-        let result = waiter.wait(for: [errorExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-    
-    func testExchangeRefreshToken_success() {
-        let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects refreshed access token")
-        
-        let session = FakeURLSession { request in
-            let data = buildData(with: [ "refresh_token": "refreshExchanged", "expires_in": 3600, "access_token": "accessExchanged" ])
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (data, response, nil)
-        }
-        
-        let trakt = Trakt(credentials: credentials, session: session)
-        
-        let expiry = Date().addingTimeInterval(3600)
-        trakt.update(accessToken: "accessToken", refreshToken: "refreshToken", expiry: expiry)
-        
-        let task = trakt.exchangeRefreshToken { result in
-            if let token = result.value, token.accessToken == "accessExchanged", token.refreshToken == "refreshExchanged" {
+        // exchange code for token
+        let task = trakt.auth.exchangeRefreshToken { (result) in
+            if let token = result.value,
+                token.accessToken == "dbaf9757982a9e738f05d249b7b5b4a266b3a139049317c4909f2f263572c781",
+                token.refreshToken == "76ba4c5c75c96f6087f58a4de10be6c00b29ea1ddc3b2022ee2016d1363e3a7c" {
                 expectation.fulfill()
             }
         }
@@ -237,22 +147,42 @@ class TraktAuthTests: XCTestCase {
         XCTAssertEqual(result, .completed)
     }
     
-    func testExchangeRefreshToken_serverError() {
+    func testExchangeRefreshForAccessToken_missingRefreshToken() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        // invalidate previous token
+        trakt.token = nil
+        
         let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects refreshed access token")
+        let expectation = self.expectation(description: "expects server error")
         
-        let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)
-            return (nil, response, nil)
+        // exchange code for token
+        let task = trakt.auth.exchangeRefreshToken { (result) in
+            if let token = result.error {
+                expectation.fulfill()
+            }
         }
+        XCTAssertNil(task)
+        XCTAssertNil(session.completedRequests.first)
         
-        let trakt = Trakt(credentials: credentials, session: session)
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
+    }
+    
+    func testExchangeRefreshForAccessToken_serverError() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let expiry = Date().addingTimeInterval(3600)
-        trakt.update(accessToken: "accessToken", refreshToken: "refreshToken", expiry: expiry)
+        // invalidate previous token
+        trakt.token = Token(accessToken: "access-token", refreshToken: "refresh-token", expiry: .distantFuture)
         
-        let task = trakt.exchangeRefreshToken { result in
-            if result.error != nil {
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects server error")
+        
+        // exchange code for token
+        let task = trakt.auth.exchangeRefreshToken { (result) in
+            if let token = result.error {
                 expectation.fulfill()
             }
         }
