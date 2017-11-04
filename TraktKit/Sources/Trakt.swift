@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias CompletionHandler<T> = ((Result<(T, Pagination?), TraktError>) -> Void)
+
 public final class Trakt {
     
     // MARK: Public Properties
@@ -38,14 +40,14 @@ public final class Trakt {
     
     // MARK: - Explore
     
-    public func explore() -> ExploreResource {
-        return ExploreResource()
+    public var explore: ExploreRequest {
+        return ExploreRequest(trakt: self)
     }
     
     // MARK: - Load
     
     @discardableResult
-    public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping (Result<(Item, Pagination?), TraktError>) -> Void) -> URLSessionTask? {
+    public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping CompletionHandler<Item>) -> URLSessionTask? {
         
         var request = resource.request
         

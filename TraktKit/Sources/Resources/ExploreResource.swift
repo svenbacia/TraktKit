@@ -10,42 +10,59 @@ import Foundation
 
 public struct ExploreResource {
     
-    // MARK: - Access
+    // MARK: - Properties
     
-    public func shows() -> ShowResource {
-        return ShowResource()
+    private let configuration: Configuration
+    
+    // MARK: - Init
+    
+    public init(configuration: Configuration) {
+        self.configuration = configuration
     }
     
-    public func movies() -> MovieResource {
+    // MARK: - Access
+    
+    public var shows: ShowResource {
+        return ShowResource(configuration: configuration)
+    }
+    
+    public var movies: MovieResource {
         return MovieResource()
     }
     
     // MARK: - TV Shows
     
     public struct ShowResource {
-//        public func trending(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: "/shows/trending", params: parameters(page: page, limit: limit, extended: extended))
-//        }
-//
-//        public func popular(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: "/shows/popular", params: parameters(page: page, limit: limit, extended: extended))
-//        }
-//
-//        public func anticipated(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: "/shows/anticipated", params: parameters(page: page, limit: limit, extended: extended))
-//        }
-//
-//        public func played(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: path("/shows/played", with: period), params: parameters(page: page, limit: limit, extended: extended))
-//        }
-//
-//        public func watched(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: path("/shows/watched", with: period), params: parameters(page: page, limit: limit, extended: extended))
-//        }
-//
-//        public func collected(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<Any> {
-//            return buildResource(path: path("/shows/collected", with: period), params: parameters(page: page, limit: limit, extended: extended))
-//        }
+        
+        private let configuration: Configuration
+        
+        init(configuration: Configuration) {
+            self.configuration = configuration
+        }
+        
+        public func trending(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[TrendingShow]> {
+            return buildResource(base: configuration.base, path: "/shows/trending", params: parameters(page: page, limit: limit, extended: extended))
+        }
+
+        public func popular(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[Show]> {
+            return buildResource(base: configuration.base, path: "/shows/popular", params: parameters(page: page, limit: limit, extended: extended))
+        }
+
+        public func anticipated(extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[AnticipatedShow]> {
+            return buildResource(base: configuration.base, path: "/shows/anticipated", params: parameters(page: page, limit: limit, extended: extended))
+        }
+
+        public func played(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[PlayedShow]> {
+            return buildResource(base: configuration.base, path: path("/shows/played", with: period), params: parameters(page: page, limit: limit, extended: extended))
+        }
+
+        public func watched(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[WatchedShow]> {
+            return buildResource(base: configuration.base, path: path("/shows/watched", with: period), params: parameters(page: page, limit: limit, extended: extended))
+        }
+
+        public func collected(period: Period? = nil, extended: Extended?, page: Int? = nil, limit: Int? = nil) -> Resource<[CollectedShow]> {
+            return buildResource(base: configuration.base, path: path("/shows/collected", with: period), params: parameters(page: page, limit: limit, extended: extended))
+        }
     }
     
     // MARK: - Movies

@@ -8,19 +8,7 @@
 
 import Foundation
 
-public final class AuthRequest {
-    
-    // MARK: - Properties
-    
-    private let trakt: Trakt
-    
-    // MARK: - Init
-    
-    internal init(trakt: Trakt) {
-        self.trakt = trakt
-    }
-    
-    // MARK: - Endpoints
+public final class AuthRequest: Request {
     
     public func exchangeAccessToken(`for` code: String, completion: @escaping (Result<Token, TraktError>) -> Void) -> URLSessionTask? {
         let resource = AuthResource(credentials: trakt.credentials, configuration: trakt.configuration).exchangeAccessToken(for: code)
