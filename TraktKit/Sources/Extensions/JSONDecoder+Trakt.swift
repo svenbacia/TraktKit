@@ -12,6 +12,7 @@ extension JSONDecoder {
     
     public static var trakt: JSONDecoder {
         let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(iso8601DateFormatter)
         return decoder
     }
     
@@ -23,5 +24,15 @@ extension JSONDecoder {
             return Date(timeIntervalSinceNow: expiry)
         })
         return decoder
+    }
+    
+    // MARK: - Private Helper
+    
+    private static var iso8601DateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        let locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = locale
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        return dateFormatter
     }
 }

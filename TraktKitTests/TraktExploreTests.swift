@@ -11,140 +11,151 @@ import XCTest
 @testable import TraktKit
 
 class TraktExploreTests: XCTestCase {
-    
-    // MARK: - Properties
-    
-    let session = FakeURLSession { request in
-        let data = buildData(with: [])
-        let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-        return (data, response, nil)
-    }
-    
-    lazy var trakt: Trakt = {
-        Trakt(session: self.session, credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), keychain: Keychain.default)
-    }()
-    
-    // MARK: -
-    
-    override func setUp() {
-        super.setUp()
-        session.reset()
-    }
-    
-    // MARK: -
-    
+        
     func testTrendingShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects trending shows")
-//
-//        let task = trakt.trendingShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/trending"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects trending shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-trending")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+
+        let task = trakt.explore.shows.trending() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+
+        XCTAssertNotNil(task)
+
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/trending"))
+        XCTAssertEqual(request.httpMethod, "GET")
+
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testPopularShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects popular shows")
-//
-//        let task = trakt.popularShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/popular"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects popular shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-popular")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        let task = trakt.explore.shows.popular() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/popular"))
+        XCTAssertEqual(request.httpMethod, "GET")
+        
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testAnticipatedShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects anticipated shows")
-//
-//        let task = trakt.anticipatedShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/anticipated"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects anticipated shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-anticipated")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        let task = trakt.explore.shows.anticipated() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/anticipated"))
+        XCTAssertEqual(request.httpMethod, "GET")
+        
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testPlayedShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects played shows")
-//
-//        let task = trakt.playedShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/played"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects played shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-played")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        let task = trakt.explore.shows.played() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/played"))
+        XCTAssertEqual(request.httpMethod, "GET")
+        
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
-    
+
     func testWatchedShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects watched shows")
-//
-//        let task = trakt.watchedShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/watched"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects watched shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-watched")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        let task = trakt.explore.shows.watched() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/watched"))
+        XCTAssertEqual(request.httpMethod, "GET")
+        
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
     
     func testCollectedShows() {
-//        let waiter = XCTWaiter()
-//        let expectation = self.expectation(description: "expects collected shows")
-//
-//        let task = trakt.collectedShows { result in
-//            if result.value != nil {
-//                expectation.fulfill()
-//            }
-//        }
-//        XCTAssertNotNil(task)
-//
-//        let request = session.completedRequests.first!
-//        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/collected"))
-//        XCTAssertEqual(request.httpMethod, "GET")
-//
-//        let result = waiter.wait(for: [expectation], timeout: 1)
-//        XCTAssertEqual(result, .completed)
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects most collected shows")
+        
+        let session = FakeURLSession.success(statusCode: 200, json: "shows-collected")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        
+        let task = trakt.explore.shows.collected() { (result) in
+            if result.value?.0.count == 10 {
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        XCTAssertNotNil(task)
+        
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/collected"))
+        XCTAssertEqual(request.httpMethod, "GET")
+        
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
     }
 }
