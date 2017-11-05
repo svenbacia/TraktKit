@@ -44,6 +44,10 @@ public final class Trakt {
         return ExploreRequest(trakt: self)
     }
     
+    public func show(_ id: Int) -> ShowRequest {
+        return ShowRequest(id: id, trakt: self)
+    }
+    
     // MARK: - Load
     
     @discardableResult
