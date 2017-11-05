@@ -26,9 +26,9 @@ public struct ExploreResource {
         return ShowResource(configuration: configuration)
     }
     
-    public var movies: MovieResource {
-        return MovieResource()
-    }
+//    public var movies: MovieResource {
+//        return MovieResource()
+//    }
     
     // MARK: - TV Shows
     
