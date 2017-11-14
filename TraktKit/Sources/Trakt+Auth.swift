@@ -36,8 +36,40 @@ extension Trakt {
     
     // MARK: - Endpoints
     
-    public var auth: AuthRequest {
-        return AuthRequest(trakt: self)
+    @discardableResult
+    public func exchangeAccessToken(`for` code: String, completion: @escaping (Result<Token, TraktError>) -> Void) -> URLSessionTask? {
+        let resource = AuthResource(credentials: credentials, configuration: configuration).exchangeAccessToken(for: code)
+        return load(resource: resource, authenticated: false) { [weak self] (result) in
+            switch result {
+            case .success(let objects):
+                let token = objects.0
+                self?.token = token
+                self?.persist(token)
+                completion(.success(token))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    @discardableResult
+    public func exchangeRefreshToken(_ completion: @escaping (Result<Token, TraktError>) -> Void) -> URLSessionTask? {
+        guard let refreshToken = token?.refreshToken else {
+            completion(.failure(TraktError.missingRefreshToken))
+            return nil
+        }
+        let resource = AuthResource(credentials: credentials, configuration: configuration).refreshAccessToken(with: refreshToken)
+        return load(resource: resource, authenticated: false) { [weak self] (result) in
+            switch result {
+            case .success(let objects):
+                let token = objects.0
+                self?.token = token
+                self?.persist(token)
+                completion(.success(token))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 

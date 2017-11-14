@@ -73,11 +73,12 @@ class TraktAuthTests: XCTestCase {
         let tokenExpectation = expectation(description: "expects auth token")
         
         // exchange code for token
-        let task = trakt.auth.exchangeAccessToken(for: "some-oauth-code") { (result) in
+        let task = trakt.exchangeAccessToken(for: "some-oauth-code") { (result) in
             if let token = result.value,
                 token.accessToken == "dbaf9757982a9e738f05d249b7b5b4a266b3a139049317c4909f2f263572c781",
                 token.refreshToken == "76ba4c5c75c96f6087f58a4de10be6c00b29ea1ddc3b2022ee2016d1363e3a7c",
-                token.expiry > Date() {
+                token.expiry > Date(),
+                trakt.isAuthorized {
                 tokenExpectation.fulfill()
             }
         }
@@ -102,7 +103,7 @@ class TraktAuthTests: XCTestCase {
         let tokenExpectation = expectation(description: "expects server error")
         
         // exchange code for token
-        let task = trakt.auth.exchangeAccessToken(for: "some-oauth-code") { (result) in
+        let task = trakt.exchangeAccessToken(for: "some-oauth-code") { (result) in
             if let error = result.error {
                 tokenExpectation.fulfill()
             }
@@ -130,7 +131,7 @@ class TraktAuthTests: XCTestCase {
         let expectation = self.expectation(description: "expects refresh token")
         
         // exchange code for token
-        let task = trakt.auth.exchangeRefreshToken { (result) in
+        let task = trakt.exchangeRefreshToken { (result) in
             if let token = result.value,
                 token.accessToken == "dbaf9757982a9e738f05d249b7b5b4a266b3a139049317c4909f2f263572c781",
                 token.refreshToken == "76ba4c5c75c96f6087f58a4de10be6c00b29ea1ddc3b2022ee2016d1363e3a7c" {
@@ -158,7 +159,7 @@ class TraktAuthTests: XCTestCase {
         let expectation = self.expectation(description: "expects server error")
         
         // exchange code for token
-        let task = trakt.auth.exchangeRefreshToken { (result) in
+        let task = trakt.exchangeRefreshToken { (result) in
             if let token = result.error {
                 expectation.fulfill()
             }
@@ -181,7 +182,7 @@ class TraktAuthTests: XCTestCase {
         let expectation = self.expectation(description: "expects server error")
         
         // exchange code for token
-        let task = trakt.auth.exchangeRefreshToken { (result) in
+        let task = trakt.exchangeRefreshToken { (result) in
             if let token = result.error {
                 expectation.fulfill()
             }
