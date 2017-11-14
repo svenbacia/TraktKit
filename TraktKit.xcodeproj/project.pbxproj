@@ -31,7 +31,6 @@
 		263C63441FA639850030B186 /* Resource+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63431FA639850030B186 /* Resource+Path.swift */; };
 		263C63461FA63AFA0030B186 /* Resource+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63451FA63AFA0030B186 /* Resource+Request.swift */; };
 		263C634A1FA63E400030B186 /* JSONDecoder+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63491FA63E400030B186 /* JSONDecoder+Trakt.swift */; };
-		263C634D1FA646520030B186 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C634C1FA646520030B186 /* AuthRequest.swift */; };
 		2652A8431FAA03E800589E54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2652A8421FAA03E800589E54 /* AppDelegate.swift */; };
 		2652A8451FAA03E800589E54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2652A8441FAA03E800589E54 /* ViewController.swift */; };
 		2652A8481FAA03E800589E54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2652A8461FAA03E800589E54 /* Main.storyboard */; };
@@ -170,7 +169,6 @@
 		263C63431FA639850030B186 /* Resource+Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Path.swift"; sourceTree = "<group>"; };
 		263C63451FA63AFA0030B186 /* Resource+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Request.swift"; sourceTree = "<group>"; };
 		263C63491FA63E400030B186 /* JSONDecoder+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Trakt.swift"; sourceTree = "<group>"; };
-		263C634C1FA646520030B186 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		2652A8401FAA03E800589E54 /* TestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2652A8421FAA03E800589E54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2652A8441FAA03E800589E54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -351,7 +349,6 @@
 		263C634B1FA646470030B186 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				263C634C1FA646520030B186 /* AuthRequest.swift */,
 				26DAB17B1FAF0F9C001CE2A1 /* EpisodeRequest.swift */,
 				2652A85A1FAA2E9500589E54 /* ExploreRequest.swift */,
 				2652A85C1FAA2EAB00589E54 /* Request.swift */,
@@ -844,7 +841,6 @@
 				26DAB16B1FAEF88A001CE2A1 /* People.swift in Sources */,
 				26725E391FAE5116004BAEFA /* Comment.swift in Sources */,
 				26BE8CC01E1407DD002EA673 /* Search.swift in Sources */,
-				263C634D1FA646520030B186 /* AuthRequest.swift in Sources */,
 				26DAB16D1FAEF8AD001CE2A1 /* Person.swift in Sources */,
 				2698407D1E15276B00F0807F /* Sync.swift in Sources */,
 				262B37621D7F2C4C00CFEDF9 /* ShowResource.swift in Sources */,
