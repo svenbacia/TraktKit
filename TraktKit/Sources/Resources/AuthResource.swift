@@ -8,20 +8,20 @@
 
 import Foundation
 
-public struct AuthResource {
+struct AuthResource {
     
     // MARK: Properties
     private let credentials: Credentials
     private let configuration: Configuration
     
     // MARK: - Init
-    internal init(credentials: Credentials, configuration: Configuration) {
+    init(credentials: Credentials, configuration: Configuration) {
         self.credentials = credentials
         self.configuration = configuration
     }
     
     // MARK: - Endpoints
-    public func exchangeAccessToken(for code: String) -> Resource<Token> {
+    func exchangeAccessToken(for code: String) -> Resource<Token> {
         let params = [
             "code": code,
             "client_id": credentials.clientID,
@@ -32,7 +32,7 @@ public struct AuthResource {
         return buildResource(base: configuration.base, path: "/oauth/token", params: params, method: .post, decoder: .timeIntervalSinceNow)
     }
     
-    public func refreshAccessToken(with refreshToken: String) -> Resource<Token> {
+    func refreshAccessToken(with refreshToken: String) -> Resource<Token> {
         let params = [
             "client_id"     : credentials.clientID,
             "client_secret" : credentials.clientSecret,

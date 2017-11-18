@@ -38,14 +38,14 @@ public final class Trakt {
         self.loadToken()
     }
     
-    // MARK: - Explore
+    // MARK: - Resources
     
-    public var explore: ExploreRequest {
-        return ExploreRequest(trakt: self)
+    public var explore: ExploreResource {
+        return ExploreResource(configuration: configuration)
     }
     
-    public func show(_ id: Int) -> ShowRequest {
-        return ShowRequest(id: id, trakt: self)
+    public func show(_ id: Int) -> ShowResource {
+        return ShowResource(id: id, configuration: configuration)
     }
     
     // MARK: - Load
