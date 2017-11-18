@@ -19,14 +19,13 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-trending")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
 
-        let task = trakt.explore.shows.trending() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.trending(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
                 XCTFail()
             }
         }
-
         XCTAssertNotNil(task)
 
         let request = session.completedRequests.first!
@@ -44,7 +43,7 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-popular")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.explore.shows.popular() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.popular(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
@@ -69,7 +68,7 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-anticipated")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.explore.shows.anticipated() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.anticipated(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
@@ -94,7 +93,7 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-played")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.explore.shows.played() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.played(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
@@ -118,7 +117,7 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-watched")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.explore.shows.watched() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.watched(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
@@ -142,7 +141,7 @@ class TraktExploreTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "shows-collected")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.explore.shows.collected() { (result) in
+        let task = trakt.load(resource: trakt.explore.shows.collected(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             } else {
