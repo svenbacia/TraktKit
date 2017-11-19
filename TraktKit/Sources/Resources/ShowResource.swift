@@ -65,4 +65,8 @@ public struct ShowResource {
     public func seasons(_ extended: Extended? = nil) -> Resource<[Season]> {
         return buildResource(base: configuration.base, path: "/shows/\(id)/seasons", params: parameters(extended: extended))
     }
+    
+    public func season(_ season: Int) -> SeasonResource {
+        return SeasonResource(show: id, season: season, configuration: configuration)
+    }
 }

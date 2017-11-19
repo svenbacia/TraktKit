@@ -36,27 +36,27 @@ class StatusCodeTests: XCTestCase {
   }
     
     func testDescriptionAvailable() {
-        XCTAssertTrue(StatusCode.success.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.successNewResourceCreated.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.successNoContentToReturn.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.success.description.count > 0)
+        XCTAssertTrue(StatusCode.successNewResourceCreated.description.count > 0)
+        XCTAssertTrue(StatusCode.successNoContentToReturn.description.count > 0)
         
-        XCTAssertTrue(StatusCode.badRequest.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.unauthorized.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.forbidden.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.notFound.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.methodNotFound.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.conflict.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.preconditionFailed.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.unprocessableEntity.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.rateLimitExceeded.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.badRequest.description.count > 0)
+        XCTAssertTrue(StatusCode.unauthorized.description.count > 0)
+        XCTAssertTrue(StatusCode.forbidden.description.count > 0)
+        XCTAssertTrue(StatusCode.notFound.description.count > 0)
+        XCTAssertTrue(StatusCode.methodNotFound.description.count > 0)
+        XCTAssertTrue(StatusCode.conflict.description.count > 0)
+        XCTAssertTrue(StatusCode.preconditionFailed.description.count > 0)
+        XCTAssertTrue(StatusCode.unprocessableEntity.description.count > 0)
+        XCTAssertTrue(StatusCode.rateLimitExceeded.description.count > 0)
         
-        XCTAssertTrue(StatusCode.serverError.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.serverOverloaded.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.gatewayTimedOut.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError1.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError2.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError3.description.characters.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError3.description.characters.count > 0)
+        XCTAssertTrue(StatusCode.serverError.description.count > 0)
+        XCTAssertTrue(StatusCode.serverOverloaded.description.count > 0)
+        XCTAssertTrue(StatusCode.gatewayTimedOut.description.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError1.description.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError2.description.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError3.description.count > 0)
+        XCTAssertTrue(StatusCode.cloudflareError3.description.count > 0)
     }
   
 }
