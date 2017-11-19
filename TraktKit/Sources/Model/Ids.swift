@@ -11,7 +11,7 @@ import Foundation
 public struct Ids: Codable {
     // MARK: Properties
     public let trakt: Int
-    public let slug: String
+    public let slug: String?
     public let tvdb: Int?
     public let imdb: String?
     public let tmdb: Int?

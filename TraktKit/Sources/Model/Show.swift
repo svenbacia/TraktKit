@@ -27,6 +27,7 @@ public struct Show: Codable {
         case planned
         case canceled
         case ended
+        case unknown = ""
     }
     
     // MARK: - Codable coding keys

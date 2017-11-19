@@ -110,7 +110,6 @@
 		26F187481FAA62D30003ABE2 /* shows-played.json in Resources */ = {isa = PBXBuildFile; fileRef = 26F187471FAA62D30003ABE2 /* shows-played.json */; };
 		26F1874A1FAA64020003ABE2 /* shows-anticipated.json in Resources */ = {isa = PBXBuildFile; fileRef = 26F187491FAA64020003ABE2 /* shows-anticipated.json */; };
 		26F1874C1FAA67230003ABE2 /* shows-watched.json in Resources */ = {isa = PBXBuildFile; fileRef = 26F1874B1FAA67230003ABE2 /* shows-watched.json */; };
-		26F2B6961FC0BCF9004B4B61 /* Trakt+Explore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F2B6951FC0BCF9004B4B61 /* Trakt+Explore.swift */; };
 		26F90FB21D9844CC0087A733 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90FB11D9844CC0087A733 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -249,7 +248,6 @@
 		26F187471FAA62D30003ABE2 /* shows-played.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "shows-played.json"; sourceTree = "<group>"; };
 		26F187491FAA64020003ABE2 /* shows-anticipated.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "shows-anticipated.json"; sourceTree = "<group>"; };
 		26F1874B1FAA67230003ABE2 /* shows-watched.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "shows-watched.json"; sourceTree = "<group>"; };
-		26F2B6951FC0BCF9004B4B61 /* Trakt+Explore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trakt+Explore.swift"; sourceTree = "<group>"; };
 		26F90FB11D9844CC0087A733 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -450,7 +448,6 @@
 			children = (
 				265E9E4A1D7B00D500B51D5D /* Trakt.swift */,
 				265823EB1D7C9F7C0018F641 /* Trakt+Auth.swift */,
-				26F2B6951FC0BCF9004B4B61 /* Trakt+Explore.swift */,
 				263C63381FA62C730030B186 /* Configuration.swift */,
 				265E9E4C1D7B016300B51D5D /* Credentials.swift */,
 				262B37941D7F444200CFEDF9 /* ContentType.swift */,
@@ -814,7 +811,6 @@
 				26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */,
 				26B43AC91E13CA7900B8EB52 /* SearchType.swift in Sources */,
 				26DAB16B1FAEF88A001CE2A1 /* People.swift in Sources */,
-				26F2B6961FC0BCF9004B4B61 /* Trakt+Explore.swift in Sources */,
 				26725E391FAE5116004BAEFA /* Comment.swift in Sources */,
 				26BE8CC01E1407DD002EA673 /* Search.swift in Sources */,
 				26DAB16D1FAEF8AD001CE2A1 /* Person.swift in Sources */,
