@@ -17,7 +17,7 @@ public struct Season: Codable {
         case ids
         case rating
         case votes
-        case episodesCount = "episodes_count"
+        case episodesCount = "episode_count"
         case airedEpisodes = "aired_episodes"
         case title
         case overview

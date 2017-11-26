@@ -33,7 +33,7 @@ public struct Episode: Codable {
     public let number: Int
     public let title: String?
     public let ids: Ids
-    public let numberAbs: Int
+    public let numberAbs: Int?
     public let overview: String?
     public let rating: Double
     public let votes: Int
