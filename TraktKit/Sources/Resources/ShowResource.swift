@@ -36,8 +36,8 @@ public struct ShowResource {
         return buildResource(base: configuration.base, path: "/shows/\(id)/people", params: parameters(extended: extended))
     }
     
-    public func rating() -> Resource<Ratings> {
-        return buildResource(base: configuration.base, path: "/shows/\(id)/rating")
+    public func ratings() -> Resource<Ratings> {
+        return buildResource(base: configuration.base, path: "/shows/\(id)/ratings")
     }
     
     public func related(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<[Show]> {

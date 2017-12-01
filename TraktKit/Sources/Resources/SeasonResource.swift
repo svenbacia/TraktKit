@@ -28,7 +28,7 @@ public struct SeasonResource {
     
     // MARK: - Endpoints
     
-    public func summary(extended: Extended? = nil) -> Resource<Season> {
+    public func summary(extended: Extended? = nil) -> Resource<[Episode]> {
         return buildResource(base: configuration.base, path: basePath, params: parameters(extended: extended))
     }
     
