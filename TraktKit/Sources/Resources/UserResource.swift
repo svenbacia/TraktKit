@@ -32,7 +32,33 @@ public struct UserResource {
         return buildResource(base: configuration.base, path: "/users/\(user)/stats")
     }
     
-    public func lists() -> Resource<Any> {
+    public var lists: Resource<[List]> {
         return buildResource(base: configuration.base, path: "/users/\(user)/lists")
+    }
+    
+    public func createList(name: String, description: String?, privacy: Privacy?, displayNumbers: Bool?, allowComments: Bool?) -> Resource<List> {
+        var params: [String: Any] = [
+            "name": name
+        ]
+        if let description = description {
+            params["description"] = description
+        }
+        
+        if let privacy = privacy {
+            params["privacy"] = privacy.description
+        }
+        
+        if let displayNumbers = displayNumbers {
+            params["display_numbers"] = displayNumbers
+        }
+        
+        if let allowComments = allowComments {
+            params["allow_comments"] = allowComments
+        }
+        return buildResource(base: configuration.base, path: "/users/\(user)/lists", params: params, method: .post)
+    }
+    
+    public func list(name: String) -> ListResource {
+        return ListResource()
     }
 }
