@@ -36,4 +36,22 @@ class UserResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(stats.episodes.watched, 1000)
     }
+    
+    func testLists() {
+        let resource = trakt.resources.user("mrmojo").lists
+        let data = buildJsonData(name: "user-lists")
+        let lists = try! resource.parse(data!)
+        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists")
+        XCTAssertEqual(resource.request.httpMethod, "GET")
+        XCTAssertEqual(lists.count, 7)
+    }
+    
+    func testCreateList() {
+        let resource = trakt.resources.user("mrmojo").createList(name: "test-list2", description: "description", privacy: .private, displayNumbers: false, allowComments: true)
+        let data = buildJsonData(name: "user-create-list")
+        let list = try! resource.parse(data!)
+        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists")
+        XCTAssertEqual(resource.request.httpMethod, "POST")
+        XCTAssertEqual(list.name, "test-list2")
+    }
 }
