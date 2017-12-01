@@ -37,6 +37,8 @@ class TraktSyncTests: XCTestCase {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects last activities")
         
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
+        
         let task = trakt.lastActivities { result in
             if result.value != nil {
                 expectation.fulfill()
@@ -55,6 +57,8 @@ class TraktSyncTests: XCTestCase {
     func testCollection() {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects collection")
+        
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
         
         let task = trakt.collection { result in
             if result.value != nil {
@@ -75,6 +79,8 @@ class TraktSyncTests: XCTestCase {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects watched shows")
         
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
+        
         let task = trakt.watched { result in
             if result.value != nil {
                 expectation.fulfill()
@@ -93,6 +99,8 @@ class TraktSyncTests: XCTestCase {
     func testWatchlist() {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects watchlist")
+        
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
         
         let task = trakt.watchlist { result in
             if result.value != nil {
@@ -115,6 +123,8 @@ class TraktSyncTests: XCTestCase {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects adding item to history")
         
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
+        
         let items = [ContentType.episode(id: 1, date: nil)]
         let task = trakt.addToHistory(items: items) { result in
             if result.value != nil {
@@ -134,6 +144,8 @@ class TraktSyncTests: XCTestCase {
     func testRemoveFromHistory() {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects removing item from history")
+        
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
         
         let items = [ContentType.episode(id: 1, date: nil)]
         let task = trakt.removeFromHistory(items: items) { result in
