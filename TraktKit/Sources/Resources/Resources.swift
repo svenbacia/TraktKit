@@ -1,0 +1,34 @@
+//
+//  Resources.swift
+//  TraktKit
+//
+//  Created by Sven Bacia on 01.12.17.
+//  Copyright © 2017 Sven Bacia. All rights reserved.
+//
+
+import Foundation
+
+public struct Resources {
+    
+    // MARK: - Properties
+    
+    private let configuration: Configuration
+    private let credentials: Credentials
+    
+    // MARK: - Init
+    
+    init(configuration: Configuration, credentials: Credentials) {
+        self.configuration = configuration
+        self.credentials = credentials
+    }
+    
+    // MARK: - Endpoints
+    
+    public var explore: ExploreResource {
+        return ExploreResource(configuration: configuration)
+    }
+    
+    public func show(_ id: Int) -> ShowResource {
+        return ShowResource(id: id, configuration: configuration)
+    }
+}

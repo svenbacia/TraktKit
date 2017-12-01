@@ -40,12 +40,8 @@ public final class Trakt {
     
     // MARK: - Resources
     
-    public var explore: ExploreResource {
-        return ExploreResource(configuration: configuration)
-    }
-    
-    public func show(_ id: Int) -> ShowResource {
-        return ShowResource(id: id, configuration: configuration)
+    public var resources: Resources {
+        return Resources(configuration: configuration, credentials: credentials)
     }
     
     // MARK: - Load

@@ -65,6 +65,7 @@
 		26725E371FAE5110004BAEFA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26725E361FAE5110004BAEFA /* User.swift */; };
 		26725E391FAE5116004BAEFA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26725E381FAE5116004BAEFA /* Comment.swift */; };
 		26725E3B1FAE52A2004BAEFA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26725E3A1FAE52A2004BAEFA /* Image.swift */; };
+		2682BD6C1FD16F03009919A9 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682BD6B1FD16F03009919A9 /* Resources.swift */; };
 		268DDD4D1FA9C58200A38A51 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268DDD4C1FA9C58200A38A51 /* Helper.swift */; };
 		268DDD4F1FA9C63000A38A51 /* get-token.json in Resources */ = {isa = PBXBuildFile; fileRef = 268DDD4E1FA9C63000A38A51 /* get-token.json */; };
 		268DDD511FA9CAAA00A38A51 /* exchange-refresh-for-access-token.json in Resources */ = {isa = PBXBuildFile; fileRef = 268DDD501FA9CAAA00A38A51 /* exchange-refresh-for-access-token.json */; };
@@ -191,6 +192,7 @@
 		26725E381FAE5116004BAEFA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		26725E3A1FAE52A2004BAEFA /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		26795DD91FD14B25007FBD43 /* TestsHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2682BD6B1FD16F03009919A9 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		268DDD4C1FA9C58200A38A51 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		268DDD4E1FA9C63000A38A51 /* get-token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "get-token.json"; sourceTree = "<group>"; };
 		268DDD501FA9CAAA00A38A51 /* exchange-refresh-for-access-token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exchange-refresh-for-access-token.json"; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				26BE8CBB1E140282002EA673 /* ExploreResource.swift */,
 				262B37841D7F3E5000CFEDF9 /* SeasonResource.swift */,
 				262B37611D7F2C4C00CFEDF9 /* ShowResource.swift */,
+				2682BD6B1FD16F03009919A9 /* Resources.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				26BE8CBE1E140484002EA673 /* AuthResource.swift in Sources */,
 				263C633E1FA638670030B186 /* Resource+Factory.swift in Sources */,
 				26DAB1761FAF01F3001CE2A1 /* Season.swift in Sources */,
+				2682BD6C1FD16F03009919A9 /* Resources.swift in Sources */,
 				26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */,
 				26DAB1781FAF02EB001CE2A1 /* Episode.swift in Sources */,
 				263C63461FA63AFA0030B186 /* Resource+Request.swift in Sources */,
