@@ -52,12 +52,10 @@ public struct ShowResource {
         return buildResource(base: configuration.base, path: "/shows/\(id)/watching", params: parameters(extended: extended))
     }
     
-    public func collectionProgress() -> Resource<Any> {
-        return buildResource(base: configuration.base, path: "/shows/\(id)/progress/collection")
-    }
+    // MARK: - Progress
     
-    public func watchedProgress() -> Resource<Any> {
-        return buildResource(base: configuration.base, path: "/shows/\(id)/progress/watched")
+    public var progress: ProgressResource {
+        return ProgressResource(show: id, configuration: configuration)
     }
     
     // MARK: - Seasons

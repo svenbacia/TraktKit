@@ -35,10 +35,10 @@ public struct Episode: Codable {
     public let ids: Ids
     public let numberAbs: Int?
     public let overview: String?
-    public let rating: Double
-    public let votes: Int
+    public let rating: Double?
+    public let votes: Int?
     public let firstAired: Date?
     public let updatedAt: Date?
-    public let availableTranslations: [Translation]
+    public let availableTranslations: [Translation]?
     public let runtime: Int?
 }

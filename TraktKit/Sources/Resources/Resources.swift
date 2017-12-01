@@ -31,4 +31,8 @@ public struct Resources {
     public func show(_ id: Int) -> ShowResource {
         return ShowResource(id: id, configuration: configuration)
     }
+    
+    public func user(_ username: String) -> UserResource {
+        return UserResource(user: username, configuration: configuration)
+    }
 }
