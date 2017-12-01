@@ -18,7 +18,7 @@ class TraktSeasonTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-seasons")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(112663).seasons(.full), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(112663).seasons(.full), authenticated: false) { (result) in
             if result.value?.0.count == 2 {
                 expectation.fulfill()
             }
@@ -40,7 +40,7 @@ class TraktSeasonTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-seasons-episodes")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(112663).seasons([.episodes]), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(112663).seasons([.episodes]), authenticated: false) { (result) in
             if result.value?.0.count == 2 {
                 expectation.fulfill()
             } else if let error = result.error {

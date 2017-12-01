@@ -11,16 +11,19 @@ import Foundation
 struct AuthResource {
     
     // MARK: Properties
+    
     private let credentials: Credentials
     private let configuration: Configuration
     
     // MARK: - Init
+    
     init(credentials: Credentials, configuration: Configuration) {
         self.credentials = credentials
         self.configuration = configuration
     }
     
     // MARK: - Endpoints
+    
     func exchangeAccessToken(for code: String) -> Resource<Token> {
         let params = [
             "code": code,

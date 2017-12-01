@@ -18,7 +18,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-summary")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).summary(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).summary(), authenticated: false) { (result) in
             if result.value?.0.ids.trakt == 107717 {
                 expectation.fulfill()
             }
@@ -40,7 +40,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-comments")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).comments(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).comments(), authenticated: false) { (result) in
             if result.value?.0.count == 10 {
                 expectation.fulfill()
             }
@@ -63,7 +63,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-people")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).people(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).people(), authenticated: false) { (result) in
             if result.value!.0.cast.count == 9 {
                 expectation.fulfill()
             }
@@ -86,7 +86,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-rating")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).rating(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).rating(), authenticated: false) { (result) in
             if result.value!.0.votes == 1184 {
                 expectation.fulfill()
             }
@@ -109,7 +109,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-related")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).related(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).related(), authenticated: false) { (result) in
             if result.value!.0.count == 10 {
                 expectation.fulfill()
             }
@@ -132,7 +132,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-stats")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).stats(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).stats(), authenticated: false) { (result) in
             if result.value!.0.watchers == 58359 {
                 expectation.fulfill()
             }
@@ -155,7 +155,7 @@ class TraktShowTests: XCTestCase {
         let session = FakeURLSession.success(statusCode: 200, json: "show-watching")
         let trakt = Trakt(session: session, credentials: Helper.credentials)
         
-        let task = trakt.load(resource: trakt.show(107717).watching(), authenticated: false) { (result) in
+        let task = trakt.load(resource: trakt.resources.show(107717).watching(), authenticated: false) { (result) in
             if result.value!.0.count == 10 {
                 expectation.fulfill()
             }
