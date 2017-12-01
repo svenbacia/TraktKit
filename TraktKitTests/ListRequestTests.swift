@@ -37,6 +37,8 @@ class ListRequestTests: XCTestCase {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects list summary")
         
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
+        
         let task = trakt.load(resource: trakt.user(with: "user").list(with: "list-name").summary(), authenticated: true) { result in
             if result.value != nil {
                 expectation.fulfill()
@@ -55,6 +57,8 @@ class ListRequestTests: XCTestCase {
     func testListItems() {
         let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects list items")
+        
+        trakt.update(accessToken: "access", refreshToken: "refresh", expiry: Date(timeIntervalSinceNow: 3600))
         
         let task = trakt.load(resource: trakt.user(with: "user").list(with: "list-name").items(ofType: .show), authenticated: true) { result in
             if result.value != nil {
