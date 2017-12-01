@@ -1,5 +1,6 @@
 # TraktKit
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=590dc7db251aa100011dc2ae&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/590dc7db251aa100011dc2ae/build/latest?branch=master)
+[![codecov](https://codecov.io/gh/svenbacia/TraktKit/branch/master/graph/badge.svg)](https://codecov.io/gh/svenbacia/TraktKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 TraktKit is a wrapper for the [trakt.tv](https://trakt.tv) API written in Swift.
