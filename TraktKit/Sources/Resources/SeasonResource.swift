@@ -47,4 +47,10 @@ public struct SeasonResource {
     public func watching(extended: Extended? = nil) -> Resource<[User]> {
         return buildResource(base: configuration.base, path: basePath + "/watching", params: parameters(extended: extended))
     }
+    
+    // MARK: - Episode
+    
+    public func episode(_ episode: Int) -> EpisodeResource {
+        return EpisodeResource(show: show, season: season, episode: episode, configuration: configuration)
+    }
 }
