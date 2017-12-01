@@ -45,5 +45,4 @@ class TokenTests: XCTestCase {
         let token = Token(accessToken: "accessToken", refreshToken: "refreshToken", expiry: Date(timeIntervalSinceNow: -3600))
         XCTAssertFalse(token.isValid)
     }
-    
 }

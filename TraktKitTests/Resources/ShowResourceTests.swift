@@ -43,13 +43,13 @@ class ShowResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/107717/people")
     }
     
-    func testRating() {
-        let resource = trakt.resources.show(107717).rating()
-        let data = buildJsonData(name: "show-rating")
+    func testRatings() {
+        let resource = trakt.resources.show(107717).ratings()
+        let data = buildJsonData(name: "show-ratings")
         let rating = try! resource.parse(data!)
         XCTAssertEqual(rating.votes, 1184)
         XCTAssertEqual(rating.rating, 8.20439, accuracy: Double.ulpOfOne)
-        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/107717/rating")
+        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/107717/ratings")
     }
     
     func testRelated() {
