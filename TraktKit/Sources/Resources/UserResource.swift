@@ -59,6 +59,6 @@ public struct UserResource {
     }
     
     public func list(name: String) -> ListResource {
-        return ListResource()
+        return ListResource(list: name, username: user, configuration: configuration)
     }
 }

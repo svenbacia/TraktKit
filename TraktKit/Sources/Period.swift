@@ -9,12 +9,12 @@
 import Foundation
 
 public enum Period: String {
-  case weekly
-  case monthly
-  case yearly
-  case all
-  
-  static var `default`: Period {
-    return .weekly
-  }
+    case weekly
+    case monthly
+    case yearly
+    case all
+    
+    static var `default`: Period {
+        return .weekly
+    }
 }

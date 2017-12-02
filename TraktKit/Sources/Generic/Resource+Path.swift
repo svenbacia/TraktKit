@@ -12,3 +12,8 @@ func path(_ path: String, with period: Period? = nil) -> String {
     guard let period = period else { return path }
     return path.appending("/\(period.rawValue)")
 }
+
+func buildPath(_ path: String, type: ListItemType?) -> String {
+    guard let type = type else { return path }
+    return path.appending("/\(type.rawValue)")
+}

@@ -15,5 +15,4 @@ class PeriodTests: XCTestCase {
     func testDefaultPeriod() {
         XCTAssertEqual(Period.default, .weekly)
     }
-    
 }

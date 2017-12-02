@@ -104,8 +104,10 @@ class TraktAuthTests: XCTestCase {
         
         // exchange code for token
         let task = trakt.exchangeAccessToken(for: "some-oauth-code") { (result) in
-            if let error = result.error {
+            if result.error != nil {
                 tokenExpectation.fulfill()
+            } else {
+                XCTFail()
             }
         }
         XCTAssertNotNil(task)
@@ -160,8 +162,10 @@ class TraktAuthTests: XCTestCase {
         
         // exchange code for token
         let task = trakt.exchangeRefreshToken { (result) in
-            if let token = result.error {
+            if result.error != nil {
                 expectation.fulfill()
+            } else {
+                XCTFail()
             }
         }
         XCTAssertNil(task)
@@ -183,8 +187,10 @@ class TraktAuthTests: XCTestCase {
         
         // exchange code for token
         let task = trakt.exchangeRefreshToken { (result) in
-            if let token = result.error {
+            if result.error != nil {
                 expectation.fulfill()
+            } else {
+                XCTFail()
             }
         }
         XCTAssertNotNil(task)

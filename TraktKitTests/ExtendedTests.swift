@@ -12,25 +12,25 @@ import XCTest
 
 class ComponentsTests: XCTestCase {
     
-  func testMin() {
-    XCTAssertEqual(Extended.min.description, "min")
-  }
-  
-  func testImages() {
-    XCTAssertEqual(Extended.images.description, "images")
-  }
-  
-  func testFull() {
-    XCTAssertEqual(Extended.full.description, "full")
-  }
-  
-  func testEpisodes() {
-    XCTAssertEqual(Extended.episodes.description, "episodes")
-  }
-  
-  func testFullImagesParameters() {
-    let extended: Extended = [.full, .images]
-    XCTAssertEqual(extended.parameters, ["extended" : "images,full"])
-  }
+    func testMin() {
+        XCTAssertEqual(Extended.min.description, "min")
+    }
+    
+    func testImages() {
+        XCTAssertEqual(Extended.images.description, "images")
+    }
+    
+    func testFull() {
+        XCTAssertEqual(Extended.full.description, "full")
+    }
+    
+    func testEpisodes() {
+        XCTAssertEqual(Extended.episodes.description, "episodes")
+    }
+    
+    func testFullImagesParameters() {
+        let extended: Extended = [.full, .images]
+        XCTAssertEqual(extended.parameters, ["extended" : "images,full"])
+    }
     
 }
