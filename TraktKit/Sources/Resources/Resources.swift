@@ -32,7 +32,15 @@ public struct Resources {
         return ShowResource(id: id, configuration: configuration)
     }
     
+    public func people(_ id: Int) -> PeopleResource {
+        return PeopleResource(id: id, configuration: configuration)
+    }
+    
     public func user(_ username: String) -> UserResource {
         return UserResource(user: username, configuration: configuration)
+    }
+    
+    public var search: SearchResource {
+        return SearchResource(configuration: configuration)
     }
 }

@@ -57,9 +57,9 @@ public struct Show: Codable {
     // MARK: Properties
     
     public let title: String
-    public let year: Int
     public let ids: Ids
     
+    public let year: Int?
     public let overview: String?
     public let firstAired: Date?
     public let airs: Airs?

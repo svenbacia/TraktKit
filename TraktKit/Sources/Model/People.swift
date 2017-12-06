@@ -10,6 +10,17 @@ import Foundation
 
 public struct People: Codable {
     
+    // MARK: - Types
+    
+    public struct Shows: Codable {
+        public let cast: [Show]
+    }
+    
+    public struct Show: Codable {
+        public let character: String
+        public let show: TraktKit.Show
+    }
+    
     // MARK: - Properties
     
     public let character: String
