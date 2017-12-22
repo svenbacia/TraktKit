@@ -32,5 +32,4 @@ class ComponentsTests: XCTestCase {
         let extended: Extended = [.full, .images]
         XCTAssertEqual(extended.parameters, ["extended" : "images,full"])
     }
-    
 }
