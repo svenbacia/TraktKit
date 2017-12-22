@@ -23,7 +23,7 @@ class KeychainTests: XCTestCase {
         }
     }
         
-    func testPassword() {        
+    func testPassword() {
         XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
         
         if let password = try? keychain.password() {
@@ -31,6 +31,10 @@ class KeychainTests: XCTestCase {
         } else {
             XCTFail()
         }
+        
+        try! keychain.deletePassword()
+        
+        XCTAssertNil(try! keychain.password())
     }
     
     func testGetString() {
@@ -53,5 +57,13 @@ class KeychainTests: XCTestCase {
         accounts.forEach { try? keychain.removeObject(forKey: $0) }
         let emptyAccounts = try keychain.accounts()
         XCTAssertTrue(emptyAccounts.isEmpty)
+    }
+    
+    func testQuery() {
+        let query = Keychain.Query(service: "service", accessGroup: "accessGroup", account: "account", data: nil)
+        let request = query.request
+        XCTAssertEqual(request[kSecAttrService as String] as! String, "service")
+        XCTAssertEqual(request[kSecAttrAccessGroup as String] as! String, "accessGroup")
+        XCTAssertEqual(request[kSecAttrAccount as String] as! String, "account")
     }
 }

@@ -43,4 +43,8 @@ public struct Resources {
     public var search: SearchResource {
         return SearchResource(configuration: configuration)
     }
+    
+    public var sync: SyncResource {
+        return SyncResource(configuration: configuration)
+    }
 }

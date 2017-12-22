@@ -32,9 +32,10 @@ extension JSONDecoder {
     }
     
     private static func dateFormatter(`for` string: String) -> DateFormatter {
-        if string.count == 10 {
+        switch string.count {
+        case 10:
             return dateFormatter
-        } else {
+        default:
             return iso8601DateFormatter
         }
     }
