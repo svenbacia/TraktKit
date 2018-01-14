@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CompletionHandler<T> = ((Result<(T, Pagination?), TraktError>) -> Void)
+public typealias CompletionHandler<T> = ((Result<(T, Pagination?), Trakt.Error>) -> Void)
 
 public final class Trakt {
     
@@ -50,48 +50,56 @@ public final class Trakt {
     public func load<Item>(resource: Resource<Item>, authenticated: Bool, completion: @escaping CompletionHandler<Item>) -> URLSessionTask? {
         
         var request = resource.request
-        
+
+        // add required header information
         addTraktHeader(to: &request)
-        
+
+        // add authorization information when required
         if authenticated {
-            if let token = token, token.isValid {
-                request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+            if let token = token {
+                if token.isValid {
+                    request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+                } else {
+                    completion(.failure(Error.invalidAuthorization))
+                    return nil
+                }
             } else {
-                completion(.failure(.invalidAuthorization))
+                completion(.failure(Error.missingAuthorization))
                 return nil
             }
         }
-        
+
+        // print url when in debug mode
         if let url = request.url, configuration.isDebug {
             print("Request: \(url)")
         }
-        
+
         let task = session.dataTask(with: request) { data, response, error in
             
             guard let response = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    completion(.failure(.unknownServerResponse(error)))
+                    completion(.failure(Error.unknownServerResponse(error)))
                 }
                 return
             }
             
             guard let statusCode = StatusCode(rawValue: response.statusCode) else {
                 DispatchQueue.main.async {
-                    completion(.failure(.unknownStatusCode(response.statusCode, request, error)))
+                    completion(.failure(Error.unknownHttpStatusCode(response, error)))
                 }
                 return
             }
             
             guard 200...299 ~= response.statusCode else {
                 DispatchQueue.main.async {
-                    completion(.failure(.badStatusCode(statusCode, request, error)))
+                    completion(.failure(Error.badHttpStatusCode(statusCode, error)))
                 }
                 return
             }
             
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseData(request, error)))
+                    completion(.failure(Error.missingResponseData(response, error)))
                 }
                 return
             }
@@ -108,7 +116,7 @@ public final class Trakt {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(.invalidResponseJson(error, request)))
+                    completion(.failure(Error.jsonDecodingError(error)))
                 }
             }
         }
@@ -122,12 +130,5 @@ public final class Trakt {
         request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")
         request.addValue(configuration.apiVersion, forHTTPHeaderField: "trakt-api-version")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    }
-    
-    func buildError(reason: String) -> Error {
-        let dict = [
-            NSLocalizedDescriptionKey: reason
-        ]
-        return NSError(domain: configuration.errorDomain, code: 599, userInfo: dict)
     }
 }
