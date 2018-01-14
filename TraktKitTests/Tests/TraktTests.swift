@@ -21,7 +21,7 @@ class TraktTests: XCTestCase {
     
     lazy var trakt: Trakt = {
         let configuration = Configuration(isDebug: true)
-        let trakt = Trakt(configuration: configuration, session: self.session, credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"), keychain: Keychain.default)
+        let trakt = Trakt(session: self.session, credentials: Helper.credentials, configuration: configuration, keychain: Keychain.default)
         trakt.token = Token(accessToken: "accessToken", refreshToken: "refreshToken", expiry: .distantFuture)
         return trakt
     }()

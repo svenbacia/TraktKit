@@ -30,7 +30,7 @@ public final class Trakt {
     
     // MARK: - Initializer
     
-    public init(configuration: Configuration = Configuration(), session: URLSession = URLSession.shared, credentials: Credentials, keychain: Keychain = .default) {
+    public init(session: URLSession = URLSession.shared, credentials: Credentials, configuration: Configuration = Configuration(), keychain: Keychain = .default) {
         self.configuration = configuration
         self.credentials = credentials
         self.keychain = keychain
