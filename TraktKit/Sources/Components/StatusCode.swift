@@ -68,55 +68,48 @@ public enum StatusCode: Int, Error {
 }
 
 extension StatusCode: CustomStringConvertible {
-
     public var description: String {
-
-        let prefix = "[\(self.rawValue)] "
-
         switch self {
         case .success:
-            return prefix + "Success"
+            return "Success"
         case .successNewResourceCreated:
-            return prefix + "Success - new resource created (POST)"
+            return "Success - new resource created (POST)"
         case .successNoContentToReturn:
-            return prefix + "Success - no content to return (DELETE)"
+            return "Success - no content to return (DELETE)"
         case .badRequest:
-            return prefix + "Bad Request - request couldn't be parsed"
+            return "Bad Request - request couldn't be parsed"
         case .unauthorized:
-            return prefix + "Unauthorized - OAuth must be provided"
+            return "Unauthorized - OAuth must be provided"
         case .forbidden:
-            return prefix + "Forbidden - Invalid API key or unapproved app"
+            return "Forbidden - Invalid API key or unapproved app"
         case .notFound:
-            return prefix + "Not Found - method exists, but no record found"
+            return "Not Found - method exists, but no record found"
         case .methodNotFound:
-            return prefix + "Method Not Found - method doesn't exist"
+            return "Method Not Found - method doesn't exist"
         case .conflict:
-            return prefix + "Conflict - resource already created"
+            return "Conflict - resource already created"
         case .preconditionFailed:
-            return prefix + "Precondition Failed - use application/json content type"
+            return "Precondition Failed - use application/json content type"
         case .unprocessableEntity:
-            return prefix + "Unprocessable Entity - validation errors"
+            return "Unprocessable Entity - validation errors"
         case .rateLimitExceeded:
-            return prefix + "Rate Limit Exceeded"
+            return "Rate Limit Exceeded"
         case .serverError:
-            return prefix + "Server Error"
+            return "Server Error"
         case .serverOverloaded:
-            return prefix + "Service Unavailable - server overloaded"
+            return "Service Unavailable - server overloaded"
         case .cloudflareError1,
              .cloudflareError2,
              .cloudflareError3:
-            return prefix + "Service Unavailable - Cloudflare error"
+            return "Service Unavailable - Cloudflare error"
         case .gatewayTimedOut:
-            return prefix + "The web server reported a gateway time-out error. Please try again in a few minutes."
+            return "The web server reported a gateway time-out error. Please try again in a few minutes."
         }
     }
 }
 
 extension StatusCode: CustomDebugStringConvertible {
     public var debugDescription: String {
-        switch self {
-        default:
-            return ""
-        }
+        return "\((rawValue)) \(description)"
     }
 }
