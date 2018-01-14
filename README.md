@@ -8,7 +8,6 @@ TraktKit is a wrapper for the [trakt.tv](https://trakt.tv) API written in Swift.
 ## Getting Started
 
 ### Initialization
-
 ```Swift
 // Get your credentials at https://trakt.tv/oauth/applications
 let credentials = Credentials(
@@ -20,6 +19,8 @@ let credentials = Credentials(
 let trakt = Trakt(credentials: credentials)
 ```
 
+Optionally you can also pass in a custom `URLSession`, `Keychain` and/or `Configuration`.
+
 ### Authorization
 ```Swift
 // use the trakt.authorizationURL to login a new user
@@ -27,7 +28,7 @@ let safariViewController = SFSafariViewController(URL: trakt.authorizationURL)
 presentViewController(safariViewController, animated: true, completion: nil)
 ```
 
-Once the user completes the login, the response will be redirected back to the application. Call `trakt.open(url:completion)` which will exchange to code for an accessToken.
+Once the user completes the login, the response will be redirected back to the application. Call `trakt.exchangeAccessToken(for:completion:)` which will exchange the code for an accessToken.
 
 ```Swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -35,11 +36,11 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpe
   guard let query = url.query else { return false }
   guard let code = query.components(separatedBy: "=").last else { return false }
 
-  trakt.exchangeAccessToken(with: code) { result in 
+  trakt.exchangeAccessToken(for: code) { result in 
     switch result {
-    case .Success:
-      // successfully received an accessToken
-    case .Failure(let error):
+    case .success(let token):
+      // successfully received an accessToken.
+    case .failure(let error):
       // could not get an accessToken. Check the `error` for more information.
     }  
   }
@@ -47,49 +48,33 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpe
 ```
 
 ### Requests
+All endpoints can be requested via the `trakt.load(resource:authenticated:completion:)` function. The `resource` parameter describes an endpoint. For example:
 
-#### Explore Endpoint
-```Swift
-trakt.trendingShows([.full, .images], page: 0, limit: 20) { result in 
-  switch result {
-  case .success(let shows):
-  	// do something with the shows
-  case .failure(let error):
-  	// oh no, something happend... see `error`
-  }
+```swift
+trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in                                                                       	switch result {
+	case .success(let shows):
+		// [TrendingShow]
+	case .failure(let error):
+		// oh no, something unexpected happend. Check the error for more information.
+	}
 }
 ```
+`TraktKit` will automically parse the JSON response for nearly all endpoints. In this case the JSON will be decoded to an array of `TrendingShow` objects.
 
-#### Show Endpoint
-```Swift
-trakt.getShow("Suits").summary([.full, .images]) { result in 
-  switch result {
-  case .success(let show):
-  	// do something with the show information
-  case .failure(let error):
-  	// oh no, something happend... see `error`
-  }
-}
+#### Endpoints
+The `resources` property helps to find the endpoint you are looking for. For example, the endpoint for the summary of a specific episode can be accessed like this:
+
+```swift
+trakt.resources.show(107717).season(1).episode(1).summary()
 ```
 
-#### Season Endpoint
-```Swift
-trakt.getShow("Suits").season(1).summary([.full, .images]) { result in 
-  switch result {
-  case .success(let episodes):
-  	// do something with the episodes
-  case .failure(let error):
-  	// oh no, something happend... see `error`
-  }
-}
-```
-
+Looking for the comments of the same episode? Just swap out the last `summary()` function with the `comments()` function and pass the resource to the `load(resource:completion:)` function.
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Sven Bacia
+Copyright (c) 2018 Sven Bacia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
