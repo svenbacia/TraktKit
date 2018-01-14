@@ -17,6 +17,6 @@ func parseData(_ data: Data, decoder: JSONDecoder?) throws -> Data {
 }
 
 func parseDecodable<Element: Decodable>(_ data: Data, decoder: JSONDecoder?) throws -> Element {
-    guard let decoder = decoder else { fatalError("missing decoder") }
+    guard let decoder = decoder else { throw Resource<Element>.Error.missingDecoder }
     return try decoder.decode(Element.self, from: data)
 }

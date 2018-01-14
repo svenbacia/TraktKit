@@ -9,8 +9,14 @@
 import Foundation
 
 public struct Resource<Element> {
+
+    // MARK: - Types
+
+    public enum Error: Swift.Error {
+        case missingDecoder
+    }
     
-    // MARK: Properties
+    // MARK: - Properties
     
     /// URL Request
     public let request: URLRequest

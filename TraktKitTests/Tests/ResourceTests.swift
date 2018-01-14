@@ -61,4 +61,13 @@ class ResourceTests: XCTestCase {
         let resource: Resource<Data> = buildResource(base: "https://www.trakt.tv", path: "/shows/trending")
         XCTAssertEqual(resource.request.url!.absoluteString, "https://www.trakt.tv/shows/trending")
     }
+
+    private struct Banana: Codable {
+        let name: String
+    }
+
+    func testParseResourceWithoutDecoder() {
+        let resource: Resource<Banana> = Resource(url: URL(string: "www.trakt.tv")!, decoder: nil, parseHandler: parseDecodable)
+        XCTAssertThrowsError(try resource.parse(Data(capacity: 8)))
+    }
 }
