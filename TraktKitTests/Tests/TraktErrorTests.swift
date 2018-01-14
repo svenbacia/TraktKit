@@ -13,12 +13,23 @@ import XCTest
 class TraktErrorTests: XCTestCase {
 
     func testDescriptionAvailable() {
-//        XCTAssertTrue(TraktError.badStatusCode(.badRequest, nil, nil).description.characters.count > 0)
-//        XCTAssertTrue(TraktError.invalidAuthorization.description.characters.count > 0)
-//        XCTAssertTrue(TraktError.invalidResponseData(nil, nil).description.characters.count > 0)
-//        XCTAssertTrue(TraktError.invalidResponseJson(buildError(reason: "test"), nil).description.characters.count > 0)
-//        XCTAssertTrue(TraktError.unknownServerResponse(nil).description.characters.count > 0)
-//        XCTAssertTrue(TraktError.unknownStatusCode(123456789, nil, buildError(reason: "test")).description.characters.count > 0)
+        XCTAssertFalse(Trakt.Error.badHttpStatusCode(.badRequest, nil).description.isEmpty)
+        XCTAssertFalse(Trakt.Error.invalidAuthorization.description.isEmpty)
+        XCTAssertFalse(Trakt.Error.jsonDecodingError(JSONError.invalidDateFormat("")).description.isEmpty)
+        XCTAssertFalse(Trakt.Error.missingAuthorization.description.isEmpty)
+        XCTAssertFalse(Trakt.Error.missingResponseData(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 0, httpVersion: nil, headerFields: nil)!, nil).description.isEmpty)
+        XCTAssertFalse(Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 0, httpVersion: nil, headerFields: nil)!, nil).description.isEmpty)
+        XCTAssertFalse(Trakt.Error.unknownServerResponse(nil).description.isEmpty)
+    }
+
+    func testDebugDescriptionAvailable() {
+        XCTAssertFalse(Trakt.Error.badHttpStatusCode(.badRequest, nil).debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.invalidAuthorization.debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.jsonDecodingError(JSONError.invalidDateFormat("")).debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.missingAuthorization.debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.missingResponseData(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 0, httpVersion: nil, headerFields: nil)!, nil).debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 0, httpVersion: nil, headerFields: nil)!, nil).debugDescription.isEmpty)
+        XCTAssertFalse(Trakt.Error.unknownServerResponse(nil).debugDescription.isEmpty)
     }
 }
 
