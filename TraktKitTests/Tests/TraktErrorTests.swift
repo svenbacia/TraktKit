@@ -31,5 +31,19 @@ class TraktErrorTests: XCTestCase {
         XCTAssertFalse(Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 0, httpVersion: nil, headerFields: nil)!, nil).debugDescription.isEmpty)
         XCTAssertFalse(Trakt.Error.unknownServerResponse(nil).debugDescription.isEmpty)
     }
+
+    func testEquality() {
+        // true
+        XCTAssertTrue(Trakt.Error.missingAuthorization == Trakt.Error.missingAuthorization)
+        XCTAssertTrue(Trakt.Error.invalidAuthorization == Trakt.Error.invalidAuthorization)
+        XCTAssertTrue(Trakt.Error.unknownServerResponse(nil) == Trakt.Error.unknownServerResponse(nil))
+        XCTAssertTrue(Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) == Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) )
+        XCTAssertTrue(Trakt.Error.badHttpStatusCode(.badRequest, nil) == Trakt.Error.badHttpStatusCode(.badRequest, nil))
+        XCTAssertTrue(Trakt.Error.missingResponseData(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) == Trakt.Error.missingResponseData(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil))
+        XCTAssertTrue(Trakt.Error.jsonDecodingError(JSONError.invalidDateFormat("")) == Trakt.Error.jsonDecodingError(JSONError.invalidDateFormat("")))
+
+        // false
+        XCTAssertFalse(Trakt.Error.invalidAuthorization == Trakt.Error.missingAuthorization)
+    }
 }
 

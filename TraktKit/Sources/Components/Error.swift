@@ -74,3 +74,26 @@ extension Trakt.Error: CustomDebugStringConvertible {
         }
     }
 }
+
+extension Trakt.Error: Equatable {
+    public static func ==(lhs: Trakt.Error, rhs: Trakt.Error) -> Bool {
+        switch (lhs, rhs) {
+        case (.missingAuthorization, .missingAuthorization):
+            return true
+        case (.invalidAuthorization, .invalidAuthorization):
+            return true
+        case (.unknownServerResponse, .unknownServerResponse):
+            return true
+        case (.unknownHttpStatusCode, .unknownHttpStatusCode):
+            return true
+        case (.badHttpStatusCode(let lhsStatusCode, _), .badHttpStatusCode(let rhsStatusCode, _)):
+            return lhsStatusCode == rhsStatusCode
+        case (.missingResponseData, .missingResponseData):
+            return true
+        case (.jsonDecodingError, .jsonDecodingError):
+            return true
+        default:
+            return false
+        }
+    }
+}

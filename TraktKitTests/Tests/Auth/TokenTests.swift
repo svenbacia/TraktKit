@@ -45,4 +45,34 @@ class TokenTests: XCTestCase {
         let token = Token(accessToken: "accessToken", refreshToken: "refreshToken", expiry: Date(timeIntervalSinceNow: -3600))
         XCTAssertFalse(token.isValid)
     }
+
+    func testLoadToken() {
+        let token = Token(accessToken: "", refreshToken: "refreshToken", expiry: .distantFuture)
+        let trakt = Trakt(credentials: Credentials(clientID: "", clientSecret: "", redirectURI: ""))
+        trakt.token = token
+        let newToken = trakt.loadToken()
+        XCTAssertNotNil(newToken)
+    }
+
+    func testLoadTokenWithoutRefreshToken() {
+        let token = Token(accessToken: "", refreshToken: "refreshToken", expiry: .distantFuture)
+        let trakt = Trakt(credentials: Credentials(clientID: "", clientSecret: "", redirectURI: ""))
+        trakt.token = token
+
+        try! Keychain.default.set(Optional<String>.none, forKey: "trakt.refreshToken")
+        let newToken = trakt.loadToken()
+
+        XCTAssertNil(newToken)
+    }
+
+    func testLoadTokenWithoutExpiry() {
+        let token = Token(accessToken: "", refreshToken: "refreshToken", expiry: .distantFuture)
+        let trakt = Trakt(credentials: Credentials(clientID: "", clientSecret: "", redirectURI: ""))
+        trakt.token = token
+
+        UserDefaults.standard.set(nil, forKey: "trakt.expiry")
+        let newToken = trakt.loadToken()
+
+        XCTAssertNil(newToken)
+    }
 }

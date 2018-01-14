@@ -50,6 +50,11 @@ class ResourceTests: XCTestCase {
         let result = path("/show")
         XCTAssertEqual(result, "/show")
     }
+
+    func testPathWithoutListItemType() {
+        let result = buildPath("/shows", type: nil)
+        XCTAssertEqual(result, "/shows")
+    }
     
     func testParseData() {
         let data = Data(base64Encoded: "Test")!
