@@ -10,7 +10,7 @@ import XCTest
 
 @testable import TraktKit
 
-class TraktErrorTests: XCTestCase {
+class ErrorTests: XCTestCase {
 
     func testDescriptionAvailable() {
         XCTAssertFalse(Trakt.Error.badHttpStatusCode(.badRequest, nil).description.isEmpty)

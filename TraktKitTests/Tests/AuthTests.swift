@@ -9,7 +9,7 @@
 import XCTest
 @testable import TraktKit
 
-class TraktAuthTests: XCTestCase {
+class AuthTests: XCTestCase {
     
     // MARK: -
     
