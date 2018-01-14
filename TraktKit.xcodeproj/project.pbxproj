@@ -105,7 +105,6 @@
 		26979B9C1FD1866A000F59B4 /* show-season-ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = 26979B9B1FD1866A000F59B4 /* show-season-ratings.json */; };
 		26979B9E1FD18697000F59B4 /* show-season-stats.json in Resources */ = {isa = PBXBuildFile; fileRef = 26979B9D1FD18697000F59B4 /* show-season-stats.json */; };
 		26979BA01FD186B5000F59B4 /* show-season-watching.json in Resources */ = {isa = PBXBuildFile; fileRef = 26979B9F1FD186B5000F59B4 /* show-season-watching.json */; };
-		269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */; };
 		26ADB81C1FA9E8EE00AF73B6 /* KeychainQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ADB81B1FA9E8EE00AF73B6 /* KeychainQuery.swift */; };
 		26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC21E13BF9E00B8EB52 /* Privacy.swift */; };
 		26B43AC51E13CA2200B8EB52 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B43AC41E13CA2200B8EB52 /* Period.swift */; };
@@ -271,7 +270,6 @@
 		26979B9B1FD1866A000F59B4 /* show-season-ratings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "show-season-ratings.json"; sourceTree = "<group>"; };
 		26979B9D1FD18697000F59B4 /* show-season-stats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "show-season-stats.json"; sourceTree = "<group>"; };
 		26979B9F1FD186B5000F59B4 /* show-season-watching.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "show-season-watching.json"; sourceTree = "<group>"; };
-		269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktDateFormatter.swift; sourceTree = "<group>"; };
 		26ADB81B1FA9E8EE00AF73B6 /* KeychainQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainQuery.swift; sourceTree = "<group>"; };
 		26B43AC21E13BF9E00B8EB52 /* Privacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		26B43AC41E13CA2200B8EB52 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
@@ -630,7 +628,6 @@
 				26B43AC41E13CA2200B8EB52 /* Period.swift */,
 				265823E41D7C854F0018F641 /* Result.swift */,
 				265823E81D7C8AEB0018F641 /* StatusCode.swift */,
-				269F1F231F28FB95007C69C5 /* TraktDateFormatter.swift */,
 				26DEFDE61EBE01A500E83397 /* TraktError.swift */,
 			);
 			path = Components;
@@ -887,7 +884,6 @@
 				265E9E4D1D7B016300B51D5D /* Credentials.swift in Sources */,
 				265E9E4B1D7B00D500B51D5D /* Trakt.swift in Sources */,
 				263C63421FA638EB0030B186 /* Resource+Parse.swift in Sources */,
-				269F1F241F28FB95007C69C5 /* TraktDateFormatter.swift in Sources */,
 				26B43AC31E13BF9E00B8EB52 /* Privacy.swift in Sources */,
 				26B43AC91E13CA7900B8EB52 /* SearchType.swift in Sources */,
 				26F7994C1FD8846600DAC0FE /* SearchResource.swift in Sources */,
