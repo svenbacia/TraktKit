@@ -9,16 +9,16 @@
 import Foundation
 
 public struct WatchedProgress: Codable {
-    
+
     // MARK: - Types
-    
+
     public struct Season: Codable {
         public let number: Int
         public let aired: Int
         public let completed: Int
         public let episodes: [Episode]
     }
-    
+
     public struct Episode: Codable {
         private enum CodingKeys: String, CodingKey {
             case number
@@ -29,9 +29,9 @@ public struct WatchedProgress: Codable {
         public let completed: Bool
         public let lastWatchedAt: Date?
     }
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case aired
         case completed
@@ -41,9 +41,9 @@ public struct WatchedProgress: Codable {
         case nextEpisode = "next_episode"
         case lastEpisode = "last_episode"
     }
-    
+
     // MARK: - Properties
-    
+
     public let aired: Int
     public let completed: Int
     public let lastWatchedAt: Date?

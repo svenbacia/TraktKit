@@ -10,7 +10,7 @@ import XCTest
 import TraktKit
 
 class CredentialsTests: XCTestCase {
-    
+
     func testCreateCredentails() {
         let credentials = Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI")
         XCTAssertEqual(credentials.clientID, "clientID")

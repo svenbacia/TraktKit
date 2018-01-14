@@ -9,9 +9,9 @@
 import Foundation
 
 public struct List: Codable {
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case name
         case description
@@ -28,9 +28,9 @@ public struct List: Codable {
         case ids
         case user
     }
-    
+
     // MARK: - Properties
-    
+
     public let name: String
     public let description: String?
     public let privacy: Privacy

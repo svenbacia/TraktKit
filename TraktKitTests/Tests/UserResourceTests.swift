@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class UserResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testProfile() {
         let resource = trakt.resources.user("mrmojo").profile()
         let data = buildJsonData(name: "user-profile")
@@ -27,7 +27,7 @@ class UserResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(user.username, "mrmojo")
     }
-    
+
     func testStats() {
         let resource = trakt.resources.user("username").stats
         let data = buildJsonData(name: "user-stats")
@@ -36,7 +36,7 @@ class UserResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(stats.episodes.watched, 1000)
     }
-    
+
     func testLists() {
         let resource = trakt.resources.user("mrmojo").lists
         let data = buildJsonData(name: "user-lists")
@@ -45,7 +45,7 @@ class UserResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(lists.count, 7)
     }
-    
+
     func testCreateList() {
         let resource = trakt.resources.user("mrmojo").createList(name: "test-list2", description: "description", privacy: .private, displayNumbers: false, allowComments: true)
         let data = buildJsonData(name: "user-create-list")

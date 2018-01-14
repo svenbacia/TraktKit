@@ -12,15 +12,15 @@ public typealias Translation = String
 public typealias Genre = String
 
 public struct Show: Codable {
-    
+
     // MARK: Types
-    
+
     public struct Airs: Codable {
         public let day: String?
         public let time: String?
         public let timezone: String?
     }
-    
+
     public enum Status: String, Codable {
         case returningSeries = "returning series"
         case inProducation = "in production"
@@ -29,9 +29,9 @@ public struct Show: Codable {
         case ended
         case unknown = ""
     }
-    
+
     // MARK: - Codable coding keys
-    
+
     private enum CodingKeys: String, CodingKey {
         case title
         case year
@@ -53,12 +53,12 @@ public struct Show: Codable {
         case genres
         case airedEpisodes = "aired_episodes"
     }
-    
+
     // MARK: Properties
-    
+
     public let title: String
     public let ids: Ids
-    
+
     public let year: Int?
     public let overview: String?
     public let firstAired: Date?

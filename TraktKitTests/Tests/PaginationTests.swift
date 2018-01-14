@@ -10,7 +10,7 @@ import XCTest
 import TraktKit
 
 class PaginationTests: XCTestCase {
-    
+
     func testPagination_success() {
         let headers = [
             "x-pagination-page": "1",
@@ -24,7 +24,7 @@ class PaginationTests: XCTestCase {
         XCTAssertEqual(pagination!.numberOfPages, 10)
         XCTAssertEqual(pagination!.numberOfItems, 100)
     }
-    
+
     func testPagination_missingPage() {
         let headers = [
             "x-pagination-limit": "10",
@@ -34,7 +34,7 @@ class PaginationTests: XCTestCase {
         let pagination = Pagination(headers: headers)
         XCTAssertNil(pagination)
     }
-    
+
     func testPagination_missingLimit() {
         let headers = [
             "x-pagination-page": "1",
@@ -44,7 +44,7 @@ class PaginationTests: XCTestCase {
         let pagination = Pagination(headers: headers)
         XCTAssertNil(pagination)
     }
-    
+
     func testPagination_missingPageCount() {
         let headers = [
             "x-pagination-page": "1",
@@ -54,7 +54,7 @@ class PaginationTests: XCTestCase {
         let pagination = Pagination(headers: headers)
         XCTAssertNil(pagination)
     }
-    
+
     func testPagination_missingItemCount() {
         let headers = [
             "x-pagination-page": "1",

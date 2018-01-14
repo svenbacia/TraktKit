@@ -17,7 +17,7 @@ public enum SearchType: String, Codable {
 }
 
 extension SearchType: Equatable {
-    public static func ==(lhs: SearchType, rhs: SearchType) -> Bool {
+    public static func == (lhs: SearchType, rhs: SearchType) -> Bool {
         switch (lhs, rhs) {
         case (.show, .show):
             return true

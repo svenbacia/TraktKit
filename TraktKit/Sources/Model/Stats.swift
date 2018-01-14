@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Stats: Codable {
-    
+
     // MARK: Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case watchers
         case plays
@@ -21,9 +21,9 @@ public struct Stats: Codable {
         case lists
         case votes
     }
-    
+
     // MARK: - Properties
-    
+
     public let watchers: Int
     public let plays: Int
     public let collectors: Int

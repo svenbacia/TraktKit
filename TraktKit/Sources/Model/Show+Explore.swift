@@ -17,7 +17,7 @@ public typealias WatchedShow = PlayedShow
 public typealias CollectedShow = PlayedShow
 
 public struct PlayedShow: Codable {
-    
+
     // MARK: Codable
     private enum CodingKeys: String, CodingKey {
         case watchers = "watcher_count"
@@ -26,7 +26,7 @@ public struct PlayedShow: Codable {
         case collectors = "collector_count"
         case show
     }
-    
+
     // MARK: Properties
     public let watchers: Int
     public let plays: Int
@@ -36,13 +36,13 @@ public struct PlayedShow: Codable {
 }
 
 public struct AnticipatedShow: Codable {
-    
+
     // MARK: Codable
     private enum CodingKeys: String, CodingKey {
         case listed = "list_count"
         case show
     }
-    
+
     // MARK: Properties
     public let listed: Int
     public let show: Show

@@ -13,7 +13,7 @@ public struct Pagination {
     public let limit: Int
     public let numberOfPages: Int
     public let numberOfItems: Int
-    
+
     public init?(headers: [String: Any]) {
         guard let pageString = headers["x-pagination-page"] as? String, let page = Int(pageString) else { return nil }
         guard let limitString = headers["x-pagination-limit"] as? String, let limit = Int(limitString) else { return nil }

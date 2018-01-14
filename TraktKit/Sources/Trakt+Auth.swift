@@ -9,33 +9,33 @@
 import Foundation
 
 extension Trakt {
-    
+
     // MARK: Properties
-    
+
     public var isAuthorized: Bool {
         guard let token = token else { return false }
         return token.isValid
     }
-    
+
     public var isExpired: Bool {
         return token?.isExpired ?? true
     }
-    
+
     public var authorizationURL: URL {
         var components = URLComponents(string: "https://www.trakt.tv/oauth/authorize")!
-        
+
         let parameters = [
             "response_type": "code",
             "client_id": credentials.clientID,
             "redirect_uri": credentials.redirectURI
         ]
         components.queryItems = parameters.map(toQueryItem).flatMap { $0 }
-        
+
         return components.url!
     }
-    
+
     // MARK: - Endpoints
-    
+
     @discardableResult
     public func exchangeAccessToken(`for` code: String, completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
         let resource = AuthResource(credentials: credentials, configuration: configuration).exchangeAccessToken(for: code)
@@ -51,7 +51,7 @@ extension Trakt {
             }
         }
     }
-    
+
     @discardableResult
     public func exchangeRefreshToken(_ completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
         guard let refreshToken = token?.refreshToken else {
@@ -76,19 +76,19 @@ extension Trakt {
 // MARK: - Internet Token Helper
 
 internal extension Trakt {
-    
+
     private struct Key {
         static let accessToken = "trakt.accessToken"
         static let refreshToken = "trakt.refreshToken"
         static let expiry = "trakt.expiry"
     }
-    
+
     func persist(_ token: Token?) {
         try? keychain.set(token?.accessToken, forKey: Key.accessToken)
         try? keychain.set(token?.refreshToken, forKey: Key.refreshToken)
         UserDefaults.standard.set(token?.expiry, forKey: Key.expiry)
     }
-    
+
     func loadToken() -> Token? {
         do {
             guard let accessToken = try keychain.string(forKey: Key.accessToken) else {

@@ -9,9 +9,9 @@
 import Foundation
 
 public struct User: Codable {
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case username
         case isPrivate = "private"
@@ -26,19 +26,19 @@ public struct User: Codable {
         case age
         case images
     }
-    
+
     // MARK: - Types
-    
+
     public struct Ids: Codable {
         let slug: String
     }
-    
+
     public struct Images: Codable {
         let avatar: Image
     }
-    
+
     // MARK: - Properties
-    
+
     public let username: String
     public let isPrivate: Bool
     public let name: String?

@@ -9,23 +9,23 @@
 import Foundation
 
 public struct SeasonRequest {
-  
+
   // MARK: - Properties
-  
+
   private let show: Int
   private let season: Int
   private let basePath: String
-  
+
   // MARK: - Init
-  
+
   init(id: Int, number: Int) {
     self.show = id
     self.season = number
     self.basePath = "/shows/\(id)/seasons/\(number)"
   }
-  
+
   // MARK: - Endpoints
-  
+
 //  public func summary(_ extended: Extended? = nil) -> Resource<Any> {
 //    return buildResource(path: basePath, params: parameters(extended: extended))
 //  }
@@ -45,11 +45,11 @@ public struct SeasonRequest {
 //  public func watching(_ extended: Extended? = nil) -> Resource<Any> {
 //    return buildResource(path: basePath + "/watching", params: parameters(extended: extended))
 //  }
-  
+
   // MARK: - Episode Request
-  
+
   public func episode(_ number: Int) -> EpisodeRequest {
     return EpisodeRequest(show: show, season: season, number: number)
   }
-  
+
 }

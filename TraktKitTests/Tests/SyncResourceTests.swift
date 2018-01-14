@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class SyncResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testLastActivites() {
         let resource = trakt.resources.sync.lastActivities()
         let data = buildJsonData(name: "sync-last-activities")
@@ -27,7 +27,7 @@ class SyncResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertNotNil(activities.all)
     }
-    
+
     func testCollection() {
         let resource = trakt.resources.sync.collection()
         let data = buildJsonData(name: "sync-collection-shows")
@@ -36,7 +36,7 @@ class SyncResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 4)
     }
-    
+
     func testWatched() {
         let resource = trakt.resources.sync.watched()
         let data = buildJsonData(name: "sync-watched-shows")
@@ -45,7 +45,7 @@ class SyncResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 1)
     }
-    
+
     func testWatchlist() {
         let resource = trakt.resources.sync.watchlist()
         let data = buildJsonData(name: "sync-watchlist-shows")
@@ -54,14 +54,14 @@ class SyncResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 3)
     }
-    
+
     func testAddToHistory() {
         let item = ContentItem.show(id: 1)
         let resource = trakt.resources.sync.addToHistory([item])
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/history")
         XCTAssertEqual(resource.request.httpMethod, "POST")
     }
-    
+
     func testRemoveFromHistory() {
         let item = ContentItem.show(id: 1)
         let resource = trakt.resources.sync.removeFromHistory([item])

@@ -9,33 +9,33 @@
 import Foundation
 
 public struct ExploreResource {
-    
+
     // MARK: - Properties
-    
+
     private let configuration: Configuration
-    
+
     // MARK: - Init
-    
+
     public init(configuration: Configuration) {
         self.configuration = configuration
     }
-    
+
     // MARK: - Access
-    
+
     public var shows: ShowResource {
         return ShowResource(configuration: configuration)
     }
 
     // MARK: - TV Shows
-    
+
     public struct ShowResource {
-        
+
         private let configuration: Configuration
-        
+
         init(configuration: Configuration) {
             self.configuration = configuration
         }
-        
+
         public func trending(extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<[TrendingShow]> {
             return buildResource(base: configuration.base, path: "/shows/trending", params: parameters(page: page, limit: limit, extended: extended))
         }
@@ -59,5 +59,5 @@ public struct ExploreResource {
         public func collected(period: Period? = nil, extended: Extended? = nil, page: Int? = nil, limit: Int? = nil) -> Resource<[CollectedShow]> {
             return buildResource(base: configuration.base, path: path("/shows/collected", with: period), params: parameters(page: page, limit: limit, extended: extended))
         }
-    }    
+    }
 }

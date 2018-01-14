@@ -9,12 +9,12 @@
 import Foundation
 
 enum Method: String {
-    
+
     case get = "GET"
     case post = "POST"
     case delete = "DELETE"
     case update = "UPDATE"
-    
+
     public var allowsHttpBody: Bool {
         return self == .post
     }

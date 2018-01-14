@@ -9,9 +9,9 @@
 import Foundation
 
 public struct ListItem: Codable {
-    
+
     // MARK: - Types
-    
+
     public enum ItemType: String, Codable {
         case movie
         case show
@@ -19,9 +19,9 @@ public struct ListItem: Codable {
         case episode
         case person
     }
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case rank
         case listedAt = "listed_at"
@@ -31,9 +31,9 @@ public struct ListItem: Codable {
         case episode
         case person
     }
-    
+
     // MARK: - Properties
-    
+
     public let rank: Int
     public let listedAt: Date
     public let type: ItemType

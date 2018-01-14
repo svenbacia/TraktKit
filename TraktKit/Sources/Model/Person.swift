@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Person: Codable {
-    
+
     // MARK: - Person
-    
+
     public let name: String
     public let ids: Ids
     public let biography: String?

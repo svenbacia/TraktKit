@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Episode: Codable {
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case season
         case number
@@ -26,9 +26,9 @@ public struct Episode: Codable {
         case availableTranslations = "available_translations"
         case runtime
     }
-    
+
     // MARK: - Properties
-    
+
     public let season: Int
     public let number: Int
     public let title: String?

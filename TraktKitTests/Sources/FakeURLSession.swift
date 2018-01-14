@@ -10,32 +10,32 @@ import Foundation
 import TraktKit
 
 final class FakeURLSession: URLSession {
-    
+
     // MARK: - Types
-    
+
     private final class Task: URLSessionDataTask {
-        
+
         private let completion: () -> Void
-        
+
         init(completion: @escaping () -> Void) {
             self.completion = completion
             super.init()
         }
-        
+
         override func resume() {
             completion()
         }
     }
-    
+
     // MARK: - Properties
-    
+
     private let handler: (URLRequest) -> (Data?, URLResponse?, Error?)
-    
+
     var requests = [URLRequest]()
     var completedRequests = [URLRequest]()
-    
+
     // MARK: - Static Helper
-    
+
     static func success(statusCode: Int, json: String) -> FakeURLSession {
         return FakeURLSession(handler: { (request) -> (Data?, URLResponse?, Error?) in
             let data = buildJsonData(name: json)
@@ -43,28 +43,28 @@ final class FakeURLSession: URLSession {
             return (data, response, nil)
         })
     }
-    
+
     static func failure(statusCode: Int) -> FakeURLSession {
         return FakeURLSession(handler: { (request) -> (Data?, URLResponse?, Error?) in
             let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
             return (nil, response, nil)
         })
     }
-        
+
     // MARK: - Init
-    
+
     init(handler: @escaping (URLRequest) -> (Data?, URLResponse?, Error?)) {
         self.handler = handler
     }
-    
+
     convenience init(data: Data? = nil, response: URLResponse? = nil, error: Error? = nil) {
         self.init { (_) -> (Data?, URLResponse?, Error?) in
             return (data, response, error)
         }
     }
-    
+
     // MARK: - Task
-    
+
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         requests.append(request)
         return Task {
@@ -73,9 +73,9 @@ final class FakeURLSession: URLSession {
             completionHandler(result.0, result.1, result.2)
         }
     }
-    
+
     // MARK: - Reset 
-    
+
     func reset() {
         requests.removeAll()
         completedRequests.removeAll()

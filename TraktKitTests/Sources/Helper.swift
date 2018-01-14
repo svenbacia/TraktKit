@@ -11,4 +11,5 @@ import TraktKit
 
 public struct Helper {
     public static let credentials = Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI")
+    public static let httpUrlResponse = HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
 }

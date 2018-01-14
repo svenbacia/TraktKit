@@ -8,19 +8,18 @@
 
 import Foundation
 
-
 /// Trakt.tv API credentials.
 public struct Credentials {
-    
+
     /// Client ID.
     public let clientID: String
-    
+
     /// Client Secret.
     public let clientSecret: String
-    
+
     /// Redirect URI.
     public let redirectURI: String
-    
+
     /// Creates a trakt.tv api credentials object with client id, client secret and
     /// redirect uri.
     ///
