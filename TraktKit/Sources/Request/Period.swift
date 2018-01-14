@@ -13,7 +13,7 @@ public enum Period: String {
     case monthly
     case yearly
     case all
-    
+
     static var `default`: Period {
         return .weekly
     }

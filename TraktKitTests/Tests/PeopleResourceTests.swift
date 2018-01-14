@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class PeopleResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testSummary() {
         let resource = trakt.resources.people(424273).summary()
         let data = buildJsonData(name: "people-summary")
@@ -27,7 +27,7 @@ class PeopleResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(person.ids.trakt, 424273)
     }
-    
+
     func testShows() {
         let resource = trakt.resources.people(424273).shows()
         let data = buildJsonData(name: "people-shows")

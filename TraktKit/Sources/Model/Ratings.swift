@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Ratings: Codable {
-    
+
     // MARK: - Properties
-    
+
     public let rating: Double
     public let votes: Int
     public let distribution: [String: Int]

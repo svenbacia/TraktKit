@@ -9,21 +9,21 @@
 import Foundation
 
 struct AuthResource {
-    
+
     // MARK: Properties
-    
+
     private let credentials: Credentials
     private let configuration: Configuration
-    
+
     // MARK: - Init
-    
+
     init(credentials: Credentials, configuration: Configuration) {
         self.credentials = credentials
         self.configuration = configuration
     }
-    
+
     // MARK: - Endpoints
-    
+
     func exchangeAccessToken(for code: String) -> Resource<Token> {
         let params = [
             "code": code,
@@ -34,16 +34,16 @@ struct AuthResource {
         ]
         return buildResource(base: configuration.base, path: "/oauth/token", params: params, method: .post, decoder: .timeIntervalSinceNow)
     }
-    
+
     func refreshAccessToken(with refreshToken: String) -> Resource<Token> {
         let params = [
-            "client_id"     : credentials.clientID,
-            "client_secret" : credentials.clientSecret,
-            "redirect_uri"  : credentials.redirectURI,
-            "refresh_token" : refreshToken,
-            "grant_type"    : "refresh_token"
+            "client_id": credentials.clientID,
+            "client_secret": credentials.clientSecret,
+            "redirect_uri": credentials.redirectURI,
+            "refresh_token": refreshToken,
+            "grant_type": "refresh_token"
         ]
         return buildResource(base: configuration.base, path: "/oauth/token", params: params, method: .post, decoder: .timeIntervalSinceNow)
     }
-    
+
 }

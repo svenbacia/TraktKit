@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Comment: Codable {
-    
+
     // MARK: - Codable
-    
+
     private enum CodingKeys: String, CodingKey {
         case id
         case parentId = "parent_id"
@@ -25,9 +25,9 @@ public struct Comment: Codable {
         case userRating = "user_rating"
         case user
     }
-    
+
     // MARK: - Properties
-    
+
     public let id: Int
     public let parentId: Int
     public let comment: String

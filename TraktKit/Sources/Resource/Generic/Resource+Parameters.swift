@@ -10,16 +10,16 @@ import Foundation
 
 func parameters(with params: [String: String]? = nil, page: Int? = nil, limit: Int? = nil, extended: Extended? = nil) -> [String: String]? {
     var params = params ?? [String: String]()
-    
+
     if let page = page {
         params["page"] = String(page)
     }
-    
+
     if let limit = limit {
         params["limit"] = String(limit)
     }
-    
+
     extended?.parameters.forEach { (key, value) in params[key] = value }
-    
+
     return params.isEmpty ? nil : params
 }

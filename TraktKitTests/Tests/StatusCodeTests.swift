@@ -34,28 +34,28 @@ class StatusCodeTests: XCTestCase {
         XCTAssertEqual(StatusCode.cloudflareError2.rawValue, 521)
         XCTAssertEqual(StatusCode.cloudflareError3.rawValue, 522)
     }
-    
+
     func testDescriptionAvailable() {
-        XCTAssertTrue(StatusCode.success.description.count > 0)
-        XCTAssertTrue(StatusCode.successNewResourceCreated.description.count > 0)
-        XCTAssertTrue(StatusCode.successNoContentToReturn.description.count > 0)
-        
-        XCTAssertTrue(StatusCode.badRequest.description.count > 0)
-        XCTAssertTrue(StatusCode.unauthorized.description.count > 0)
-        XCTAssertTrue(StatusCode.forbidden.description.count > 0)
-        XCTAssertTrue(StatusCode.notFound.description.count > 0)
-        XCTAssertTrue(StatusCode.methodNotFound.description.count > 0)
-        XCTAssertTrue(StatusCode.conflict.description.count > 0)
-        XCTAssertTrue(StatusCode.preconditionFailed.description.count > 0)
-        XCTAssertTrue(StatusCode.unprocessableEntity.description.count > 0)
-        XCTAssertTrue(StatusCode.rateLimitExceeded.description.count > 0)
-        
-        XCTAssertTrue(StatusCode.serverError.description.count > 0)
-        XCTAssertTrue(StatusCode.serverOverloaded.description.count > 0)
-        XCTAssertTrue(StatusCode.gatewayTimedOut.description.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError1.description.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError2.description.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError3.description.count > 0)
-        XCTAssertTrue(StatusCode.cloudflareError3.description.count > 0)
+        XCTAssertTrue(!StatusCode.success.description.isEmpty)
+        XCTAssertTrue(!StatusCode.successNewResourceCreated.description.isEmpty)
+        XCTAssertTrue(!StatusCode.successNoContentToReturn.description.isEmpty)
+
+        XCTAssertTrue(!StatusCode.badRequest.description.isEmpty)
+        XCTAssertTrue(!StatusCode.unauthorized.description.isEmpty)
+        XCTAssertTrue(!StatusCode.forbidden.description.isEmpty)
+        XCTAssertTrue(!StatusCode.notFound.description.isEmpty)
+        XCTAssertTrue(!StatusCode.methodNotFound.description.isEmpty)
+        XCTAssertTrue(!StatusCode.conflict.description.isEmpty)
+        XCTAssertTrue(!StatusCode.preconditionFailed.description.isEmpty)
+        XCTAssertTrue(!StatusCode.unprocessableEntity.description.isEmpty)
+        XCTAssertTrue(!StatusCode.rateLimitExceeded.description.isEmpty)
+
+        XCTAssertTrue(!StatusCode.serverError.description.isEmpty)
+        XCTAssertTrue(!StatusCode.serverOverloaded.description.isEmpty)
+        XCTAssertTrue(!StatusCode.gatewayTimedOut.description.isEmpty)
+        XCTAssertTrue(!StatusCode.cloudflareError1.description.isEmpty)
+        XCTAssertTrue(!StatusCode.cloudflareError2.description.isEmpty)
+        XCTAssertTrue(!StatusCode.cloudflareError3.description.isEmpty)
+        XCTAssertTrue(!StatusCode.cloudflareError3.description.isEmpty)
     }
 }

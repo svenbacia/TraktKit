@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class EpisodeResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testSummary() {
         let resource = trakt.resources.show(107717).season(1).episode(1).summary()
         let data = buildJsonData(name: "episode-summary")
@@ -27,7 +27,7 @@ class EpisodeResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(episode.title, "Pilot")
     }
-    
+
     func testComments() {
         let resource = trakt.resources.show(107717).season(1).episode(1).comments()
         let data = buildJsonData(name: "episode-comments")
@@ -36,7 +36,7 @@ class EpisodeResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(comments.count, 8)
     }
-    
+
     func testRatings() {
         let resource = trakt.resources.show(107717).season(1).episode(1).ratings()
         let data = buildJsonData(name: "episode-ratings")
@@ -46,7 +46,7 @@ class EpisodeResourceTests: XCTestCase {
         XCTAssertEqual(rating.votes, 4977)
         XCTAssertEqual(rating.rating, 7.81234, accuracy: Double.ulpOfOne)
     }
-    
+
     func testStats() {
         let resource = trakt.resources.show(107717).season(1).episode(1).stats()
         let data = buildJsonData(name: "episode-stats")
@@ -60,7 +60,7 @@ class EpisodeResourceTests: XCTestCase {
         XCTAssertEqual(stats.plays, 67078)
         XCTAssertEqual(stats.watchers, 50308)
     }
-    
+
     func testWatching() {
         let resource = trakt.resources.show(107717).season(1).episode(1).watching()
         let data = buildJsonData(name: "episode-watching")

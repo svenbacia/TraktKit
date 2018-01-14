@@ -9,13 +9,13 @@
 import Foundation
 
 struct ContentItemContainer {
-    
+
     let movies: [ContentItem]?
     let shows: [ContentItem]?
     let seasons: [ContentItem]?
     let episodes: [ContentItem]?
     let people: [ContentItem]?
-    
+
     init(items: [ContentItem]) {
         var movies = [ContentItem]()
         var shows = [ContentItem]()
@@ -49,27 +49,27 @@ extension ContentItemContainer {
         var _movies: [[String: Any]] = []
         var _shows: [[String: Any]] = []
         var _people: [[String: Any]] = []
-        
+
         if let movies = movies {
             _movies.append(contentsOf: movies.map({ $0.asJSON }))
         }
-        
+
         if let shows = shows {
             _shows.append(contentsOf: shows.map({ $0.asJSON }))
         }
-        
+
         if let seasons = seasons {
             _shows.append(contentsOf: seasons.map({ $0.asJSON }))
         }
-        
+
         if let episodes = episodes {
             _shows.append(contentsOf: episodes.map({ $0.asJSON }))
         }
-        
+
         if let people = people {
             _people.append(contentsOf: people.map({ $0.asJSON }))
         }
-        
+
         return [
             "movies": _movies,
             "shows": _shows,

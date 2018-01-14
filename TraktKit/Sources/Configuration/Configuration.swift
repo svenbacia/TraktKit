@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Configuration {
-    
+
     public let base: String
     public let apiVersion: String
     public let errorDomain: String
     public let isDebug: Bool
-    
+
     public init(base: String = "https://api.trakt.tv", apiVersion: String = "2", errorDomain: String = "com.svenbacia.traktkit", isDebug: Bool = false) {
         self.base = base
         self.apiVersion = apiVersion

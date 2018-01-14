@@ -76,7 +76,7 @@ extension Trakt.Error: CustomDebugStringConvertible {
 }
 
 extension Trakt.Error: Equatable {
-    public static func ==(lhs: Trakt.Error, rhs: Trakt.Error) -> Bool {
+    public static func == (lhs: Trakt.Error, rhs: Trakt.Error) -> Bool {
         switch (lhs, rhs) {
         case (.missingAuthorization, .missingAuthorization):
             return true

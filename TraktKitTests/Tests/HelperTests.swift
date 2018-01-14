@@ -11,7 +11,7 @@ import XCTest
 @testable import TraktKit
 
 class HelperTests: XCTestCase {
-    
+
     func testToQueryItem() {
         let item = toQueryItem(key: "key", value: "value")
         XCTAssertEqual(item, URLQueryItem(name: "key", value: "value"))

@@ -10,7 +10,7 @@ import XCTest
 import TraktKit
 
 class SearchTypeTests: XCTestCase {
-    
+
     func testEquality() {
         XCTAssertEqual(SearchType.show, SearchType.show)
         XCTAssertEqual(SearchType.episode, SearchType.episode)

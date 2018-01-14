@@ -14,19 +14,19 @@ import Foundation
  *  However, you can request different extended levels of information by adding more extended information to a request.
  */
 public struct Extended: OptionSet, CustomStringConvertible {
-  
+
   // MARK: - Private Extended Type
-  
+
   private enum ExtendedType: Int, CustomStringConvertible {
-    case min      = 1
-    case images   = 2
-    case full     = 4
+    case min = 1
+    case images = 2
+    case full = 4
     case episodes = 8
-    
+
     static var allTypes: [ExtendedType] {
       return [.min, .images, .full, .episodes]
     }
-    
+
     var description: String {
       switch self {
       case .min:
@@ -40,38 +40,38 @@ public struct Extended: OptionSet, CustomStringConvertible {
       }
     }
   }
-  
+
   // MARK: - Options
-  
+
   /// Default Returns enough info to match locally.
   public static let min = Extended(.min)
-  
+
   /// Minimal info and all images.
   public static let images = Extended(.images)
-  
+
   /// Complete info for an item.
   public static let full = Extended(.full)
-  
+
   /// **Season Summary Only**: Returns all episodes for all seasons.
   /// **Note**: This returns a lot of data, so please only use this method if you need it all!
   public static let episodes = Extended(.episodes)
-  
+
   // MARK: - Properties
-  
+
   public let rawValue: Int
-  
+
   // MARK: - Init
-  
+
   public init(rawValue: Int) {
     self.rawValue = rawValue
   }
-  
+
   private init(_ extendedType: ExtendedType) {
     self.rawValue = extendedType.rawValue
   }
-  
+
   // MARK: - CustomStringConvertible
-  
+
   public var description: String {
     return ExtendedType.allTypes
       .filter { self.contains(Extended($0)) }
@@ -83,7 +83,7 @@ public struct Extended: OptionSet, CustomStringConvertible {
 
 extension Extended {
   /// Converts the extended information into an array of query items.
-  var parameters: [String : String] {
-    return ["extended" : self.description]
+  var parameters: [String: String] {
+    return ["extended": self.description]
   }
 }

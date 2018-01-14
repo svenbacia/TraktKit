@@ -11,44 +11,44 @@ import XCTest
 @testable import TraktKit
 
 class KeychainTests: XCTestCase {
-    
+
     private var keychain: Keychain = Keychain.default
     private let key = "test"
-    
+
     override func tearDown() {
         super.tearDown()
-        
+
         if let accounts = try? keychain.accounts() {
             accounts.forEach { try? keychain.removeObject(forKey: $0) }
         }
     }
-        
+
     func testPassword() {
         XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
-        
+
         if let password = try? keychain.password() {
             XCTAssertEqual("my-password-123", password)
         } else {
-            XCTFail()
+            XCTFail("expected stored password")
         }
-        
+
         try! keychain.deletePassword()
-        
+
         XCTAssertNil(try! keychain.password())
     }
-    
+
     func testGetString() {
         try? keychain.removeObject(forKey: key)
-        
+
         XCTAssertNoThrow(try keychain.set("hello-123", forKey: key))
- 
+
         if let string = try? keychain.string(forKey: key) {
             XCTAssertEqual("hello-123", string)
         } else {
             XCTFail("Keychain.string(for:) should return a valid string.")
         }
     }
-    
+
     func testRemoveAll() throws {
         XCTAssertNoThrow(try keychain.set("hello-123", forKey: key))
         XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
@@ -58,7 +58,7 @@ class KeychainTests: XCTestCase {
         let emptyAccounts = try keychain.accounts()
         XCTAssertTrue(emptyAccounts.isEmpty)
     }
-    
+
     func testQuery() {
         let query = Keychain.Query(service: "service", accessGroup: "accessGroup", account: "account", data: nil)
         let request = query.request

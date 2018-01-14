@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class SearchResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testProfile() {
         let resource = trakt.resources.search.for("Lethal Weapon", ofType: .show)
         let data = buildJsonData(name: "search-show")

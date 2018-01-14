@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class ProgressResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testCollectionProgress() {
         let resource = trakt.resources.show(107717).progress.collection()
         let data = buildJsonData(name: "show-collection-progress")
@@ -32,7 +32,7 @@ class ProgressResourceTests: XCTestCase {
         XCTAssertEqual(progress.nextEpisode!.title, "Pilot")
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/107717/progress/collection")
     }
-    
+
     func testWatchedProgress() {
         let resource = trakt.resources.show(107717).progress.watched()
         let data = buildJsonData(name: "show-watched-progress")

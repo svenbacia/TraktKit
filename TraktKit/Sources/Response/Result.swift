@@ -11,19 +11,19 @@ import Foundation
 public enum Result<T, E> {
   case success(T)
   case failure(E)
-  
+
   public var value: T? {
     if case .success(let value) = self {
       return value
     }
     return nil
   }
-  
+
   public var error: E? {
     if case .failure(let error) = self {
       return error
     }
     return nil
   }
-  
+
 }

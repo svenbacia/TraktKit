@@ -10,15 +10,15 @@ import XCTest
 import TraktKit
 
 class SeasonResourceTests: XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     private lazy var trakt: Trakt = {
         return Trakt(credentials: Helper.credentials)
     }()
-    
+
     // MARK: - Tests
-    
+
     func testSeasons() {
         let resource = trakt.resources.show(112663).seasons(.full)
         let data = buildJsonData(name: "show-seasons")
@@ -27,7 +27,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(seasons.count, 2)
     }
-    
+
     func testSeasonsWithEpisodes() {
         let resource = trakt.resources.show(112663).seasons(.episodes)
         let data = buildJsonData(name: "show-seasons-episodes")
@@ -38,7 +38,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(seasons.first!.episodes!.count, 18)
         XCTAssertEqual(seasons.last!.episodes!.count, 9)
     }
-    
+
     func testSummary() {
         let resource = trakt.resources.show(107717).season(1).summary()
         let data = buildJsonData(name: "show-season-summary")
@@ -47,7 +47,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(episodes.count, 18)
     }
-    
+
     func testComments() {
         let resource = trakt.resources.show(107717).season(1).comments()
         let data = buildJsonData(name: "show-season-comments")
@@ -56,7 +56,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(comments.count, 4)
     }
-    
+
     func testRatings() {
         let resource = trakt.resources.show(107717).season(1).ratings()
         let data = buildJsonData(name: "show-season-ratings")
@@ -66,7 +66,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(rating.votes, 131)
         XCTAssertEqual(rating.rating, 8.43511, accuracy: Double.ulpOfOne)
     }
-    
+
     func testStats() {
         let resource = trakt.resources.show(107717).season(1).stats()
         let data = buildJsonData(name: "show-season-stats")
@@ -80,7 +80,7 @@ class SeasonResourceTests: XCTestCase {
         XCTAssertEqual(stats.plays, 962286)
         XCTAssertEqual(stats.watchers, 60369)
     }
-    
+
     func testWatching() {
         let resource = trakt.resources.show(107717).season(1).watching()
         let data = buildJsonData(name: "show-season-watching")

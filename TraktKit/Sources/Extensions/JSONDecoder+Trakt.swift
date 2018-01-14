@@ -13,13 +13,13 @@ public enum JSONError: Error {
 }
 
 extension JSONDecoder {
-    
+
     public static var trakt: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom(decodeDate)
         return decoder
     }
-    
+
     private static func decodeDate(_ decoder: Decoder) throws -> Date {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)
@@ -30,7 +30,7 @@ extension JSONDecoder {
             throw JSONError.invalidDateFormat(string)
         }
     }
-    
+
     private static func dateFormatter(`for` string: String) -> DateFormatter {
         switch string.count {
         case 10:
@@ -39,7 +39,7 @@ extension JSONDecoder {
             return iso8601DateFormatter
         }
     }
-    
+
     public static var timeIntervalSinceNow: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
@@ -49,9 +49,9 @@ extension JSONDecoder {
         })
         return decoder
     }
-    
+
     // MARK: - Private Helper
-    
+
     private static let iso8601DateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         let locale = Locale(identifier: "en_US_POSIX")
@@ -59,7 +59,7 @@ extension JSONDecoder {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         return dateFormatter
     }()
-    
+
     private static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         let locale = Locale(identifier: "en_US_POSIX")
