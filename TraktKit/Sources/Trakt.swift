@@ -35,7 +35,7 @@ public final class Trakt {
         self.credentials = credentials
         self.keychain = keychain
         self.session = session
-        self.loadToken()
+        self.token = loadToken()
     }
     
     // MARK: - Resources

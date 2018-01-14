@@ -89,14 +89,20 @@ internal extension Trakt {
         UserDefaults.standard.set(token?.expiry, forKey: Key.expiry)
     }
     
-    func loadToken() {
+    func loadToken() -> Token? {
         do {
-            guard let accessToken = try keychain.string(forKey: Key.accessToken) else { return }
-            guard let refreshToken = try keychain.string(forKey: Key.refreshToken) else { return }
-            guard let expiry = UserDefaults.standard.object(forKey: Key.expiry) as? Date else { return }
-            token = Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
+            guard let accessToken = try keychain.string(forKey: Key.accessToken) else {
+                return nil
+            }
+            guard let refreshToken = try keychain.string(forKey: Key.refreshToken) else {
+                return nil
+            }
+            guard let expiry = UserDefaults.standard.object(forKey: Key.expiry) as? Date else {
+                return nil
+            }
+            return Token(accessToken: accessToken, refreshToken: refreshToken, expiry: expiry)
         } catch {
-            token = nil
+            return nil
         }
     }
 }
