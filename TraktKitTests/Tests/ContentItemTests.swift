@@ -24,7 +24,7 @@ class ContentItemTests: XCTestCase {
     }
 
     func testSeasons() {
-        let seasons = ContentItem.season(numbers: [1, 2], id: 345)
+        let seasons = ContentItem.season(numbers: [1, 2], show: 345)
         let json = seasons.asJSON
         let seasonsJSON = json["seasons"] as! [[String: Any]]
         XCTAssertEqual(json["ids"] as! Int, 345)
@@ -33,8 +33,15 @@ class ContentItemTests: XCTestCase {
         XCTAssertNotNil(seasonsJSON.last!["number"] as! Int)
     }
 
+    func testEpisode() {
+        let item = ContentItem.episode(id: 1)
+        let json = item.asJSON
+        let ids = json["ids"] as! [String: Any]
+        XCTAssertEqual(ids["trakt"] as! Int, 1)
+    }
+
     func testEpisodes() {
-        let item = ContentItem.episode(numbers: [1, 2, 3], season: 5, show: 987)
+        let item = ContentItem.episodes(numbers: [1, 2, 3], season: 5, show: 987)
         let json = item.asJSON
         let seasons = json["seasons"] as! [String: Any]
         let episodes = seasons["episodes"] as! [[String: Any]]

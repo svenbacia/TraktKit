@@ -14,23 +14,31 @@ class ContentItemContainerTests: XCTestCase {
     func testJSON() {
         let movieItem = ContentItem.movie(id: 123)
         let showItem = ContentItem.show(id: 234)
-        let seasonsItem = ContentItem.season(numbers: [1, 2], id: 345)
-        let episodesItem = ContentItem.episode(numbers: [1, 2, 3], season: 5, show: 987)
+        let seasonsItem = ContentItem.season(numbers: [1, 2], show: 345)
+        let episodesItem = ContentItem.episodes(numbers: [1, 2, 3], season: 5, show: 987)
+        let episodeItems = [
+            ContentItem.episode(id: 1),
+            ContentItem.episode(id: 2),
+            ContentItem.episode(id: 3)
+        ]
         let personItem = ContentItem.person(name: "Name", id: 159)
 
-        let container = ContentItemContainer(items: [
+        let items = [
             movieItem,
             showItem,
             seasonsItem,
             episodesItem,
             personItem
-            ])
+        ] + episodeItems
+
+        let container = ContentItemContainer(items: items)
 
         let json = container.asJSON
 
         XCTAssertEqual((json["movies"] as! [Any]).count, 1)
         XCTAssertEqual((json["shows"] as! [Any]).count, 3)
         XCTAssertEqual((json["people"] as! [Any]).count, 1)
+        XCTAssertEqual((json["episodes"] as! [Any]).count, 3)
     }
 
     func testEmptyJSON() {
@@ -39,5 +47,6 @@ class ContentItemContainerTests: XCTestCase {
         XCTAssertEqual((json["movies"] as! [Any]).count, 0)
         XCTAssertEqual((json["shows"] as! [Any]).count, 0)
         XCTAssertEqual((json["people"] as! [Any]).count, 0)
+        XCTAssertEqual((json["episodes"] as! [Any]).count, 0)
     }
 }

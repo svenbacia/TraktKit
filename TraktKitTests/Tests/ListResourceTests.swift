@@ -39,8 +39,8 @@ class ListResourceTests: XCTestCase {
 
     func testAddItems() {
         let show = ContentItem.show(id: 107717)
-        let seasons = ContentItem.season(numbers: [1], id: 107717)
-        let episodes = ContentItem.episode(numbers: [1, 2, 3, 4, 5], season: 2, show: 107717)
+        let seasons = ContentItem.season(numbers: [1], show: 107717)
+        let episodes = ContentItem.episodes(numbers: [1, 2, 3, 4, 5], season: 2, show: 107717)
         let items = [show, seasons, episodes]
         let resource = trakt.resources.user("mrmojo").list(name: "couchy-added").add(items: items)
         let data = buildJsonData(name: "list-items-add")
@@ -51,8 +51,8 @@ class ListResourceTests: XCTestCase {
 
     func testRemoveItems() {
         let show = ContentItem.show(id: 107717)
-        let seasons = ContentItem.season(numbers: [1], id: 107717)
-        let episodes = ContentItem.episode(numbers: [1, 2, 3, 4, 5], season: 2, show: 107717)
+        let seasons = ContentItem.season(numbers: [1], show: 107717)
+        let episodes = ContentItem.episodes(numbers: [1, 2, 3, 4, 5], season: 2, show: 107717)
         let items = [show, seasons, episodes]
         let resource = trakt.resources.user("mrmojo").list(name: "couchy-added").remove(items: items)
         let data = buildJsonData(name: "list-items-add")

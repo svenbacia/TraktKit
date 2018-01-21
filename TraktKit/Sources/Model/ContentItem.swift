@@ -11,8 +11,9 @@ import Foundation
 public enum ContentItem {
     case movie(id: Int)
     case show(id: Int)
-    case season(numbers: [Int], id: Int)
-    case episode(numbers: [Int], season: Int, show: Int)
+    case season(numbers: [Int], show: Int)
+    case episode(id: Int)
+    case episodes(numbers: [Int], season: Int, show: Int)
     case person(name: String, id: Int)
 }
 
@@ -28,7 +29,13 @@ extension ContentItem {
                 "seasons": numbers.map { ["number": $0] },
                 "ids": id
             ]
-        case .episode(let numbers, let season, let show):
+        case .episode(let id):
+            return [
+                "ids": [
+                    "trakt": id
+                ]
+            ]
+        case .episodes(let numbers, let season, let show):
             return [
                 "seasons": [
                     "number": season,
