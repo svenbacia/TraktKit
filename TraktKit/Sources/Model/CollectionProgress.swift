@@ -22,11 +22,11 @@ public struct CollectionProgress: Codable {
     public struct Episode: Codable {
         private enum CodingKeys: String, CodingKey {
             case number
-            case completed
+            case isCompleted = "completed"
             case collectedAt = "collected_at"
         }
         public let number: Int
-        public let completed: Bool
+        public let isCompleted: Bool
         public let collectedAt: Date?
     }
 
