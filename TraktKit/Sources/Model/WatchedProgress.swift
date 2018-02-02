@@ -22,11 +22,11 @@ public struct WatchedProgress: Codable {
     public struct Episode: Codable {
         private enum CodingKeys: String, CodingKey {
             case number
-            case completed
+            case isCompleted = "completed"
             case lastWatchedAt = "last_watched_at"
         }
         public let number: Int
-        public let completed: Bool
+        public let isCompleted: Bool
         public let lastWatchedAt: Date?
     }
 
