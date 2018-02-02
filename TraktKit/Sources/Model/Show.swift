@@ -45,6 +45,7 @@ public struct Show: Codable {
         case country
         case updatedAt = "updated_at"
         case homepage
+        case trailer
         case status
         case rating
         case votes
@@ -69,6 +70,7 @@ public struct Show: Codable {
     public let country: String?
     public let updatedAt: Date?
     public let homepage: String?
+    public let trailer: String?
     public let status: Status?
     public let rating: Double?
     public let votes: Int?
