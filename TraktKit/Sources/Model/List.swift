@@ -45,4 +45,24 @@ public struct List: Codable {
     public let likes: Int
     public let ids: Ids
     public let user: User
+
+    // MARK: - Init
+
+    // swiftlint:disable:next line_length
+    public init(name: String, description: String?, privacy: Privacy, displaysNumbers: Bool, allowComments: Bool, sortBy: String, sortHow: String, createdAt: Date, updatedAt: Date, itemCount: Int, commentCount: Int, likes: Int, ids: Ids, user: User) {
+        self.name = name
+        self.description = description
+        self.privacy = privacy
+        self.displaysNumbers = displaysNumbers
+        self.allowComments = allowComments
+        self.sortBy = sortBy
+        self.sortHow = sortHow
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.itemCount = itemCount
+        self.commentCount = commentCount
+        self.likes = likes
+        self.ids = ids
+        self.user = user
+    }
 }

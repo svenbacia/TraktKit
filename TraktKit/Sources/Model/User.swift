@@ -30,7 +30,11 @@ public struct User: Codable {
     // MARK: - Types
 
     public struct Ids: Codable {
-        let slug: String
+        public let slug: String
+
+        public init(slug: String) {
+            self.slug = slug
+        }
     }
 
     public struct Images: Codable {
@@ -51,4 +55,22 @@ public struct User: Codable {
     public let gender: String?
     public let age: Int?
     public let images: Images?
+
+    // MARK: - Init
+
+    // swiftlint:disable:next line_length
+    public init(username: String, isPrivate: Bool, name: String? = nil, isVip: Bool? = nil, isVipEp: Bool? = nil, ids: Ids, joinedAt: Date? = nil, location: String? = nil, about: String? = nil, gender: String? = nil, age: Int? = nil, images: Images? = nil) {
+        self.username = username
+        self.isPrivate = isPrivate
+        self.name = name
+        self.isVip = isVip
+        self.isVipEp = isVipEp
+        self.ids = ids
+        self.joinedAt = joinedAt
+        self.location = location
+        self.about = about
+        self.gender = gender
+        self.age = age
+        self.images = images
+    }
 }
