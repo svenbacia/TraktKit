@@ -19,6 +19,16 @@ class ListResourceTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testList() {
+        let user = User(username: "username", isPrivate: true, ids: User.Ids(slug: "slug"))
+        // swiftlint:disable:next line_length
+        let list = List(name: "name", description: nil, privacy: .public, displaysNumbers: false, allowComments: false, sortBy: "", sortHow: "", createdAt: Date(), updatedAt: Date(), itemCount: 0, commentCount: 0, likes: 0, ids: Ids(trakt: 1), user: user)
+        XCTAssertEqual(list.name, "name")
+        XCTAssertEqual(list.user.username, "username")
+        XCTAssertEqual(list.user.ids.slug, "slug")
+        XCTAssertEqual(list.ids.trakt, 1)
+    }
+
     func testSummary() {
         let resource = trakt.resources.user("mrmojo").list(name: "couchy-added").summary
         let data = buildJsonData(name: "list-summary")

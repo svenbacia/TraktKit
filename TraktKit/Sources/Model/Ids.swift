@@ -16,4 +16,14 @@ public struct Ids: Codable {
     public let imdb: String?
     public let tmdb: Int?
     public let tvrage: Int?
+
+    // MARK: Init
+    public init(trakt: Int, slug: String? = nil, tvdb: Int? = nil, imdb: String? = nil, tmdb: Int? = nil, tvrage: Int? = nil) {
+        self.trakt = trakt
+        self.slug = slug
+        self.tvdb = tvdb
+        self.imdb = imdb
+        self.tmdb = tmdb
+        self.tvrage = tvrage
+    }
 }
