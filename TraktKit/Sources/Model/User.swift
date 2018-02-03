@@ -38,7 +38,7 @@ public struct User: Codable {
     }
 
     public struct Images: Codable {
-        let avatar: Image
+        public let avatar: Image
     }
 
     // MARK: - Properties
