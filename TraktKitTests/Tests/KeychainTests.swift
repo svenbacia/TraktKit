@@ -15,9 +15,8 @@ class KeychainTests: XCTestCase {
     private var keychain: Keychain = Keychain.default
     private let key = "test"
 
-    override func tearDown() {
-        super.tearDown()
-
+    override func setUp() {
+        super.setUp()
         if let accounts = try? keychain.accounts() {
             accounts.forEach { try? keychain.removeObject(forKey: $0) }
         }
@@ -51,7 +50,7 @@ class KeychainTests: XCTestCase {
 
     func testRemoveAll() throws {
         XCTAssertNoThrow(try keychain.set("hello-123", forKey: key))
-        XCTAssertNoThrow(try keychain.setPassword("my-password-123"))
+        XCTAssertNoThrow(try keychain.set("123-hello", forKey: "some key"))
         let accounts = try keychain.accounts()
         XCTAssertEqual(accounts.count, 2)
         accounts.forEach { try? keychain.removeObject(forKey: $0) }
