@@ -212,5 +212,5 @@ public struct Keychain {
 }
 
 extension Keychain {
-    public static var `default`: Keychain = Keychain(service: "TraktKit", account: "Token")
+    public static var `default`: Keychain = Keychain(service: "com.svenbacia.traktkit")
 }
