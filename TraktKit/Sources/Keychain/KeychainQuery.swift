@@ -35,8 +35,6 @@ extension Keychain {
             var dictionary = [String: Any]()
             dictionary[kSecClass as String] = kSecClassGenericPassword
             dictionary[kSecAttrService as String] = service
-            dictionary[String(kSecAttrSynchronizable)] = kCFBooleanFalse
-            dictionary[String(kSecAttrAccessible)] = kSecAttrAccessibleAfterFirstUnlock
 
             if let accessGroup = accessGroup {
                 dictionary[kSecAttrAccessGroup as String] = accessGroup

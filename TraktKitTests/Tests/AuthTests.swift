@@ -60,6 +60,22 @@ class AuthTests: XCTestCase {
         XCTAssertEqual(anotherTrakt.token, token)
     }
 
+    func testTokenMigration() throws {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        trakt.token = nil
+
+        // simulate old token, pre v1.0
+        try Keychain(service: "com.svenbacia.traktkit.trakt.accessToken").setPassword("old-access-token")
+        try Keychain(service: "com.svenbacia.traktkit.trakt.refreshToken").setPassword("old-refresh-token")
+        UserDefaults.standard.set(Date.distantFuture, forKey: "trakt.expiry")
+
+        let token = trakt.migrateToken()
+        XCTAssertNotNil(token)
+        XCTAssertEqual(token!.accessToken, "old-access-token")
+        XCTAssertEqual(token!.refreshToken, "old-refresh-token")
+    }
+
     // MARK: Access Token
 
     func testExchangeAccessTokenForCode_success() {
