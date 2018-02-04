@@ -14,13 +14,15 @@ class ContentItemTests: XCTestCase {
     func testMovies() {
         let movie = ContentItem.movie(id: 123)
         let json = movie.asJSON
-        XCTAssertEqual(json["ids"] as! Int, 123)
+        let ids = json["ids"] as! [String: Any]
+        XCTAssertEqual(ids["trakt"] as! Int, 123)
     }
 
     func testShows() {
         let show = ContentItem.show(id: 234)
         let json = show.asJSON
-        XCTAssertEqual(json["ids"] as! Int, 234)
+        let ids = json["ids"] as! [String: Any]
+        XCTAssertEqual(ids["trakt"] as! Int, 234)
     }
 
     func testSeasons() {
