@@ -21,9 +21,17 @@ extension ContentItem {
     var asJSON: [String: Any] {
         switch self {
         case .movie(let id):
-            return ["ids": id]
+            return [
+                "ids": [
+                    "trakt": id
+                ]
+            ]
         case .show(let id):
-            return ["ids": id]
+            return [
+                "ids": [
+                    "trakt": id
+                ]
+            ]
         case .season(let numbers, let id):
             return [
                 "seasons": numbers.map { ["number": $0] },
