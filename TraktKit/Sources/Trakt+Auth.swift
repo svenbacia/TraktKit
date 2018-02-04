@@ -34,6 +34,33 @@ extension Trakt {
         return components.url!
     }
 
+    @discardableResult
+    public func migrateToken() -> Token? {
+        do {
+            guard let accessToken = try Keychain(service: "\(keychain.service).\(Key.accessToken)").password() else {
+                return nil
+            }
+            guard let refreshToken = try Keychain(service: "\(keychain.service).\(Key.refreshToken)").password() else {
+                return nil
+            }
+
+            // store access and refresh token
+            try keychain.set(accessToken, forKey: Key.accessToken)
+            try keychain.set(refreshToken, forKey: Key.refreshToken)
+
+            let token = loadToken()
+            self.token = token
+
+            // remove old references
+            try Keychain(service: "\(keychain.service).\(Key.accessToken)").deletePassword()
+            try Keychain(service: "\(keychain.service).\(Key.refreshToken)").deletePassword()
+
+            return token
+        } catch {
+            return nil
+        }
+    }
+
     // MARK: - Endpoints
 
     @discardableResult
