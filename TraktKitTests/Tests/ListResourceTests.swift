@@ -42,7 +42,7 @@ class ListResourceTests: XCTestCase {
         let resource = trakt.resources.user("mrmojo").list(name: "couchy-added").items(type: .shows, extended: .full)
         let data = buildJsonData(name: "list-items")
         let items = try! resource.parse(data!)
-        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists/couchy-added/shows?extended=full")
+        XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists/couchy-added/items/shows?extended=full")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 49)
     }

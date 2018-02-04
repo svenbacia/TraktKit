@@ -34,7 +34,7 @@ public struct ListResource {
     }
 
     public func items(type: ListItemType? = nil, extended: Extended? = nil) -> Resource<[ListItem]> {
-        return buildResource(base: configuration.base, path: buildPath(path, type: type), params: parameters(extended: extended))
+        return buildResource(base: configuration.base, path: buildPath("\(path)/items", type: type), params: parameters(extended: extended))
     }
 
     public func add(items: [ContentItem]) -> Resource<Any> {
