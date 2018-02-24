@@ -54,8 +54,8 @@ extension JSONDecoder {
 
     private static let iso8601DateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        let locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.locale = locale
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         return dateFormatter
     }()
