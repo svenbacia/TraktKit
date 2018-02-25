@@ -51,40 +51,40 @@ struct ContentItemContainer {
 
 extension ContentItemContainer {
     var asJSON: [String: Any] {
-        var _movies: [[String: Any]] = []
-        var _shows: [[String: Any]] = []
-        var _people: [[String: Any]] = []
-        var _episode: [[String: Any]] = []
+        var moviesGroup: [[String: Any]] = []
+        var showsGroup: [[String: Any]] = []
+        var peopleGroup: [[String: Any]] = []
+        var episodeGroup: [[String: Any]] = []
 
         if let movies = movies {
-            _movies.append(contentsOf: movies.map({ $0.asJSON }))
+            moviesGroup.append(contentsOf: movies.map({ $0.asJSON }))
         }
 
         if let shows = shows {
-            _shows.append(contentsOf: shows.map({ $0.asJSON }))
+            showsGroup.append(contentsOf: shows.map({ $0.asJSON }))
         }
 
         if let seasons = seasons {
-            _shows.append(contentsOf: seasons.map({ $0.asJSON }))
+            showsGroup.append(contentsOf: seasons.map({ $0.asJSON }))
         }
 
         if let episode = episode {
-            _episode.append(contentsOf: episode.map({ $0.asJSON }))
+            episodeGroup.append(contentsOf: episode.map({ $0.asJSON }))
         }
 
         if let episodes = episodes {
-            _shows.append(contentsOf: episodes.map({ $0.asJSON }))
+            showsGroup.append(contentsOf: episodes.map({ $0.asJSON }))
         }
 
         if let people = people {
-            _people.append(contentsOf: people.map({ $0.asJSON }))
+            peopleGroup.append(contentsOf: people.map({ $0.asJSON }))
         }
 
         return [
-            "movies": _movies,
-            "shows": _shows,
-            "episodes": _episode,
-            "people": _people
+            "movies": moviesGroup,
+            "shows": showsGroup,
+            "episodes": episodeGroup,
+            "people": peopleGroup
         ]
     }
 }
