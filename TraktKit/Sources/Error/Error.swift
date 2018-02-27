@@ -30,6 +30,10 @@ extension Trakt {
 
         /// JSON decoding error
         case jsonDecodingError(Swift.Error)
+
+        public var localizedDescription: String {
+            return description
+        }
     }
 }
 
