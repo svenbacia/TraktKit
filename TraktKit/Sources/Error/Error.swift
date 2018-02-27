@@ -44,8 +44,8 @@ extension Trakt.Error: CustomStringConvertible {
             return "Unauthorized"
         case .invalidAuthorization:
             return "Invalid Authorization"
-        case .unknownServerResponse:
-            return "Unknown Server Response"
+        case .unknownServerResponse(let error):
+            return error?.localizedDescription ?? "Unknown server response"
         case .unknownHttpStatusCode:
             return "Invalid Server Response"
         case .badHttpStatusCode(let statusCode, _):
@@ -65,8 +65,8 @@ extension Trakt.Error: CustomDebugStringConvertible {
             return "Authorization token is missing"
         case .invalidAuthorization:
             return "Authorization information are invalid or expired"
-        case .unknownServerResponse:
-            return "Unknown server response."
+        case .unknownServerResponse(let error):
+            return error?.localizedDescription ?? "Unknown server response"
         case .unknownHttpStatusCode(let response, _):
             return "Invalid HTTP status code (\(response.debugDescription))."
         case .badHttpStatusCode(let statusCode, _):
