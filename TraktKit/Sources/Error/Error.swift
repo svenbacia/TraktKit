@@ -9,7 +9,7 @@
 import Foundation
 
 extension Trakt {
-    public enum Error: Swift.Error {
+    public enum Error: LocalizedError {
         /// Authorization information are missing
         case missingAuthorization
 
@@ -30,10 +30,12 @@ extension Trakt {
 
         /// JSON decoding error
         case jsonDecodingError(Swift.Error)
+    }
+}
 
-        public var localizedDescription: String {
-            return description
-        }
+extension Trakt.Error {
+    public var errorDescription: String? {
+        return description
     }
 }
 
