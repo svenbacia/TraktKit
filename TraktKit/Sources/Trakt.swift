@@ -129,6 +129,11 @@ public final class Trakt {
     private func addTraktHeader(to request: inout URLRequest) {
         request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")
         request.addValue(configuration.apiVersion, forHTTPHeaderField: "trakt-api-version")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        if let path = request.url?.path, path == "/oauth/revoke" {
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        } else {
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
     }
 }

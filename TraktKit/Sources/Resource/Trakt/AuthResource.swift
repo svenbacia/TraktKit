@@ -46,4 +46,7 @@ struct AuthResource {
         return buildResource(base: configuration.base, path: "/oauth/token", params: params, method: .post, decoder: .timeIntervalSinceNow)
     }
 
+    func revokeAccessToken(_ accessToken: String) -> Resource<Any> {
+        return buildResource(base: configuration.base, path: "/oauth/revoke", body: "token=\(accessToken)", method: .post)
+    }
 }

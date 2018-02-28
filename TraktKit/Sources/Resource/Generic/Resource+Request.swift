@@ -9,6 +9,14 @@
 import Foundation
 
 func buildRequest(base: String, path: String, params: [String: Any]?, method: Method) -> URLRequest {
+    func body(from params: [String: Any]?, method: Method) -> Data? {
+        guard let params = params, method.allowsHttpBody else { return nil }
+        return try? JSONSerialization.data(withJSONObject: params, options: [])
+    }
+    return buildRequest(base: base, path: path, params: params, body: body(from: params, method: method), method: method)
+}
+
+func buildRequest(base: String, path: String, params: [String: Any]?, body: Data?, method: Method) -> URLRequest {
     guard var components = URLComponents(string: base) else { fatalError("unexpected url components") }
     components.path = path
 
@@ -21,8 +29,8 @@ func buildRequest(base: String, path: String, params: [String: Any]?, method: Me
     var request = URLRequest(url: url)
     request.httpMethod = method.rawValue
 
-    if let params = params, method.allowsHttpBody {
-        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+    if let body = body, method.allowsHttpBody {
+        request.httpBody = body
     }
 
     return request

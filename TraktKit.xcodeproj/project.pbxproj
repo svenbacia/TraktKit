@@ -42,6 +42,7 @@
 		263C63441FA639850030B186 /* Resource+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63431FA639850030B186 /* Resource+Path.swift */; };
 		263C63461FA63AFA0030B186 /* Resource+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63451FA63AFA0030B186 /* Resource+Request.swift */; };
 		263C634A1FA63E400030B186 /* JSONDecoder+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C63491FA63E400030B186 /* JSONDecoder+Trakt.swift */; };
+		263FA13820472EC700B8ABBD /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 263FA13720472EC700B8ABBD /* empty.json */; };
 		264203F91FECFBE700A41489 /* SyncResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264203F81FECFBE700A41489 /* SyncResource.swift */; };
 		264203FB1FECFC9F00A41489 /* sync-last-activities.json in Resources */ = {isa = PBXBuildFile; fileRef = 264203FA1FECFC9F00A41489 /* sync-last-activities.json */; };
 		264203FE1FECFCBD00A41489 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264203FD1FECFCBD00A41489 /* Activities.swift */; };
@@ -201,6 +202,7 @@
 		263C63431FA639850030B186 /* Resource+Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Path.swift"; sourceTree = "<group>"; };
 		263C63451FA63AFA0030B186 /* Resource+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Request.swift"; sourceTree = "<group>"; };
 		263C63491FA63E400030B186 /* JSONDecoder+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Trakt.swift"; sourceTree = "<group>"; };
+		263FA13720472EC700B8ABBD /* empty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		264203F81FECFBE700A41489 /* SyncResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncResource.swift; sourceTree = "<group>"; };
 		264203FA1FECFC9F00A41489 /* sync-last-activities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sync-last-activities.json"; sourceTree = "<group>"; };
 		264203FD1FECFCBD00A41489 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 				2630F72F1FED4136004E0FE1 /* sync-watched-shows.json */,
 				2655EEBC1FED4D2000451EB3 /* sync-watchlist-shows.json */,
 				2655EEBE1FED4DF800451EB3 /* sync-collection-shows.json */,
+				263FA13720472EC700B8ABBD /* empty.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				26F799501FD8872400DAC0FE /* people-summary.json in Resources */,
 				264D33C21FD1C30A00AAFF91 /* user-stats.json in Resources */,
 				2655EEBF1FED4DF800451EB3 /* sync-collection-shows.json in Resources */,
+				263FA13820472EC700B8ABBD /* empty.json in Resources */,
 				26C00EE41FCB260A00DC839D /* show-seasons.json in Resources */,
 				26979B9C1FD1866A000F59B4 /* show-season-ratings.json in Resources */,
 				26979B9A1FD184D5000F59B4 /* show-season-comments.json in Resources */,
