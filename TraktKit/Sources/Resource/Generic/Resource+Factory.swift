@@ -16,6 +16,10 @@ func buildResource<T>(base: String, path: String, params: [String: Any]? = nil, 
     return Resource(request: buildRequest(base: base, path: path, params: params, method: method), parseHandler: parse)
 }
 
+func buildResource(base: String, path: String, body: String, method: Method) -> Resource<Any> {
+    return Resource(request: buildRequest(base: base, path: path, params: nil, body: body.data(using: .utf8), method: method), parseHandler: parseJSON)
+}
+
 func buildResource(base: String, path: String, params: [String: Any]? = nil, method: Method = .get) -> Resource<Any> {
     return buildResource(base: base, path: path, params: params, method: method, parse: parseJSON)
 }

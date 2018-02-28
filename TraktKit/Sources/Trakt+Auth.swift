@@ -98,6 +98,24 @@ extension Trakt {
             }
         }
     }
+
+    @discardableResult
+    public func revokeAccessToken(_ completeWith: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard let accessToken = token?.accessToken else {
+            completeWith(.failure(Error.missingAuthorization))
+            return nil
+        }
+        let resource = AuthResource(credentials: credentials, configuration: configuration).revokeAccessToken(accessToken)
+        return load(resource: resource, authenticated: true) { [weak self] (result) in
+            switch result {
+            case .success:
+                self?.token = nil
+                completeWith(.success(()))
+            case .failure(let error):
+                completeWith(.failure(error))
+            }
+        }
+    }
 }
 
 // MARK: - Internet Token Helper

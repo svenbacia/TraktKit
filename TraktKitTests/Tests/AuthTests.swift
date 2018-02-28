@@ -218,4 +218,88 @@ class AuthTests: XCTestCase {
         let result = waiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(result, .completed)
     }
+
+    // MARK: - Revoke Access Token
+
+    func testRevokeAccessToken_success() {
+        let session = FakeURLSession.success(statusCode: 200, json: "empty")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+
+        // add valid token
+        trakt.token = Token(accessToken: "123", refreshToken: "312", expiry: Date.distantFuture)
+
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects status code 200")
+
+        let task = trakt.revokeAccessToken { (result) in
+            switch result {
+            case .success:
+                expectation.fulfill()
+            case .failure:
+                XCTFail("expected successful response from server")
+            }
+        }
+        XCTAssertNotNil(task)
+
+        let request = session.completedRequests.first!
+        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/revoke"))
+        XCTAssertEqual(request.httpMethod, "POST")
+
+        let contentType = request.allHTTPHeaderFields?["Content-Type"]
+        XCTAssertEqual(contentType!, "application/x-www-form-urlencoded")
+
+        let body = String(data: request.httpBody!, encoding: .utf8)
+        XCTAssertEqual(body, "token=123")
+
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
+    }
+
+    func testRevokeAccessToken_missingAuthorization() {
+        let session = FakeURLSession.success(statusCode: 200, json: "empty")
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+
+        // invalidate token
+        trakt.token = nil
+
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects missing authorization")
+
+        let task = trakt.revokeAccessToken { (result) in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                expectation.fulfill()
+            }
+        }
+        XCTAssertNil(task)
+
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
+    }
+
+    func testRevokeAccessToken_serverError() {
+        let session = FakeURLSession.failure(statusCode: 500)
+        let trakt = Trakt(session: session, credentials: Helper.credentials)
+
+        // invalidate token
+        trakt.token = nil
+
+        let waiter = XCTWaiter()
+        let expectation = self.expectation(description: "expects server error")
+
+        let task = trakt.revokeAccessToken { (result) in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                expectation.fulfill()
+            }
+        }
+        XCTAssertNil(task)
+
+        let result = waiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(result, .completed)
+    }
 }
