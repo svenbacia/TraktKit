@@ -12,13 +12,13 @@ public struct PeopleResource {
 
     // MARK: - Init
 
-    let configuration: Configuration
+    let configuration: Trakt.Configuration
 
     private let basePath: String
 
     // MARK: - Init
 
-    init(id: Int, configuration: Configuration) {
+    init(id: Int, configuration: Trakt.Configuration) {
         self.basePath = "/people/\(id)"
         self.configuration = configuration
     }

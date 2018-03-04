@@ -13,11 +13,11 @@ public struct ProgressResource {
     // MARK: - Properties
 
     private let show: Int
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(show: Int, configuration: Configuration) {
+    init(show: Int, configuration: Trakt.Configuration) {
         self.show = show
         self.configuration = configuration
     }

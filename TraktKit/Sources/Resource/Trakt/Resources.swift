@@ -12,12 +12,12 @@ public struct Resources {
 
     // MARK: - Properties
 
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
     private let credentials: Credentials
 
     // MARK: - Init
 
-    init(configuration: Configuration, credentials: Credentials) {
+    init(configuration: Trakt.Configuration, credentials: Credentials) {
         self.configuration = configuration
         self.credentials = credentials
     }

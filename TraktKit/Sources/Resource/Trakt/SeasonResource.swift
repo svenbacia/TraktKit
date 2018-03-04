@@ -15,11 +15,11 @@ public struct SeasonResource {
     private let show: Int
     private let season: Int
     private let basePath: String
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(show: Int, season: Int, configuration: Configuration) {
+    init(show: Int, season: Int, configuration: Trakt.Configuration) {
         self.show = show
         self.season = season
         self.basePath = "/shows/\(show)/seasons/\(season)"

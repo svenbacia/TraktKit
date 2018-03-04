@@ -13,11 +13,11 @@ struct AuthResource {
     // MARK: Properties
 
     private let credentials: Credentials
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(credentials: Credentials, configuration: Configuration) {
+    init(credentials: Credentials, configuration: Trakt.Configuration) {
         self.credentials = credentials
         self.configuration = configuration
     }
