@@ -12,11 +12,11 @@ public struct ExploreResource {
 
     // MARK: - Properties
 
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    public init(configuration: Configuration) {
+    public init(configuration: Trakt.Configuration) {
         self.configuration = configuration
     }
 
@@ -30,9 +30,9 @@ public struct ExploreResource {
 
     public struct ShowResource {
 
-        private let configuration: Configuration
+        private let configuration: Trakt.Configuration
 
-        init(configuration: Configuration) {
+        init(configuration: Trakt.Configuration) {
             self.configuration = configuration
         }
 

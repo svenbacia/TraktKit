@@ -20,7 +20,7 @@ class TraktTests: XCTestCase {
     }
 
     lazy var trakt: Trakt = {
-        let configuration = Configuration(isDebug: true)
+        let configuration = Trakt.Configuration(isDebug: true)
         let trakt = Trakt(session: self.session, credentials: Helper.credentials, configuration: configuration, keychain: Keychain.default)
         trakt.token = Token(accessToken: "accessToken", refreshToken: "refreshToken", expiry: .distantFuture)
         return trakt

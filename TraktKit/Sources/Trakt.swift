@@ -15,7 +15,7 @@ public final class Trakt {
     // MARK: Public Properties
 
     public let credentials: Credentials
-    public let configuration: Configuration
+    public let configuration: Trakt.Configuration
 
     public var token: Token? {
         didSet {
@@ -30,7 +30,7 @@ public final class Trakt {
 
     // MARK: - Initializer
 
-    public init(session: URLSession = URLSession.shared, credentials: Credentials, configuration: Configuration = Configuration(), keychain: Keychain = .default) {
+    public init(session: URLSession = URLSession.shared, credentials: Credentials, configuration: Trakt.Configuration = Configuration(), keychain: Keychain = .default) {
         self.configuration = configuration
         self.credentials = credentials
         self.keychain = keychain

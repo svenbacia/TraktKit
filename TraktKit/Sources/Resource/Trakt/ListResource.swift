@@ -16,11 +16,11 @@ public struct ListResource {
     private let list: String
     private let path: String
 
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(list: String, username: String, configuration: Configuration) {
+    init(list: String, username: String, configuration: Trakt.Configuration) {
         self.username = username
         self.list = list
         self.path = "/users/\(username)/lists/\(list)"

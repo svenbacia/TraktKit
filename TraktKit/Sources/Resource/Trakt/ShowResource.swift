@@ -13,11 +13,11 @@ public struct ShowResource {
     // MARK: - Properties
 
     private let id: Int
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(id: Int, configuration: Configuration) {
+    init(id: Int, configuration: Trakt.Configuration) {
         self.id = id
         self.configuration = configuration
     }

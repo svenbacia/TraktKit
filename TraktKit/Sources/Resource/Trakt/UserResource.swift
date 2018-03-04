@@ -13,11 +13,11 @@ public struct UserResource {
     // MARK: - Properties
 
     private let user: String
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(user: String, configuration: Configuration) {
+    init(user: String, configuration: Trakt.Configuration) {
         self.user = user
         self.configuration = configuration
     }

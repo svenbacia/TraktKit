@@ -13,11 +13,11 @@ public struct EpisodeResource {
     // MARK: - Properties
 
     private let basePath: String
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(show: Int, season: Int, episode: Int, configuration: Configuration) {
+    init(show: Int, season: Int, episode: Int, configuration: Trakt.Configuration) {
         self.basePath = "/shows/\(show)/seasons/\(season)/episodes/\(episode)"
         self.configuration = configuration
     }

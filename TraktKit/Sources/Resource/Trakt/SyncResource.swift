@@ -12,11 +12,11 @@ public struct SyncResource {
 
     // MARK: - Properties
 
-    private let configuration: Configuration
+    private let configuration: Trakt.Configuration
 
     // MARK: - Init
 
-    init(configuration: Configuration) {
+    init(configuration: Trakt.Configuration) {
         self.configuration = configuration
     }
 
