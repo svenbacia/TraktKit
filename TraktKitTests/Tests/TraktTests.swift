@@ -58,7 +58,7 @@ class TraktTests: XCTestCase {
             case .success:
                 break
             case .failure(let error):
-                if error == Trakt.Error.missingAuthorization {
+                if error == Trakt.Error.missingAuthorization("") {
                     expectation.fulfill()
                 }
             }
@@ -81,7 +81,7 @@ class TraktTests: XCTestCase {
             case .success:
                 break
             case .failure(let error):
-                if error == Trakt.Error.invalidAuthorization {
+                if error == Trakt.Error.invalidAuthorization("") {
                     expectation.fulfill()
                 }
             }
@@ -104,7 +104,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects unkown server response")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.unknownServerResponse(nil) {
+            if let error = result.error, error == Trakt.Error.unknownServerResponse("", nil) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected unknown server response error")
@@ -129,7 +129,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects unkown status code")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.unknownHttpStatusCode(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) {
+            if let error = result.error, error == Trakt.Error.unknownHttpStatusCode("", HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected unknown http status code error")
@@ -155,7 +155,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects bad status code")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.badHttpStatusCode(.notFound, nil) {
+            if let error = result.error, error == Trakt.Error.badHttpStatusCode("", .notFound, nil) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected bad http status code error")
@@ -181,7 +181,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects invalid response data")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.missingResponseData(HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 200, httpVersion: nil, headerFields: nil)!, nil) {
+            if let error = result.error, error == Trakt.Error.missingResponseData("", HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 200, httpVersion: nil, headerFields: nil)!, nil) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected missing response data error")
@@ -207,7 +207,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects invalid response data")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.jsonDecodingError(JSONError.invalidDateFormat("")) {
+            if let error = result.error, error == Trakt.Error.jsonDecodingError("", JSONError.invalidDateFormat("")) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected json decoding error")
