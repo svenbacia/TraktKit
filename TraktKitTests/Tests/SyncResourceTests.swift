@@ -43,7 +43,7 @@ class SyncResourceTests: XCTestCase {
         let items = try! resource.parse(data!)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/watched/shows")
         XCTAssertEqual(resource.request.httpMethod, "GET")
-        XCTAssertEqual(items.count, 1)
+        XCTAssertEqual(items.count, 141)
     }
 
     func testWatchlist() {

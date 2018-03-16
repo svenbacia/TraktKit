@@ -82,7 +82,7 @@ extension Trakt {
     @discardableResult
     public func exchangeRefreshToken(_ completion: @escaping (Result<Token, Error>) -> Void) -> URLSessionTask? {
         guard let refreshToken = token?.refreshToken else {
-            completion(.failure(Error.missingAuthorization))
+            completion(.failure(Error.missingAuthorization(pathDescription(from: nil))))
             return nil
         }
         let resource = AuthResource(credentials: credentials, configuration: configuration).refreshAccessToken(with: refreshToken)
@@ -102,7 +102,7 @@ extension Trakt {
     @discardableResult
     public func revokeAccessToken(_ completeWith: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
         guard let accessToken = token?.accessToken else {
-            completeWith(.failure(Error.missingAuthorization))
+            completeWith(.failure(Error.missingAuthorization(pathDescription(from: nil))))
             return nil
         }
         let resource = AuthResource(credentials: credentials, configuration: configuration).revokeAccessToken(accessToken)

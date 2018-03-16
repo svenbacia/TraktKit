@@ -11,25 +11,25 @@ import Foundation
 extension Trakt {
     public enum Error: LocalizedError {
         /// Authorization information are missing
-        case missingAuthorization
+        case missingAuthorization(String)
 
         /// Authorization inforamtion are invalid
-        case invalidAuthorization
+        case invalidAuthorization(String)
 
         /// Unknown server response
-        case unknownServerResponse(Swift.Error?)
+        case unknownServerResponse(String, Swift.Error?)
 
         /// Unknown http status code
-        case unknownHttpStatusCode(HTTPURLResponse, Swift.Error?)
+        case unknownHttpStatusCode(String, HTTPURLResponse, Swift.Error?)
 
         /// Bad http status code
-        case badHttpStatusCode(StatusCode, Swift.Error?)
+        case badHttpStatusCode(String, StatusCode, Swift.Error?)
 
         /// Missing response data
-        case missingResponseData(HTTPURLResponse, Swift.Error?)
+        case missingResponseData(String, HTTPURLResponse, Swift.Error?)
 
         /// JSON decoding error
-        case jsonDecodingError(Swift.Error)
+        case jsonDecodingError(String, Swift.Error)
     }
 }
 
@@ -45,17 +45,17 @@ extension Trakt.Error: CustomStringConvertible {
         case .missingAuthorization:
             return "Unauthorized"
         case .invalidAuthorization:
-            return "Invalid Authorization"
-        case .unknownServerResponse(let error):
-            return error?.localizedDescription ?? "Unknown server response"
+            return "Invalid authorization"
+        case .unknownServerResponse(_, let error):
+            return error?.localizedDescription ?? "Unknown response"
         case .unknownHttpStatusCode:
-            return "Invalid Server Response"
-        case .badHttpStatusCode(let statusCode, _):
+            return "Unknown status code"
+        case .badHttpStatusCode(_, let statusCode, _):
             return statusCode.description
         case .missingResponseData:
-            return "Invalid Server Response"
+            return "Missing response data"
         case .jsonDecodingError:
-            return "Invalid Server Response"
+            return "Invalid response"
         }
     }
 }
@@ -63,20 +63,25 @@ extension Trakt.Error: CustomStringConvertible {
 extension Trakt.Error: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .missingAuthorization:
-            return "Authorization token is missing"
-        case .invalidAuthorization:
-            return "Authorization information are invalid or expired"
-        case .unknownServerResponse(let error):
-            return error?.localizedDescription ?? "Unknown server response"
-        case .unknownHttpStatusCode(let response, _):
-            return "Invalid HTTP status code (\(response.debugDescription))."
-        case .badHttpStatusCode(let statusCode, _):
-            return "Bad http status code: \(statusCode.debugDescription)."
-        case .missingResponseData(let response, _):
-            return "Missing response data. \(response.debugDescription)."
-        case .jsonDecodingError(let error):
-            return "JSON Decoding Error: \(error.localizedDescription)."
+        case .missingAuthorization(let path):
+            return "[\(path)] Authorization token is missing"
+        case .invalidAuthorization(let path):
+            return "[\(path)] Authorization information are invalid or expired"
+        case .unknownServerResponse(let path, let error):
+            let description = error?.localizedDescription ?? "Unknown server response"
+            return "[\(path)] \(description)"
+        case .unknownHttpStatusCode(let path, let response, _):
+            return "[\(path)] Invalid HTTP status code (\(response.statusCode))."
+        case .badHttpStatusCode(let path, let statusCode, _):
+            return "[\(path)] Bad http status code: \(statusCode.debugDescription)."
+        case .missingResponseData(let path, let response, _):
+            return "[\(path)] Missing response data. \(response.debugDescription)."
+        case .jsonDecodingError(let path, let error):
+            if let debugDescription = (error as NSError).userInfo[NSDebugDescriptionErrorKey] as? String, !debugDescription.isEmpty {
+                return "[\(path)] JSON Decoding Error: \(debugDescription)."
+            } else {
+                return "[\(path)] JSON Decoding Error: \(error.localizedDescription)."
+            }
         }
     }
 }
@@ -92,7 +97,7 @@ extension Trakt.Error: Equatable {
             return true
         case (.unknownHttpStatusCode, .unknownHttpStatusCode):
             return true
-        case (.badHttpStatusCode(let lhsStatusCode, _), .badHttpStatusCode(let rhsStatusCode, _)):
+        case (.badHttpStatusCode(_, let lhsStatusCode, _), .badHttpStatusCode(_, let rhsStatusCode, _)):
             return lhsStatusCode == rhsStatusCode
         case (.missingResponseData, .missingResponseData):
             return true

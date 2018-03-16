@@ -60,11 +60,11 @@ public final class Trakt {
                 if token.isValid {
                     request.addValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
                 } else {
-                    completion(.failure(Error.invalidAuthorization))
+                    completion(.failure(Error.invalidAuthorization(pathDescription(from: request.url))))
                     return nil
                 }
             } else {
-                completion(.failure(Error.missingAuthorization))
+                completion(.failure(Error.missingAuthorization(pathDescription(from: request.url))))
                 return nil
             }
         }
@@ -78,28 +78,28 @@ public final class Trakt {
 
             guard let response = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    completion(.failure(Error.unknownServerResponse(error)))
+                    completion(.failure(Error.unknownServerResponse(pathDescription(from: request.url), error)))
                 }
                 return
             }
 
             guard let statusCode = StatusCode(rawValue: response.statusCode) else {
                 DispatchQueue.main.async {
-                    completion(.failure(Error.unknownHttpStatusCode(response, error)))
+                    completion(.failure(Error.unknownHttpStatusCode(pathDescription(from: request.url), response, error)))
                 }
                 return
             }
 
             guard 200...299 ~= response.statusCode else {
                 DispatchQueue.main.async {
-                    completion(.failure(Error.badHttpStatusCode(statusCode, error)))
+                    completion(.failure(Error.badHttpStatusCode(pathDescription(from: request.url), statusCode, error)))
                 }
                 return
             }
 
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(.failure(Error.missingResponseData(response, error)))
+                    completion(.failure(Error.missingResponseData(pathDescription(from: request.url), response, error)))
                 }
                 return
             }
@@ -116,7 +116,7 @@ public final class Trakt {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(Error.jsonDecodingError(error)))
+                    completion(.failure(Error.jsonDecodingError(pathDescription(from: request.url), error)))
                 }
             }
         }
@@ -125,6 +125,8 @@ public final class Trakt {
 
         return task
     }
+
+    // MARK: - Helper
 
     private func addTraktHeader(to request: inout URLRequest) {
         request.addValue(credentials.clientID, forHTTPHeaderField: "trakt-api-key")

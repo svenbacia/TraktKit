@@ -11,3 +11,12 @@ import Foundation
 func toQueryItem(key: String, value: String) -> URLQueryItem {
     return URLQueryItem(name: key, value: value)
 }
+
+func pathDescription(from url: URL?) -> String {
+    guard let url = url else { return "--" }
+    var string = url.path
+    if let query = url.query {
+        string.append("?\(query)")
+    }
+    return string
+}
