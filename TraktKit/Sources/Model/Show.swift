@@ -21,15 +21,6 @@ public struct Show: Codable {
         public let timezone: String?
     }
 
-    public enum Status: String, Codable {
-        case returningSeries = "returning series"
-        case inProducation = "in production"
-        case planned
-        case canceled
-        case ended
-        case unknown = ""
-    }
-
     // MARK: - Codable coding keys
 
     private enum CodingKeys: String, CodingKey {
@@ -71,7 +62,7 @@ public struct Show: Codable {
     public let updatedAt: Date?
     public let homepage: String?
     public let trailer: String?
-    public let status: Status?
+    public let status: String?
     public let rating: Double?
     public let votes: Int?
     public let language: String?
