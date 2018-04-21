@@ -39,4 +39,20 @@ public struct Season: Codable {
     public let firstAired: Date?
     public let network: String?
     public let episodes: [Episode]?
+
+    // MARK: - Init
+
+    public init(number: Int, ids: Ids, rating: Double, votes: Int, episodesCount: Int, airedEpisodes: Int, title: String?, overview: String?, firstAired: Date?, network: String?, episodes: [Episode]?) { //swiftlint:disable:this line_length
+        self.number = number
+        self.ids = ids
+        self.rating = rating
+        self.votes = votes
+        self.episodesCount = episodesCount
+        self.airedEpisodes = airedEpisodes
+        self.title = title
+        self.overview = overview
+        self.firstAired = firstAired
+        self.network = network
+        self.episodes = episodes
+    }
 }
