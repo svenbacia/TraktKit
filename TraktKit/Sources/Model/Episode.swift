@@ -41,4 +41,21 @@ public struct Episode: Codable {
     public let updatedAt: Date?
     public let availableTranslations: [Translation]?
     public let runtime: Int?
+
+    // MARK: - Init
+
+    public init(season: Int, number: Int, title: String?, ids: Ids, numberAbs: Int?, overview: String?, rating: Double?, votes: Int?, firstAired: Date?, updatedAt: Date?, availableTranslations: [Translation]?, runtime: Int?) { //swiftlint:disable:this line_length
+        self.season = season
+        self.number = number
+        self.title = title
+        self.ids = ids
+        self.numberAbs = numberAbs
+        self.overview = overview
+        self.rating = rating
+        self.votes = votes
+        self.firstAired = firstAired
+        self.updatedAt = updatedAt
+        self.availableTranslations = availableTranslations
+        self.runtime = runtime
+    }
 }
