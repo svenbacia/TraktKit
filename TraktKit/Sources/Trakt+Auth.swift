@@ -29,7 +29,7 @@ extension Trakt {
             "client_id": credentials.clientID,
             "redirect_uri": credentials.redirectURI
         ]
-        components.queryItems = parameters.map(toQueryItem).flatMap { $0 }
+        components.queryItems = parameters.map(toQueryItem).compactMap { $0 }
 
         return components.url!
     }
