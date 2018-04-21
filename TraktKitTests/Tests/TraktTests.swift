@@ -129,7 +129,7 @@ class TraktTests: XCTestCase {
         let expectation = self.expectation(description: "expects unkown status code")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.unknownHttpStatusCode("", HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 987, httpVersion: nil, headerFields: nil)!, nil) {
+            if let error = result.error, error == Trakt.Error.unknownHttpStatusCode("", Helper.httpUrlResponse, nil) {
                 expectation.fulfill()
             } else {
                 XCTFail("expected unknown http status code error")
