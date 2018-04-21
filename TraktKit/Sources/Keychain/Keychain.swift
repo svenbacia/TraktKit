@@ -140,7 +140,7 @@ public struct Keychain {
     /// - Returns: Returns account names.
     public func accounts() throws -> [String] {
         let all = try fetchAll(with: Query(service: service, accessGroup: accessGroup))
-        let accounts = all.flatMap { $0[String(kSecAttrAccount)] as? String }
+        let accounts = all.compactMap { $0[String(kSecAttrAccount)] as? String }
         return accounts
     }
 
