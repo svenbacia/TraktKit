@@ -13,56 +13,56 @@ class AuthTests: XCTestCase {
 
     // MARK: -
 
-    func testTokenIsAuthorized_true() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+    func testTokenIsAuthorized() {
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = Token(accessToken: "123", refreshToken: "123", expiry: .distantFuture)
         XCTAssertTrue(trakt.isAuthorized)
     }
 
     func testTokenIsAuthorized_missingToken() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = nil
         XCTAssertFalse(trakt.isAuthorized)
     }
 
     func testTokenIsExpired() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = Token(accessToken: "123", refreshToken: "123", expiry: .distantPast)
         XCTAssertTrue(trakt.isExpired)
     }
 
     func testTokenIsExpired_missingToken() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = nil
         XCTAssertTrue(trakt.isExpired)
     }
 
     func testAuthorizationUrl() {
-        let session = FakeURLSession.failure(statusCode: 500)
         let credentials = Credentials(clientID: "id", clientSecret: "secret", redirectURI: "uri")
-        let trakt = Trakt(session: session, credentials: credentials)
-        let url = URL(string: "https://www.trakt.tv/oauth/authorize?redirect_uri=uri&response_type=code&client_id=id")!
-        XCTAssertEqual(trakt.authorizationURL, url)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: credentials)
+
+        let components = URLComponents(url: trakt.authorizationURL, resolvingAgainstBaseURL: false)!
+        XCTAssertEqual(components.scheme, "https")
+        XCTAssertEqual(components.host, "www.trakt.tv")
+        XCTAssertEqual(components.path, "/oauth/authorize")
+
+        let queryItems = components.queryItems!
+        XCTAssertEqual(queryItems.first(where: { $0.name == "redirect_uri" })!.value!, "uri")
+        XCTAssertEqual(queryItems.first(where: { $0.name == "response_type" })!.value!, "code")
+        XCTAssertEqual(queryItems.first(where: { $0.name == "client_id" })!.value!, "id")
     }
 
     func testLoadToken() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         let token = Token(accessToken: "access", refreshToken: "refresh", expiry: .distantFuture)
         trakt.token = token
 
-        let anotherTrakt = Trakt(session: session, credentials: Helper.credentials)
-
+        let anotherTrakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         XCTAssertEqual(anotherTrakt.token, token)
     }
 
     func testTokenMigration() throws {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = nil
 
         // simulate old token, pre v1.0
@@ -79,13 +79,11 @@ class AuthTests: XCTestCase {
     // MARK: Access Token
 
     func testExchangeAccessTokenForCode_success() {
-        let session = FakeURLSession.success(statusCode: 200, json: "get-token")
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(json: "get-token"), credentials: Helper.credentials)
 
         // invalidate previous token
         trakt.token = nil
 
-        let waiter = XCTWaiter()
         let tokenExpectation = expectation(description: "expects auth token")
 
         // exchange code for token
@@ -100,22 +98,19 @@ class AuthTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
+        let request = task!.originalRequest!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
         XCTAssertEqual(request.httpMethod, "POST")
 
-        let result = waiter.wait(for: [tokenExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [tokenExpectation], timeout: 1)
     }
 
     func testExchangeAccessTokenForCode_failure() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
 
         // invalidate previous token
         trakt.token = nil
 
-        let waiter = XCTWaiter()
         let tokenExpectation = expectation(description: "expects server error")
 
         // exchange code for token
@@ -128,25 +123,22 @@ class AuthTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
-        XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
+        let request = task!.originalRequest!
+        XCTAssertEqual(request.url, URL(string: "https://api.trakt.tv/oauth/token"))
         XCTAssertEqual(request.httpMethod, "POST")
 
-        let result = waiter.wait(for: [tokenExpectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [tokenExpectation], timeout: 1)
     }
 
     // MARK: Refresh Token
 
-    func testExchangeRefreshForAccessToken_success() {
-        let session = FakeURLSession.success(statusCode: 200, json: "exchange-refresh-for-access-token")
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+    func testExchangeRefreshForAccessToken() {
+        let trakt = Trakt(session: Helper.mockURLSession(json: "exchange-refresh-for-access-token"), credentials: Helper.credentials)
 
-        // invalidate previous token
-        trakt.token = Token(accessToken: "access-token", refreshToken: "refresh-token", expiry: .distantFuture)
+        // current token is expired
+        trakt.token = Token(accessToken: "access-token", refreshToken: "refresh-token", expiry: .distantPast)
 
-        let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects refresh token")
+        let expectation = self.expectation(description: "expects refreshed token token")
 
         // exchange code for token
         let task = trakt.exchangeRefreshToken { (result) in
@@ -158,23 +150,20 @@ class AuthTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
+        let request = task!.originalRequest!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
         XCTAssertEqual(request.httpMethod, "POST")
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testExchangeRefreshForAccessToken_missingRefreshToken() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
 
         // invalidate previous token
         trakt.token = nil
 
-        let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects server error")
+        let expectation = self.expectation(description: "expects missing refresh token")
 
         // exchange code for token
         let task = trakt.exchangeRefreshToken { (result) in
@@ -184,21 +173,15 @@ class AuthTests: XCTestCase {
                 XCTFail("expected error due to missing refresh token")
             }
         }
-        XCTAssertNil(task)
-        XCTAssertNil(session.completedRequests.first)
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        XCTAssertNil(task)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testExchangeRefreshForAccessToken_serverError() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
-
-        // invalidate previous token
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
         trakt.token = Token(accessToken: "access-token", refreshToken: "refresh-token", expiry: .distantFuture)
 
-        let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects server error")
 
         // exchange code for token
@@ -211,24 +194,19 @@ class AuthTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
+        let request = task!.originalRequest!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/token"))
         XCTAssertEqual(request.httpMethod, "POST")
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     // MARK: - Revoke Access Token
 
     func testRevokeAccessToken_success() {
-        let session = FakeURLSession.success(statusCode: 200, json: "empty")
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(json: "empty"), credentials: Helper.credentials)
+        trakt.token = Token(accessToken: "123", refreshToken: "312", expiry: .distantFuture)
 
-        // add valid token
-        trakt.token = Token(accessToken: "123", refreshToken: "312", expiry: Date.distantFuture)
-
-        let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects status code 200")
 
         let task = trakt.revokeAccessToken { (result) in
@@ -241,7 +219,7 @@ class AuthTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
+        let request = task!.originalRequest!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/oauth/revoke"))
         XCTAssertEqual(request.httpMethod, "POST")
 
@@ -251,55 +229,48 @@ class AuthTests: XCTestCase {
         let body = String(data: request.httpBody!, encoding: .utf8)
         XCTAssertEqual(body, "token=123")
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testRevokeAccessToken_missingAuthorization() {
-        let session = FakeURLSession.success(statusCode: 200, json: "empty")
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(json: "empty"), credentials: Helper.credentials)
 
         // invalidate token
         trakt.token = nil
 
-        let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects missing authorization")
 
         let task = trakt.revokeAccessToken { (result) in
             switch result {
             case .success:
-                break
+                XCTFail("Request should fail due to missing token")
             case .failure:
                 expectation.fulfill()
             }
         }
         XCTAssertNil(task)
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testRevokeAccessToken_serverError() {
-        let session = FakeURLSession.failure(statusCode: 500)
-        let trakt = Trakt(session: session, credentials: Helper.credentials)
+        let trakt = Trakt(session: Helper.mockURLSession(error: .unknown), credentials: Helper.credentials)
 
         // invalidate token
         trakt.token = nil
 
-        let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects server error")
 
         let task = trakt.revokeAccessToken { (result) in
             switch result {
             case .success:
-                break
+                XCTFail("Unexpected result. Request should fail")
             case .failure:
                 expectation.fulfill()
             }
         }
         XCTAssertNil(task)
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 }

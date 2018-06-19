@@ -13,25 +13,12 @@ class TraktTests: XCTestCase {
 
     // MARK: - Properties
 
-    let session = FakeURLSession { request in
-        let data = buildData(with: [])
-        let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-        return (data, response, nil)
-    }
-
     lazy var trakt: Trakt = {
         let configuration = Trakt.Configuration(isDebug: true)
-        let trakt = Trakt(session: self.session, credentials: Helper.credentials, configuration: configuration, keychain: Keychain.default)
+        let trakt = Trakt(session: Helper.mockURLSession(json: "empty"), credentials: Helper.credentials, configuration: configuration, keychain: Keychain.default)
         trakt.token = Token(accessToken: "accessToken", refreshToken: "refreshToken", expiry: .distantFuture)
         return trakt
     }()
-
-    // MARK: - Set up
-
-    override func setUp() {
-        super.setUp()
-        session.reset()
-    }
 
     // MARK: - Tests
 
@@ -39,7 +26,7 @@ class TraktTests: XCTestCase {
         let task = trakt.load(resource: trakt.resources.show(1).summary(), authenticated: true) { _ in }
         XCTAssertNotNil(task)
 
-        let request = session.completedRequests.first!
+        let request = task!.originalRequest!
         XCTAssertEqual(request.url!, URL(string: "https://api.trakt.tv/shows/1"))
         XCTAssertEqual(request.httpMethod, "GET")
 
@@ -64,12 +51,7 @@ class TraktTests: XCTestCase {
             }
         }
         XCTAssertNil(task)
-        XCTAssertNil(session.completedRequests.first)
-        XCTAssertNil(session.requests.first)
-
-        let waiter = XCTWaiter()
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testAuthenticatedRequestShouldFailWhenTokenIsExpired() {
@@ -87,45 +69,12 @@ class TraktTests: XCTestCase {
             }
         }
         XCTAssertNil(task)
-        XCTAssertNil(session.completedRequests.first)
-        XCTAssertNil(session.requests.first)
 
-        let waiter = XCTWaiter()
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-
-    func testUnknownServerResponse() {
-        let session = FakeURLSession { _ in return (nil, nil, nil) }
-        let trakt = Trakt(session: session,
-                          credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"),
-                          keychain: .default)
-
-        let expectation = self.expectation(description: "expects unkown server response")
-
-        let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.unknownServerResponse("", nil) {
-                expectation.fulfill()
-            } else {
-                XCTFail("expected unknown server response error")
-            }
-        }
-        XCTAssertNotNil(task)
-
-        let waiter = XCTWaiter()
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testUnknownStatsCode() {
-        let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 987, httpVersion: nil, headerFields: nil)
-            return (nil, response, nil)
-        }
-        let trakt = Trakt(session: session,
-                          credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"),
-                          keychain: .default)
-
+        let trakt = Trakt(session: Helper.mockURLSession(statusCode: 999, json: "empty"), credentials: Helper.credentials)
         let expectation = self.expectation(description: "expects unkown status code")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
@@ -137,19 +86,12 @@ class TraktTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let waiter = XCTWaiter()
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testBadStatsCode() {
-        let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 404, httpVersion: nil, headerFields: nil)
-            return (nil, response, nil)
-        }
-        let trakt = Trakt(session: session,
-                          credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"),
-                          keychain: .default)
+        let trakt = Trakt(session: Helper.mockURLSession(statusCode: 404, json: "empty"),
+                          credentials: Helper.credentials)
         trakt.token = Token(accessToken: "123", refreshToken: "321", expiry: .distantFuture)
 
         let expectation = self.expectation(description: "expects bad status code")
@@ -168,42 +110,10 @@ class TraktTests: XCTestCase {
         XCTAssertEqual(result, .completed)
     }
 
-    func testInvalidResponseData() {
-        let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (nil, response, nil)
-        }
-        let trakt = Trakt(session: session,
-                          credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"),
-                          keychain: .default)
-
-        let waiter = XCTWaiter()
-        let expectation = self.expectation(description: "expects invalid response data")
-
-        let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
-            if let error = result.error, error == Trakt.Error.missingResponseData("", HTTPURLResponse(url: URL(string: "www.trakt.tv")!, statusCode: 200, httpVersion: nil, headerFields: nil)!, nil) {
-                expectation.fulfill()
-            } else {
-                XCTFail("expected missing response data error")
-            }
-        }
-        XCTAssertNotNil(task)
-
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
-    }
-
     func testJsonDecodingError() {
-        let session = FakeURLSession { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            let data = buildJsonData(name: "shows-watched")!
-            return (data, response, nil)
-        }
-        let trakt = Trakt(session: session,
-                          credentials: Credentials(clientID: "clientID", clientSecret: "clientSecret", redirectURI: "redirectURI"),
-                          keychain: .default)
+        let trakt = Trakt(session: Helper.mockURLSession(json: "user-lists"),
+                          credentials: Helper.credentials)
 
-        let waiter = XCTWaiter()
         let expectation = self.expectation(description: "expects invalid response data")
 
         let task = trakt.load(resource: trakt.resources.explore.shows.trending(), authenticated: false) { (result) in
@@ -215,7 +125,6 @@ class TraktTests: XCTestCase {
         }
         XCTAssertNotNil(task)
 
-        let result = waiter.wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(result, .completed)
+        wait(for: [expectation], timeout: 1)
     }
 }

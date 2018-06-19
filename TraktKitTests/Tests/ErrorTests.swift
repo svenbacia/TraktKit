@@ -45,4 +45,9 @@ class ErrorTests: XCTestCase {
         // false
         XCTAssertFalse(Trakt.Error.invalidAuthorization("") == Trakt.Error.missingAuthorization(""))
     }
+
+    func testDescription() {
+        let error = Trakt.Error.missingAuthorization("/path")
+        XCTAssertEqual(error.description, error.errorDescription!)
+    }
 }

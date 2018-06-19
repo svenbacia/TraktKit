@@ -19,10 +19,10 @@ class SearchResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testProfile() {
+    func testProfile() throws {
         let resource = trakt.resources.search.for("Lethal Weapon", ofType: .show)
         let data = buildJsonData(name: "search-show")
-        let items = try! resource.parse(data!)
+        let items = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/search/show?query=Lethal%20Weapon")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.first!.type, .show)

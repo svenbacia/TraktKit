@@ -19,50 +19,50 @@ class SyncResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testLastActivites() {
+    func testLastActivites() throws {
         let resource = trakt.resources.sync.lastActivities()
         let data = buildJsonData(name: "sync-last-activities")
-        let activities = try! resource.parse(data!)
+        let activities = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/last_activities")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertNotNil(activities.all)
     }
 
-    func testCollection() {
+    func testCollection() throws {
         let resource = trakt.resources.sync.collection()
         let data = buildJsonData(name: "sync-collection-shows")
-        let items = try! resource.parse(data!)
+        let items = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/collection/shows")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 4)
     }
 
-    func testWatched() {
+    func testWatched() throws {
         let resource = trakt.resources.sync.watched()
         let data = buildJsonData(name: "sync-watched-shows")
-        let items = try! resource.parse(data!)
+        let items = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/watched/shows")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 26)
     }
 
-    func testWatchlist() {
+    func testWatchlist() throws {
         let resource = trakt.resources.sync.watchlist()
         let data = buildJsonData(name: "sync-watchlist-shows")
-        let items = try! resource.parse(data!)
+        let items = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/watchlist/shows")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(items.count, 3)
     }
 
-    func testAddToHistory() {
+    func testAddToHistory() throws {
         let item = ContentItem.show(id: 1)
         let resource = trakt.resources.sync.addToHistory([item])
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/history")
         XCTAssertEqual(resource.request.httpMethod, "POST")
     }
 
-    func testRemoveFromHistory() {
+    func testRemoveFromHistory() throws {
         let item = ContentItem.show(id: 1)
         let resource = trakt.resources.sync.removeFromHistory([item])
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/sync/history/remove")

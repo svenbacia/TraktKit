@@ -19,10 +19,10 @@ class ProgressResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testCollectionProgress() {
+    func testCollectionProgress() throws {
         let resource = trakt.resources.show(107717).progress.collection()
         let data = buildJsonData(name: "show-collection-progress")
-        let progress = try! resource.parse(data!)
+        let progress = try resource.parse(data)
         XCTAssertEqual(progress.aired, 26)
         XCTAssertEqual(progress.completed, 0)
         XCTAssertEqual(progress.hiddenSeasons.count, 0)
@@ -33,10 +33,10 @@ class ProgressResourceTests: XCTestCase {
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/107717/progress/collection")
     }
 
-    func testWatchedProgress() {
+    func testWatchedProgress() throws {
         let resource = trakt.resources.show(107717).progress.watched()
         let data = buildJsonData(name: "show-watched-progress")
-        let progress = try! resource.parse(data!)
+        let progress = try resource.parse(data)
         XCTAssertEqual(progress.aired, 26)
         XCTAssertEqual(progress.completed, 26)
         XCTAssertEqual(progress.hiddenSeasons.count, 0)
