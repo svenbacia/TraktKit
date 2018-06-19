@@ -19,37 +19,37 @@ class UserResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testProfile() {
+    func testProfile() throws {
         let resource = trakt.resources.user("mrmojo").profile()
         let data = buildJsonData(name: "user-profile")
-        let user = try! resource.parse(data!)
+        let user = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(user.username, "mrmojo")
     }
 
-    func testStats() {
+    func testStats() throws {
         let resource = trakt.resources.user("username").stats
         let data = buildJsonData(name: "user-stats")
-        let stats = try! resource.parse(data!)
+        let stats = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/username/stats")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(stats.episodes.watched, 1000)
     }
 
-    func testLists() {
+    func testLists() throws {
         let resource = trakt.resources.user("mrmojo").lists
         let data = buildJsonData(name: "user-lists")
-        let lists = try! resource.parse(data!)
+        let lists = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(lists.count, 7)
     }
 
-    func testCreateList() {
+    func testCreateList() throws {
         let resource = trakt.resources.user("mrmojo").createList(name: "test-list2", description: "description", privacy: .private, displayNumbers: false, allowComments: true)
         let data = buildJsonData(name: "user-create-list")
-        let list = try! resource.parse(data!)
+        let list = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/users/mrmojo/lists")
         XCTAssertEqual(resource.request.httpMethod, "POST")
         XCTAssertEqual(list.name, "test-list2")

@@ -19,19 +19,19 @@ class PeopleResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testSummary() {
+    func testSummary() throws {
         let resource = trakt.resources.people(424273).summary()
         let data = buildJsonData(name: "people-summary")
-        let person = try! resource.parse(data!)
+        let person = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/people/\(424273)")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(person.ids.trakt, 424273)
     }
 
-    func testShows() {
+    func testShows() throws {
         let resource = trakt.resources.people(424273).shows()
         let data = buildJsonData(name: "people-shows")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/people/\(424273)/shows")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.cast.count, 3)

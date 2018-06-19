@@ -11,7 +11,6 @@ import XCTest
 @testable import TraktKit
 
 class PeriodTests: XCTestCase {
-
     func testDefaultPeriod() {
         XCTAssertEqual(Period.default, .weekly)
     }

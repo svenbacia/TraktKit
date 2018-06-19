@@ -19,55 +19,55 @@ class ShowExploreResourceTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testTrending() {
+    func testTrending() throws {
         let resource = trakt.resources.explore.shows.trending()
         let data = buildJsonData(name: "shows-trending")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/trending")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
     }
 
-    func testPopular() {
+    func testPopular() throws {
         let resource = trakt.resources.explore.shows.popular()
         let data = buildJsonData(name: "shows-popular")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/popular")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
     }
 
-    func testAnticipated() {
+    func testAnticipated() throws {
         let resource = trakt.resources.explore.shows.anticipated()
         let data = buildJsonData(name: "shows-anticipated")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/anticipated")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
     }
 
-    func testPlayed() {
+    func testPlayed() throws {
         let resource = trakt.resources.explore.shows.played()
         let data = buildJsonData(name: "shows-played")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/played")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
     }
 
-    func testWatched() {
+    func testWatched() throws {
         let resource = trakt.resources.explore.shows.watched()
         let data = buildJsonData(name: "shows-watched")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/watched")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
     }
 
-    func testCollected() {
+    func testCollected() throws {
         let resource = trakt.resources.explore.shows.collected()
         let data = buildJsonData(name: "shows-collected")
-        let shows = try! resource.parse(data!)
+        let shows = try resource.parse(data)
         XCTAssertEqual(resource.request.url?.absoluteString, "https://api.trakt.tv/shows/collected")
         XCTAssertEqual(resource.request.httpMethod, "GET")
         XCTAssertEqual(shows.count, 10)
